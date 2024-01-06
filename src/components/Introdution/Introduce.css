@@ -1,0 +1,71 @@
+.introduce-component {
+    display: flex;
+    background: linear-gradient(45deg, #BAF667, white);
+    border-radius: 15px;
+    width: 90%;
+}
+
+.introduce-component h3 {
+    width: 224px;
+    height: 23px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #C91416;
+    flex: left;
+    margin-left: 2%;
+    flex-grow: 7;
+}
+
+.information {
+    display: flex;
+    flex-grow: 3;
+    margin-right: 2px;
+}
+
+.just-now {
+    line-height: 3;
+    font-size: small;
+    height: 14px;
+    font-family: 'Roboto';
+    color: #808080;
+}
+
+.name {
+    line-height: 2;
+    height: 19px;
+    font-family: 'Roboto';
+    color: #191919;
+    flex: none;
+    font-weight: bold;
+    margin-right: 50px;
+}
+
+.email {
+    height: 19px;
+    font-family: 'Roboto';
+    color: #191919;
+    line-height: 2;
+    font-weight: bold;
+}
+
+.from {
+    margin-left: 20px;
+    margin-right: 2px;
+    width: 38px;
+    height: 19px;
+    line-height: 2;
+    font-family: 'Roboto';
+    color: #FA9E93;
+}
+
+.country {
+    width: 71px;
+    height: 19px;
+    font-family: 'Roboto';
+    line-height: 2;
+    color: #191919;
+    font-weight: bold;
+}
