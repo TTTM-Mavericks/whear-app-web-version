@@ -1,0 +1,12 @@
+.list_menu_choice:hover {
+    background: linear-gradient(45deg, #5151C6, #BAF667);
+    color: white !important;
+}
+
+.active .menuicon {
+    background: linear-gradient(45deg, #5151C6, #BAF667);
+}
+
+.active .dashboardicon {
+    color: white !important;
+}
