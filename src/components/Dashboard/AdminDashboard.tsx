@@ -6,10 +6,9 @@ import MenuAdmin from '../Menu/MenuAdmin';
 const AdminDashboard: React.FC = () => {
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <MenuAdmin />
-            <p>This is admin dashboard</p>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

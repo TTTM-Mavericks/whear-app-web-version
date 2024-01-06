@@ -1,10 +1,20 @@
+.MuiPaper-root {
+    background-color: rgba(186, 246, 103, 0.73) !important;
+    border-radius: 15px;
+    height: auto !important;
+}
+
 .list_menu_choice:hover {
     background: linear-gradient(45deg, #5151C6, #BAF667);
     color: white !important;
+    border-radius: 10px;
+
 }
 
 .active .menuicon {
     background: linear-gradient(45deg, #5151C6, #BAF667);
+    border-radius: 10px;
+
 }
 
 .active .dashboardicon {
