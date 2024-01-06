@@ -8,13 +8,12 @@
     background: linear-gradient(45deg, #5151C6, #BAF667);
     color: white !important;
     border-radius: 10px;
-
 }
 
 .active .menuicon {
     background: linear-gradient(45deg, #5151C6, #BAF667);
     border-radius: 10px;
-
+    color: white;
 }
 
 .active .dashboardicon {

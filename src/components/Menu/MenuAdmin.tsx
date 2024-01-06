@@ -7,7 +7,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import PublicIcon from '@mui/icons-material/Public';
+import ScoreIcon from '@mui/icons-material/Score';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import PersonIcon from '@mui/icons-material/Person';
 
 const MenuAdmin: React.FC = () => {
     return (
@@ -29,7 +36,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <DashboardIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="DashBoard" children />
                         </ListItemButton>
@@ -52,7 +59,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <SystemUpdateAltIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="User App Installed" />
                         </ListItemButton>
@@ -76,9 +83,9 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <VerifiedUserIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="User have guardian" />
+                            <ListItemText primary="User Have Guardian" />
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -101,7 +108,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <PersonIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="Number Guardian" />
                         </ListItemButton>
@@ -126,7 +133,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <PersonIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="User Connect Safe" />
                         </ListItemButton>
@@ -151,7 +158,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <ScoreIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="User Last Activity" />
                         </ListItemButton>
@@ -176,7 +183,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <NotificationsIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="Send Out Alarm" />
                         </ListItemButton>
@@ -201,7 +208,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <NotificationsActiveIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="Received Alarm" />
                         </ListItemButton>
@@ -226,7 +233,7 @@ const MenuAdmin: React.FC = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <MailIcon className='dashboardicon' />
+                                <PublicIcon className='dashboardicon' />
                             </ListItemIcon>
                             <ListItemText primary="User Per Country" />
                         </ListItemButton>
