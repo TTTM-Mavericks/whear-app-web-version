@@ -9,9 +9,9 @@ import UserAppInstalled from '../UserAppInstalled/UserAppInstalled';
 const AdminDashboard: React.FC = () => {
     return (
         <Box sx={{ display: 'flex' }}>
-            <MenuAdmin />
+            {/* <MenuAdmin /> */}
             {/* <Introduce /> */}
-            {/* <UserAppInstalled /> */}
+            <UserAppInstalled />
         </Box>
     );
 }

@@ -18,7 +18,7 @@ import Swal from 'sweetalert2'
 import Modal from '@mui/material/Modal';
 import EditForm from './EditUserAppInstalled';
 import Pagination from '@mui/material/Pagination';
-
+import CsvDownloader from 'react-csv-downloader';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -142,9 +142,23 @@ const UserAppInstalled: React.FC = () => {
         handleEditOpen();
     }
 
+    const csvData = data.map((data) => ({
+        id: data.id.toString(),
+        name: data.name,
+        email: data.email,
+        dob: data.dob,
+    }));
+
     return (
         <div>
             <h3>User App Installed</h3>
+            <CsvDownloader
+                datas={csvData}
+                text='download'
+                filename={`userdata_` + new Date().toLocaleString()}
+                extension='csv'
+                className='btn btn-success'
+            />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <Typography
                     gutterBottom
@@ -163,8 +177,20 @@ const UserAppInstalled: React.FC = () => {
                         options={data}
                         sx={{ width: 300 }}
                         getOptionLabel={(data) => data.name || ""}
-                        renderInput={(params) => <TextField {...params} label="Search" />}
+                        renderInput={(params) => <TextField {...params} label="Select Country" />}
                     />
+
+                    <Autocomplete
+                        onChange={(e, v) => { filtData(v as UserAppInstalled) }}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={data}
+                        sx={{ width: 300 }}
+                        getOptionLabel={(data) => data.email || ""}
+                        renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
+                    />
+
+                    {/* Open EDIT popup */}
                     <Modal
                         open={editopen}
                         aria-labelledby="modal-modal-title"
@@ -238,18 +264,14 @@ const UserAppInstalled: React.FC = () => {
                     </Table>
                 </TableContainer>
                 total page {data.length}
-                <Pagination
-                    // rowsPerPageOptions={[5, 10, 50]}
-                    // component="div"
-                    // count={data.length}
-                    // rowsPerPage={rowsPerPage}
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 50]}
+                    component="div"
                     count={data.length}
-                    variant="outlined" shape="rounded"
-                    color='primary'
-                    onChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
                     page={page}
-                // onPageChange={handleChangePage}
-                // onRowsPerPageChange={handleChangeRowsPerPage}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
         </div>
