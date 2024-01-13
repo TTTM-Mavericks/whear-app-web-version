@@ -4,9 +4,9 @@ import { Box } from "@mui/material";
 import UserAppInstalled from '../UserAppInstalled/UserAppInstalled';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
-import Introduce from '../Introdution/Introduce';
+import UserLastWeekActivity from '../UserLastWeekActivity/UserLastWeekActivity';
 
-const AdminDashboard: React.FC = () => {
+const UserLastWeekActivityDashboard: React.FC = () => {
     return (
         <Box>
             <Box style={{ display: 'flex', height: '100vh' }}>
@@ -18,7 +18,7 @@ const AdminDashboard: React.FC = () => {
                 </Box>
                 <Box style={{ flex: '1 1 80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
-                        <Introduce />
+                        <UserLastWeekActivity />
                         <Box style={{ marginBottom: 'auto' }}>
                             <Footer />
                         </Box>
@@ -29,4 +29,4 @@ const AdminDashboard: React.FC = () => {
     );
 }
 
-export default AdminDashboard;
+export default UserLastWeekActivityDashboard;

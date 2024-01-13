@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Menu.css';
 import { NavLink } from 'react-router-dom';
-import { Drawer } from '@mui/material';
+import { Card, Drawer } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -15,10 +15,21 @@ import PublicIcon from '@mui/icons-material/Public';
 import ScoreIcon from '@mui/icons-material/Score';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import PersonIcon from '@mui/icons-material/Person';
+import { Box } from '@mui/system';
 
 const MenuAdmin: React.FC = () => {
+    const styles = {
+        drawer: {
+            width: '10px', // Set the width of the drawer
+        },
+        listItem: {
+            // Define styles for list items
+            color: 'blue',
+            // Add more styles as needed
+        },
+    };
     return (
-        <Drawer variant="permanent">
+        <Drawer variant='permanent'>
             {/* LIST MENU CHOICE */}
             <NavLink to="/admin-manager" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
@@ -241,7 +252,7 @@ const MenuAdmin: React.FC = () => {
                 </List>
             </NavLink>
             {/* END LIST MENU CHOICE */}
-        </Drawer>
+        </Drawer >
     );
 }
 

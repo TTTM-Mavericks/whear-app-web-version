@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Card, Grid, IconButton, TextField, Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from "sweetalert2";
-import "./EditUserAppInstalled.css"
 interface EditFormProps {
     fid: {
         id: number,

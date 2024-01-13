@@ -42,7 +42,9 @@ const Introduce: React.FC = () => {
                         </div>
                     }
                     <p className='from'>From</p>
-                    <p className='country'>VIETNAM</p>
+                    {data &&
+                        <p className='country'>{data.countryName}</p>
+                    }
                 </div>
             </Box>
         </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import "./UsersPerCountry.css"
+import "./ReceivedAlarm.css"
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Swal from 'sweetalert2'
 import Modal from '@mui/material/Modal';
-import EditForm from './EditUserPerCountry';
+import EditForm from './EditReceivedAlarm';
 import CsvDownloader from 'react-csv-downloader';
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -32,7 +32,7 @@ const style = {
     p: 4
 };
 
-interface UserPerCountry {
+interface ReceivedAlarm {
     id: number,
     countryName: string,
     name: string,
@@ -41,13 +41,13 @@ interface UserPerCountry {
     phoneNumber: string,
 }
 
-const UserPerCountry: React.FC = () => {
+const ReceivedAlarm: React.FC = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [data, setData] = useState<UserPerCountry[]>([]);
-    const [row, setRows] = useState<UserPerCountry[]>([]);
+    const [data, setData] = useState<ReceivedAlarm[]>([]);
+    const [row, setRows] = useState<ReceivedAlarm[]>([]);
     const [editopen, setEditOpen] = useState(false);
-    const [formid, setFormId] = useState<UserPerCountry | null>(null);
+    const [formid, setFormId] = useState<ReceivedAlarm | null>(null);
 
     const handleEditOpen = () => setEditOpen(true);
     const handleEditClose = () => setEditOpen(false);
@@ -61,7 +61,7 @@ const UserPerCountry: React.FC = () => {
         setPage(0);
     };
 
-    const fillData = (dataFilter: UserPerCountry | null) => {
+    const fillData = (dataFilter: ReceivedAlarm | null) => {
         if (dataFilter) {
             setData([dataFilter]);
         } else {
@@ -73,7 +73,7 @@ const UserPerCountry: React.FC = () => {
         const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
         fetch(apiUrl)
             .then(response => response.json())
-            .then((data: UserPerCountry[]) => {
+            .then((data: ReceivedAlarm[]) => {
                 setData(data);
                 setRows(data);
             })
@@ -112,8 +112,8 @@ const UserPerCountry: React.FC = () => {
             if (result.isConfirmed) {
                 await deleteUser(id);
                 Swal.fire(
-                    'Deleted UserPerCountry Success!',
-                    'Your UserPerCountry has been deleted!!!',
+                    'Deleted ReceivedAlarm Success!',
+                    'Your ReceivedAlarm has been deleted!!!',
                     'success'
                 );
                 setTimeout(() => {
@@ -132,7 +132,7 @@ const UserPerCountry: React.FC = () => {
     };
 
     const editData = (id: number, countryName: string, name: string, userName: string, email: string, phoneNumber: string) => {
-        const dataEmployee: UserPerCountry = {
+        const dataEmployee: ReceivedAlarm = {
             id: id,
             countryName: countryName,
             name: name,
@@ -169,7 +169,7 @@ const UserPerCountry: React.FC = () => {
                     <div>
                         <Autocomplete
                             className='select-country'
-                            onChange={(e, v) => { fillData(v as UserPerCountry) }}
+                            onChange={(e, v) => { fillData(v as ReceivedAlarm) }}
                             disablePortal
                             options={data}
                             sx={{ width: 200 }}
@@ -181,7 +181,7 @@ const UserPerCountry: React.FC = () => {
                     <div>
                         <Autocomplete
                             className='select-activity'
-                            onChange={(e, v) => { fillData(v as UserPerCountry) }}
+                            onChange={(e, v) => { fillData(v as ReceivedAlarm) }}
                             disablePortal
                             options={data}
                             sx={{ width: 200 }}
@@ -305,4 +305,4 @@ const UserPerCountry: React.FC = () => {
     );
 }
 
-export default UserPerCountry;
+export default ReceivedAlarm;
