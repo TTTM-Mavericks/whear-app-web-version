@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AdminDashboard from './components/Dashboard/AdminDashboard';
-import Header from '../src/components/Header/Header';
-import Footer from '../src/components/Footer/Footer';
+import Header from '../src/components/page/Header/Header';
+import Footer from '../src/components/page/Footer/Footer';
 import Home from '../src/components/page/HomePage/HomePage'
 function App() {
   return (
