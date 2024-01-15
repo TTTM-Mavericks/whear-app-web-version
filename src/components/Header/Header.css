@@ -1,0 +1,18 @@
+.header-component {
+    display: flex;
+    position: absolute;
+    width: 1365px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.header-choice {
+    background: linear-gradient(180deg, #5151C6, #BAF667);
+    color: white !important;
+    border-radius: 10px;
+    border-radius: 40px;
+}
+
+.header-icon-account {
+    color: white;
+}

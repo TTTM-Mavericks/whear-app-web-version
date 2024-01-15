@@ -1,7 +1,9 @@
-.MuiPaper-root {
+.MuiDrawer-paper {
     background-color: rgba(186, 246, 103, 0.73) !important;
     border-radius: 15px;
     height: auto !important;
+    margin-top: 5%;
+    margin-left: 2%;
 }
 
 .list_menu_choice:hover {

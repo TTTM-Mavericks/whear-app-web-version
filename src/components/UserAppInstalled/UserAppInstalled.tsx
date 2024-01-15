@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Card, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
@@ -17,8 +17,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Swal from 'sweetalert2'
 import Modal from '@mui/material/Modal';
 import EditForm from './EditUserAppInstalled';
-import Pagination from '@mui/material/Pagination';
 import CsvDownloader from 'react-csv-downloader';
+import DownloadIcon from '@mui/icons-material/Download';
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -32,24 +33,23 @@ const style = {
 };
 
 interface UserAppInstalled {
-    id: number;
-    name: string;
-    email: string;
-    dob: string;
+    id: number,
+    countryName: string,
+    name: string,
+    userName: string,
+    email: string,
+    phoneNumber: string,
 }
 
 const UserAppInstalled: React.FC = () => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(6);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
     const [data, setData] = useState<UserAppInstalled[]>([]);
     const [row, setRows] = useState<UserAppInstalled[]>([]);
-    const [open, setOpen] = useState(false);
     const [editopen, setEditOpen] = useState(false);
     const [formid, setFormId] = useState<UserAppInstalled | null>(null);
 
-    const handleOpen = () => setOpen(true);
     const handleEditOpen = () => setEditOpen(true);
-    const handleClose = () => setOpen(false);
     const handleEditClose = () => setEditOpen(false);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -61,7 +61,7 @@ const UserAppInstalled: React.FC = () => {
         setPage(0);
     };
 
-    const filtData = (dataFilter: UserAppInstalled | null) => {
+    const fillData = (dataFilter: UserAppInstalled | null) => {
         if (dataFilter) {
             setData([dataFilter]);
         } else {
@@ -101,8 +101,8 @@ const UserAppInstalled: React.FC = () => {
     const confirmDelete = async (id: number) => {
         try {
             const result = await Swal.fire({
-                title: 'Are you sure to delete?',
-                text: "You won't be able to revert this!",
+                title: 'Confirm Delete',
+                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -131,12 +131,14 @@ const UserAppInstalled: React.FC = () => {
         }
     };
 
-    const editData = (id: number, name: string, email: string, dob: string) => {
+    const editData = (id: number, countryName: string, name: string, userName: string, email: string, phoneNumber: string) => {
         const dataEmployee: UserAppInstalled = {
             id: id,
+            countryName: countryName,
             name: name,
+            userName: userName,
             email: email,
-            dob: dob
+            phoneNumber: phoneNumber,
         }
         setFormId(dataEmployee);
         handleEditOpen();
@@ -144,51 +146,59 @@ const UserAppInstalled: React.FC = () => {
 
     const csvData = data.map((data) => ({
         id: data.id.toString(),
+        countryName: data.countryName,
         name: data.name,
+        userName: data.userName,
         email: data.email,
-        dob: data.dob,
+        phoneNumber: data.phoneNumber
     }));
 
     return (
         <div>
-            <h3>User App Installed</h3>
-            <CsvDownloader
-                datas={csvData}
-                text='download'
-                filename={`userdata_` + new Date().toLocaleString()}
-                extension='csv'
-                className='btn btn-success'
-            />
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Paper sx={{ overflow: 'hidden' }}>
                 <Typography
                     gutterBottom
                     variant='h5'
                     component='div'
-                    sx={{ padding: "20px" }}
+                    sx={{ padding: "10px", fontWeight: "bolder" }}
                 >
-                    UserAppInstalled List
+                    USER APP INSTALLED
                 </Typography>
-                <Divider />
                 <div style={{ display: "flex" }}>
-                    <Autocomplete
-                        onChange={(e, v) => { filtData(v as UserAppInstalled) }}
-                        disablePortal
-                        id="combo-box-demo"
-                        options={data}
-                        sx={{ width: 300 }}
-                        getOptionLabel={(data) => data.name || ""}
-                        renderInput={(params) => <TextField {...params} label="Select Country" />}
-                    />
+                    {/* Search Bar */}
+                    <div>
+                        <Autocomplete
+                            className='select-country'
+                            onChange={(e, v) => { fillData(v as UserAppInstalled) }}
+                            disablePortal
+                            options={data}
+                            sx={{ width: 200 }}
+                            getOptionLabel={(data) => data.name || ""}
+                            renderInput={(params) => <TextField {...params} label="Select Country" />}
+                        />
+                    </div>
 
-                    <Autocomplete
-                        onChange={(e, v) => { filtData(v as UserAppInstalled) }}
-                        disablePortal
-                        id="combo-box-demo"
-                        options={data}
-                        sx={{ width: 300 }}
-                        getOptionLabel={(data) => data.email || ""}
-                        renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
-                    />
+                    <div>
+                        <Autocomplete
+                            className='select-activity'
+                            onChange={(e, v) => { fillData(v as UserAppInstalled) }}
+                            disablePortal
+                            options={data}
+                            sx={{ width: 200 }}
+                            getOptionLabel={(data) => data.email || ""}
+                            renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
+                        />
+                    </div>
+
+                    <CsvDownloader
+                        datas={csvData}
+                        text='CSV'
+                        filename={`userdata_` + new Date().toLocaleString()}
+                        extension='csv'
+                        className='btn-success'
+                    >
+                        <DownloadIcon style={{ color: "white" }} />
+                    </CsvDownloader>
 
                     {/* Open EDIT popup */}
                     <Modal
@@ -212,27 +222,39 @@ const UserAppInstalled: React.FC = () => {
                             <TableRow>
                                 <TableCell
                                     align='left'
-                                    style={{ minWidth: "100px" }}
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    Name
+                                    COUNTRYNAME
                                 </TableCell>
                                 <TableCell
                                     align='left'
-                                    style={{ minWidth: "100px" }}
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    Email
+                                    NAME
                                 </TableCell>
                                 <TableCell
                                     align='left'
-                                    style={{ minWidth: "100px" }}
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    DOB
+                                    USERNAME
                                 </TableCell>
                                 <TableCell
                                     align='left'
-                                    style={{ minWidth: "100px" }}
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    Action
+                                    EMAIL
+                                </TableCell>
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
+                                    PHONENUMBER
+                                </TableCell>
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
+                                    ACTION
                                 </TableCell>
                             </TableRow>
                         </TableHead>
@@ -243,17 +265,23 @@ const UserAppInstalled: React.FC = () => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                             <TableCell key={row.id} align='left'>
+                                                {row.countryName}
+                                            </TableCell>
+                                            <TableCell align='left'>
                                                 {row.name}
+                                            </TableCell>
+                                            <TableCell align='left'>
+                                                {row.userName}
                                             </TableCell>
                                             <TableCell align='left'>
                                                 {row.email}
                                             </TableCell>
                                             <TableCell align='left'>
-                                                {row.dob}
+                                                {row.phoneNumber}
                                             </TableCell>
                                             <TableCell align='left'>
                                                 <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.id, row.name, row.email, row.dob)} />
+                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.id, row.countryName, row.name, row.userName, row.email, row.phoneNumber)} />
                                                     <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.id)} />
                                                 </div>
                                             </TableCell>
@@ -263,7 +291,6 @@ const UserAppInstalled: React.FC = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                total page {data.length}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 50]}
                     component="div"
