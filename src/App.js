@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AdminDashboard from './components/Dashboard/AdminDashboard';
+import Header from '../src/components/Header/Header';
+import Footer from '../src/components/Footer/Footer';
+import Home from '../src/components/page/HomePage/HomePage'
 function App() {
   return (
     <div>
@@ -15,6 +18,7 @@ function App() {
           <Route path='/send-out-alarm' element={<AdminDashboard></AdminDashboard>}></Route>
           <Route path='/received-alarm' element={<AdminDashboard></AdminDashboard>}></Route>
           <Route path='/user-per-country' element={<AdminDashboard></AdminDashboard>}></Route>
+          <Route path='/' element={<div><Header/><Home/><Footer/></div>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

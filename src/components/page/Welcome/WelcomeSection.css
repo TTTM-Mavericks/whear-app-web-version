@@ -1,0 +1,48 @@
+.welcome-section {
+    display: flex;
+    position: relative;
+    margin-top: 0;
+   margin-bottom: 0;
+  }
+  
+  .content-column {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+  }
+  .content-column h1 {
+   margin-left: 72px;
+   margin-top: 0;
+   margin-bottom: 0;
+  }
+  .content-column p {
+    margin-left: 72px;
+    margin-right: 240px;
+    margin-bottom: 40px;
+   }
+  .background-column {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(90deg, #e5f7ce, #baf667, #baf667, #e5f7ce);
+}
+.centered-image {
+  width: 60%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-left: 600px;
+  margin-bottom: 50px;
+}
+.join-now-btn {
+  border: 2px solid #000;
+  color: #000;
+  padding: 15px 30px;
+  text-decoration: none;
+  margin-left: 72px;
+}
+
+.join-now-btn:hover {
+  color: #000;
+  background-color: #baf667;
+}

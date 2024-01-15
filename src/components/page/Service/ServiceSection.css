@@ -1,0 +1,31 @@
+.service-section {
+    display: flex;
+    flex-direction: column; 
+  }
+  
+.service-section h1 {
+    margin-left: 72px; 
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+  
+.service-columns {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 72px; 
+
+}
+  
+.service-column {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+  
+.service-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 8px;
+}
+  

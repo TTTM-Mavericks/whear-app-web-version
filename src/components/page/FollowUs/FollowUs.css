@@ -1,0 +1,26 @@
+.follow-us-section {
+    display: flex;
+    margin-top: 60px;
+    margin-left: 72px;
+    flex-direction: column; 
+    margin-bottom: 80px;
+}
+
+.follow-us-section h1 {
+    font-family: 'Avenir';
+    font-size: 56px;
+    margin-bottom: 10px;
+}
+
+.image-container {
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px; 
+  }
+  
+.image-container img {
+    width: 100%;
+    max-width: 300px;
+    height: 300px; 
+    margin-right: 50px;
+}
