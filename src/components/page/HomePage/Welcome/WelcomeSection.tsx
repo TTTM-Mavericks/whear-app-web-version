@@ -13,7 +13,7 @@ const WelcomeSection: React.FC = () => {
         </h1>
         <p style={{ fontFamily: 'Avenir', fontSize: '20px', fontWeight: 'bold' }}>Fashion Redefined</p>
         <img
-          src={require('../../../img/welcome.png')} 
+          src={require('../../../../img/welcome.png')} 
           alt="Welcome Image"
           className="centered-image"
         />

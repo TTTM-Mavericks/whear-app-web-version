@@ -1,0 +1,23 @@
+.policy-container {
+    max-width: 1400px;
+    padding: 80px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .policy-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    line-height: 1.5;
+    margin-left: 150px;
+    margin-right: 150px;
+  }
+  
+  .policy-column {
+    width: 45%; 
+  }
+  
+  
