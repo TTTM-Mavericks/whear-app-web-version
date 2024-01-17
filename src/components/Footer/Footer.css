@@ -2,7 +2,7 @@
     display: flex;
     background-color: #E6E6E6;
     border-radius: 2%;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     height: 60px;
 }

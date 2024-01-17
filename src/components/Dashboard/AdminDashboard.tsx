@@ -1,10 +1,12 @@
 import * as React from 'react';
 import MenuAdmin from '../Menu/MenuAdmin';
 import { Box } from "@mui/material";
-import UserAppInstalled from '../UserAppInstalled/UserAppInstalled';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Introduce from '../Introdution/Introduce';
+import GuardianWisePieChart from '../GuardianWisePieChart/GuardianWisePieChart';
+import TimeWiseUserAppInstalled from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
+import LatestRegistration from '../LatestRegistrations/LatestRegistrations';
 
 const AdminDashboard: React.FC = () => {
     return (
@@ -18,8 +20,13 @@ const AdminDashboard: React.FC = () => {
                 </Box>
                 <Box style={{ flex: '1 1 80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
-                        <Introduce />
-                        <Box style={{ marginBottom: 'auto' }}>
+                        <Box>
+                            <Introduce />
+                            <LatestRegistration />
+                            <GuardianWisePieChart />
+                            <TimeWiseUserAppInstalled />
+                        </Box>
+                        <Box>
                             <Footer />
                         </Box>
                     </Box>
