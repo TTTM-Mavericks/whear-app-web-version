@@ -4,6 +4,8 @@ import { Box } from "@mui/material";
 import UserAppInstalled from '../UserAppInstalled/UserAppInstalled';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import AdminDashboard from './AdminDashboard';
+import ProfileSettings from '../AdminProfile/AdminProfile';
 
 const AdminProfileDashboard: React.FC = () => {
     return (
@@ -18,6 +20,7 @@ const AdminProfileDashboard: React.FC = () => {
                 <Box style={{ flex: '1 1 80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
                         {/* <UserAppInstalled /> */}
+                        <ProfileSettings />
                         <Box style={{ marginBottom: 'auto' }}>
                             <Footer />
                         </Box>

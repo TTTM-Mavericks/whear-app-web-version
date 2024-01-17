@@ -5,6 +5,9 @@ import UserAppInstalled from '../UserAppInstalled/UserAppInstalled';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Introduce from '../Introdution/Introduce';
+import GuardianWisePieChart from '../GuardianWisePieChart/GuardianWisePieChart';
+import ChartsOverviewDemo from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
+import TimeWiseUsersInstalledApp from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
 
 const AdminDashboard: React.FC = () => {
     return (
@@ -18,7 +21,11 @@ const AdminDashboard: React.FC = () => {
                 </Box>
                 <Box style={{ flex: '1 1 80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
-                        <Introduce />
+                        <Box>
+                            <Introduce />
+                            {/* <GuardianWisePieChart /> */}
+                            {/* <TimeWiseUsersInstalledApp /> */}
+                        </Box>
                         <Box style={{ marginBottom: 'auto' }}>
                             <Footer />
                         </Box>
