@@ -11,14 +11,14 @@ import LatestRegistration from '../LatestRegistrations/LatestRegistrations';
 const AdminDashboard: React.FC = () => {
     return (
         <Box>
-            <Box style={{ display: 'flex', height: '100vh' }}>
-                <Box style={{ flex: '1 1 20%' }}>
+            <Box style={{ display: 'flex' }}>
+                <Box style={{ flex: '20%' }}>
                     <Box>
                         <Header />
                         <MenuAdmin />
                     </Box>
                 </Box>
-                <Box style={{ flex: '1 1 80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
+                <Box style={{ flex: '70%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
                         <Box>
                             <Introduce />

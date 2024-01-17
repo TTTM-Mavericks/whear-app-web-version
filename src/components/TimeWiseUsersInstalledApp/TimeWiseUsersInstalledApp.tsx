@@ -27,25 +27,25 @@ const TimeWiseUserAppInstalled: React.FC = () => {
     ])
 
 
-    useEffect(() => {
-        const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then((data: TimeWiseUserAppInstalled[]) => {
-                const categories = data.map((item) => item.name);
-                const seriesData = data.map((item) => ({
-                    data: [item.id],
-                }));
-                setOptions({
-                    ...options,
-                    xaxis: {
-                        categories,
-                    }
-                })
-                setSeries(seriesData)
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    // useEffect(() => {
+    //     const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
+    //     fetch(apiUrl)
+    //         .then(response => response.json())
+    //         .then((data: TimeWiseUserAppInstalled[]) => {
+    //             const categories = data.map((item) => item.name);
+    //             const seriesData = data.map((item) => ({
+    //                 data: [item.id],
+    //             }));
+    //             setOptions({
+    //                 ...options,
+    //                 xaxis: {
+    //                     categories,
+    //                 }
+    //             })
+    //             setSeries(seriesData)
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }, []);
 
     return (
         <div>

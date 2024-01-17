@@ -18,22 +18,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Box } from '@mui/system';
 
 const MenuAdmin: React.FC = () => {
-    const styles = {
-        drawer: {
-            width: '10px', // Set the width of the drawer
-        },
-        listItem: {
-            // Define styles for list items
-            color: 'blue',
-            // Add more styles as needed
-        },
-    };
     return (
-        <Drawer variant='permanent'>
+        <Box className='itmebebe'>
             {/* LIST MENU CHOICE */}
-            <NavLink to="/admin-manager" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
+            <NavLink to="/admin-manager" style={{ textDecoration: "none", color: "black", width: "80%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -49,14 +39,14 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <DashboardIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="DashBoard" children />
+                            <ListItemText primary="DashBoard" children style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
-            <NavLink to="/user-app-installed" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/user-app-installed" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "2px" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -72,15 +62,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <SystemUpdateAltIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="User App Installed" />
+                            <ListItemText primary="User App Installed" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/user-have-guardian" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/user-have-guardian" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -96,15 +86,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <VerifiedUserIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="User Have Guardian" />
+                            <ListItemText primary="User Have Guardian" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/number-of-guardian" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/number-of-guardian" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -121,15 +111,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <PersonIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="Number Guardian" />
+                            <ListItemText primary="Number Guardian" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/user-connect-safe" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/user-connect-safe" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -146,15 +136,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <PersonIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="User Connect Safe" />
+                            <ListItemText primary="User Connect Safe" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/user-last-week-activity" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/user-last-week-activity" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -171,15 +161,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <ScoreIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="User Last Activity" />
+                            <ListItemText primary="User Last Activity" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/send-out-alarm" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/send-out-alarm" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -196,15 +186,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <NotificationsIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="Send Out Alarm" />
+                            <ListItemText primary="Send Out Alarm" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/received-alarm" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/received-alarm" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', marginBottom: "-12%", width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -221,15 +211,15 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <NotificationsActiveIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="Received Alarm" />
+                            <ListItemText primary="Received Alarm" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
 
-            <NavLink to="/user-per-country" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
+            <NavLink to="/user-per-country" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                 <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
+                    <ListItem disablePadding sx={{ display: 'block', width: "90%", marginLeft: "5%" }} className='list_menu_choice'>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -246,14 +236,13 @@ const MenuAdmin: React.FC = () => {
                             >
                                 <PublicIcon className='dashboardicon' />
                             </ListItemIcon>
-                            <ListItemText primary="User Per Country" />
+                            <ListItemText primary="User Per Country" style={{ marginLeft: "20px" }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </NavLink>
             {/* END LIST MENU CHOICE */}
-        </Drawer >
-    );
-}
-
+        </Box >
+    )
+};
 export default MenuAdmin;
