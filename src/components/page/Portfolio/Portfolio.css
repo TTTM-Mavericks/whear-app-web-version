@@ -1,0 +1,27 @@
+.portfolio{
+    margin-bottom: 80px;
+}
+.image-container-portfolio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+  
+.portfolio-image {
+    position: relative;
+    overflow: hidden;
+    width: 500px;
+    height: auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+  
+.portfolio-image:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+  
+  
+
+  

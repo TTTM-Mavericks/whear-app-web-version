@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AdminDashboard from './components/Dashboard/AdminDashboard';
 import Home from '../src/components/page/HomePage/HomePage'
 import About from '../src/components/page/About/About'
-
+import Portfolio from './components/page/Portfolio/Portfolio';
 function App() {
   return (
     <div>
@@ -20,7 +20,7 @@ function App() {
           <Route path='/user-per-country' element={<AdminDashboard></AdminDashboard>}></Route>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/about' element={<About/>}></Route>
-
+          <Route path='/portfolio' element={<Portfolio/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
