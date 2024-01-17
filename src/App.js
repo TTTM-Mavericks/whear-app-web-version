@@ -4,6 +4,7 @@ import AdminDashboard from './components/Dashboard/AdminDashboard';
 import Home from '../src/components/page/HomePage/HomePage'
 import About from '../src/components/page/About/About'
 import Portfolio from './components/page/Portfolio/Portfolio';
+import Contact from './components/page/Contact/Contact';
 function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<Home/>}></Route>
           <Route path='/about' element={<About/>}></Route>
           <Route path='/portfolio' element={<Portfolio/>}></Route>
+          <Route path='/contact' element={<Contact/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
