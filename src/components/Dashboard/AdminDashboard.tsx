@@ -1,13 +1,12 @@
 import * as React from 'react';
 import MenuAdmin from '../Menu/MenuAdmin';
 import { Box } from "@mui/material";
-import UserAppInstalled from '../UserAppInstalled/UserAppInstalled';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Introduce from '../Introdution/Introduce';
 import GuardianWisePieChart from '../GuardianWisePieChart/GuardianWisePieChart';
-import ChartsOverviewDemo from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
-import TimeWiseUsersInstalledApp from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
+import TimeWiseUserAppInstalled from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
+import LatestRegistration from '../LatestRegistrations/LatestRegistrations';
 
 const AdminDashboard: React.FC = () => {
     return (
@@ -23,10 +22,11 @@ const AdminDashboard: React.FC = () => {
                     <Box>
                         <Box>
                             <Introduce />
-                            {/* <GuardianWisePieChart /> */}
-                            {/* <TimeWiseUsersInstalledApp /> */}
+                            <LatestRegistration />
+                            <GuardianWisePieChart />
+                            <TimeWiseUserAppInstalled />
                         </Box>
-                        <Box style={{ marginBottom: 'auto' }}>
+                        <Box>
                             <Footer />
                         </Box>
                     </Box>
