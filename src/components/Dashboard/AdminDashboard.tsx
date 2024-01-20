@@ -7,6 +7,7 @@ import Introduce from '../Introdution/Introduce';
 import GuardianWisePieChart from '../GuardianWisePieChart/GuardianWisePieChart';
 import TimeWiseUserAppInstalled from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
 import LatestRegistration from '../LatestRegistrations/LatestRegistrations';
+import UsersPerCountry from '../UsersPerCountry/UsersPerCountry';
 
 const AdminDashboard: React.FC = () => {
     return (
@@ -21,10 +22,26 @@ const AdminDashboard: React.FC = () => {
                 <Box style={{ flex: '70%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
                         <Box>
-                            <Introduce />
-                            <LatestRegistration />
-                            <GuardianWisePieChart />
-                            <TimeWiseUserAppInstalled />
+                            <Box >
+                                <Introduce />
+                                <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
+                            </Box>
+                            <Box>
+                                <LatestRegistration />
+                                <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
+                            </Box>
+                            <Box>
+                                <GuardianWisePieChart />
+                                <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
+                            </Box>
+                            <Box>
+                                <TimeWiseUserAppInstalled />
+                                <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
+                            </Box>
+                            <Box>
+                                <UsersPerCountry />
+                                <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
+                            </Box>
                         </Box>
                         <Box>
                             <Footer />

@@ -21,7 +21,7 @@ const AdminProfileDashboard: React.FC = () => {
                     <Box>
                         {/* <UserAppInstalled /> */}
                         <ProfileSettings />
-                        <Box style={{ marginBottom: 'auto' }}>
+                        <Box style={{ marginTop: "200px" }}>
                             <Footer />
                         </Box>
                     </Box>
