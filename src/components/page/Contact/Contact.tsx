@@ -3,6 +3,8 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Container, Typography, TextField, Button, Grid, Snackbar } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton'
+
 
 interface FormData {
   firstName: string;
@@ -97,6 +99,7 @@ const Contact: React.FC = () => {
   return (
     <>
       <Header />
+      <ScrollToTopButton/>
           {/* Success Snackbar */}
           <Snackbar
         open={snackbarOpen}
@@ -106,10 +109,10 @@ const Contact: React.FC = () => {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       />
       <Container maxWidth="md">
-        <Typography variant="h1" style={{ fontFamily: 'Avenir', fontSize: '64px', fontWeight: 'bold', margin: '20px 0' }}>
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '64px', fontWeight: 'bold', margin: '20px 0' }}>
           GET IN TOUCH
         </Typography>
-        <Typography variant="body1" style={{ fontFamily: 'Avenir', fontSize: '20px', fontWeight: 'bold', margin: '20px 0' }}>
+        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', fontWeight: 'bold', margin: '20px 0' }}>
           We would love to hear from you! Whether you have a question or just want to say hello, please feel free to reach out to us. Send Us a Message
         </Typography>
         <form onSubmit={handleSubmit}>

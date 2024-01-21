@@ -5,14 +5,16 @@ import AppSection from './App/AppSection';
 import FollowUsSection from './FollowUs/FollowUs';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton'
 const Home: React.FC = () => {
   return (
     <div>
       <Header/>
       <WelcomeSection />
-      <ServiceSection />
       <AppSection />
+      <ServiceSection />
       <FollowUsSection /> 
+      <ScrollToTopButton/>
       <Footer/>
     </div>
   );

@@ -3,6 +3,7 @@ import { Grid, Typography, Modal, Box } from '@mui/material';
 import './Portfolio.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton'
 
 interface PortfolioItem {
   imageSrc: string;
@@ -38,22 +39,22 @@ const Portfolio: React.FC = () => {
 
   const portfolioItems: PortfolioItem[] = [
     {
-      imageSrc: require('../../../img/portfolio1.png'),
+      imageSrc: require('../../../img/portfolio1.jpg'),
       title: 'Enhanced User Experience for Sewing Tools',
       description: 'WHEAR improved the user experience for their sewing tools by optimizing the interface, enhancing search features, and regularly updating fashion data.',
     },
     {
-      imageSrc: require('../../../img/portfolio2.png'),
+      imageSrc: require('../../../img/portfolio2.jpeg'),
       title: 'Optimized Shopping Platform for Male Fashion Designer',
       description: 'A portfolio project showcasing the development of a fashion application platform for male fashion designers, focusing on optimizing the shopping experience and connecting users with the fashion world.',
     },
     {
-      imageSrc: require('../../../img/portfolio3.png'),
+      imageSrc: require('../../../img/portfolio3.jpg'),
       title: 'Creative Community Building: Man Designing Coat',
       description: "A portfolio project showcasing WHEAR's innovative fashion application platform, focusing on building a creative community and optimizing the user experience in designing and shopping for clothing.",
     },
     {
-      imageSrc: require('../../../img/portfolio4.png'),
+      imageSrc: require('../../../img/portfolio4.jpg'),
       title: 'Fashion AI Technology: Woman Sketching',
       description: "A portfolio project showcasing WHEAR's innovative fashion AI technology, featuring a woman sketching her personal style and optimizing the customer experience in building personal wardrobes.",
     },
@@ -62,17 +63,18 @@ const Portfolio: React.FC = () => {
   return (
     <div>
       <Header />
+      <ScrollToTopButton/>
       <section className="portfolio">
-        <Typography variant="h1" style={{ fontFamily: 'Avenir', fontSize: '60px', fontWeight: 'bold', marginBottom:'20px' }}>
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '60px', fontWeight: 'bold', marginBottom:'20px' }}>
           My Portfolio
         </Typography>
-        <Typography variant="body1" style={{ fontFamily: 'Avenir', fontSize: '20px', textAlign: 'center', fontWeight: 'bold', marginBottom:'60px' }}>
+        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', textAlign: 'center', fontWeight: 'bold', marginBottom:'60px' }}>
           A diverse portfolio of innovative fashion and technology projects.
         </Typography>
         <Grid container spacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="image-container-portfolio">
           {portfolioItems.map((item, index) => (
             <Grid key={index} item xs={6} className="portfolio-image-container" onClick={() => handleImageClick(item)}>
-              <img src={item.imageSrc} alt={`Image ${index + 1}`} className="portfolio-image" style={{marginLeft:'190px'}}/>
+              <img src={item.imageSrc} alt={`Image ${index + 1}`} className="portfolio-image" style={{marginLeft:'100px'}}/>
             </Grid>
           ))}
         </Grid>
@@ -85,10 +87,10 @@ const Portfolio: React.FC = () => {
           {selectedItem && (
             <div>
               <img src={selectedItem.imageSrc} alt={`Selected Image`} style={{ width: '500px', height: 'auto' }} />
-              <Typography variant="h2" style={{ fontFamily: 'Avenir', fontSize: '24px', textAlign: 'center',  fontWeight: 'bold', marginTop: '10px' }}>        
+              <Typography variant="h2" style={{ fontFamily: 'Poppins', fontSize: '24px', textAlign: 'center',  fontWeight: 'bold', marginTop: '10px' }}>        
                 {selectedItem.title}
               </Typography>
-              <Typography variant="body2" style={{ fontFamily: 'Avenir', fontSize: '16px', textAlign: 'center', marginTop: '10px' }}>
+              <Typography variant="body2" style={{ fontFamily: 'Poppins', fontSize: '16px', textAlign: 'center', marginTop: '10px' }}>
                 {selectedItem.description}
               </Typography>
             </div>

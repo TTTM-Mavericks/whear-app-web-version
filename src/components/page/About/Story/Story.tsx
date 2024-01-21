@@ -1,21 +1,22 @@
 import React from 'react';
 import './Story.css';
+import storyImage from '../../../../img/about1.jpg'; 
 
 const Story: React.FC = () => {
   return (
     <section className="story-section">
+      <img src={storyImage} alt="Story Image" className="story-image" />
+      <div className='content'>
       <div className="content-column">
-        <h1 style={{ fontFamily: 'Avenir', fontSize: '80px' }}>
-          OUR STORY.
+        <h1 style={{ fontFamily: 'Poppins', fontSize: '80px' }}>
+          OUR STORY
         </h1>
-        <p style={{ fontFamily: 'Avenir', fontSize: '18px' }}>WHEAR is a Fashion Designer Boutique based in Vietnam that offers high-quality products and exceptional customer service through their online platform and physical locations. Our journey started with a passion for fashion and a desire to revolutionize the industry. We are committed to providing a unique and innovative experience for our customers, building a social network, optimizing the user experience, and developing AI technology for building personal wardrobes. We prioritize security and privacy, continuously update fashion data, improve outfit suggestions, and enhance search features. We believe in creating a creative community where people can share knowledge, tips, and inspire each other. Thank you for supporting us on our journey!</p>
       </div>
-      <div className="background-col">
-      <img
-          src={require('../../../../img/about1.png')} 
-          alt="Story Image"
-          className="story-image"
-        />
+      <div className="content-column2">
+        <p style={{ fontFamily: 'Poppins', fontSize: '18px' }}>
+        GERME: The Purpose-Driven Technology Seed Company <br/>
+        We're proud to announce GERME – a technology seed company with a mission to improve society through innovative technological solutions. Our focus is to create products that optimize the lifestyle sector and enhance the user's overall living experience. Join us in advancing the future!        </p>
+      </div>
       </div>
     </section>
   );

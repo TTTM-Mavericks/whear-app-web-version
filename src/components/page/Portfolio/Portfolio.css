@@ -12,7 +12,7 @@
     position: relative;
     overflow: hidden;
     width: 500px;
-    height: auto;
+    height: 625px;
     transition: transform 0.3s ease;
     cursor: pointer;
 }
