@@ -65,10 +65,10 @@ const Portfolio: React.FC = () => {
       <Header />
       <ScrollToTopButton/>
       <section className="portfolio">
-        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '60px', fontWeight: 'bold', marginBottom:'20px' }}>
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '56px', fontWeight: 'bold', marginBottom:'20px', textAlign: 'center' }}>
           My Portfolio
         </Typography>
-        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', textAlign: 'center', fontWeight: 'bold', marginBottom:'60px' }}>
+        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', textAlign: 'center', marginBottom:'60px' }}>
           A diverse portfolio of innovative fashion and technology projects.
         </Typography>
         <Grid container spacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="image-container-portfolio">

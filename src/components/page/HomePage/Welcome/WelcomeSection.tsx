@@ -34,7 +34,7 @@ const WelcomeSection: React.FC = () => {
   return (
     <section className="welcome-section">
       <div className="welcome-content">
-        <Link to="/join-us" className="join-now-btn" style={{ fontFamily: 'Poppins', fontSize: '20px', fontWeight: 'bold' }}>
+        <Link to="/join-us" className="join-now-btn" style={{ fontFamily: 'Poppins', fontSize: '20px' }}>
           Join Now
         </Link>
       </div>

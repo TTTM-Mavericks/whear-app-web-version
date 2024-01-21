@@ -15,7 +15,7 @@ const Story: React.FC = () => {
       <div className="content-column2">
         <p style={{ fontFamily: 'Poppins', fontSize: '18px' }}>
         GERME: The Purpose-Driven Technology Seed Company <br/>
-        We're proud to announce GERME – a technology seed company with a mission to improve society through innovative technological solutions. Our focus is to create products that optimize the lifestyle sector and enhance the user's overall living experience. Join us in advancing the future!        </p>
+        We are proud to announce GERME – a technology seed company with a mission to improve society through innovative technological solutions. Our focus is to create products that optimize the lifestyle sector and enhance the user's overall living experience. Join us in advancing the future!        </p>
       </div>
       </div>
     </section>

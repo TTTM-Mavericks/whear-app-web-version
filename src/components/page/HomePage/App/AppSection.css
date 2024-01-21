@@ -20,7 +20,7 @@
   
 .center-column {
     flex: 1;
-    padding: 20px;
+    padding: 60px;
     box-sizing: border-box;
     margin-right: 60px;
 }
@@ -35,8 +35,8 @@
   
 .center-column p {
     font-family: 'Poppins';
-    font-size: 20px;
-    margin-top: 60px;
+    font-size: 18px;
+    margin-top: 20px;
     line-height: 1.8;
 }
   

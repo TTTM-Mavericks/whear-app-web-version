@@ -55,18 +55,20 @@
   justify-content: flex-end; 
   color: #fff; 
   text-align: center; 
-  padding: 20px; 
+  padding: 50px; 
+  margin-left: 72px;
+  margin-right: 72px;
 }
 
 .join-now-btn {
   display: inline-block;
   margin-top: 20px;
-  margin-left: 200px;
+  margin-left: 110px;
   padding: 10px 20px;
   text-decoration: none;
   background-color: #baf667; 
   color: #000; 
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 30px; 
   transition: background-color 0.3s, color 0.3s;
 }

@@ -109,10 +109,10 @@ const Contact: React.FC = () => {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       />
       <Container maxWidth="md">
-        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '64px', fontWeight: 'bold', margin: '20px 0' }}>
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '54px', fontWeight: 'bold', margin: '20px 0' }}>
           GET IN TOUCH
         </Typography>
-        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', fontWeight: 'bold', margin: '20px 0' }}>
+        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', margin: '20px 0' }}>
           We would love to hear from you! Whether you have a question or just want to say hello, please feel free to reach out to us. Send Us a Message
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -186,7 +186,7 @@ const Contact: React.FC = () => {
                 type="submit"
                 variant="contained"
                 endIcon={<SendIcon />}
-                style={{ backgroundColor: '#BAF667', color: 'white' }}
+                style={{ backgroundColor: '#BAF667', color: 'white', marginBottom:'50px' }}
               >
                 Send
               </Button>
