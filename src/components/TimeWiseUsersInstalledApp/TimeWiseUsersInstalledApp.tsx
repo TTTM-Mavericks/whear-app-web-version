@@ -49,6 +49,11 @@ const TimeWiseUserAppInstalled: React.FC = () => {
 
     return (
         <div>
+            <div className='title-bar'>
+                Time wise Users Installed App
+            </div>
+            <br />
+            <br />
             <Chart
                 options={options}
                 series={series}

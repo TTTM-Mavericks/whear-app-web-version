@@ -62,6 +62,9 @@ const LatestRegistration: React.FC = () => {
 
     return (
         <div>
+            <div className='title-bar'>
+                Latest Registrations
+            </div>
             <Chart
                 options={options}
                 series={series}
