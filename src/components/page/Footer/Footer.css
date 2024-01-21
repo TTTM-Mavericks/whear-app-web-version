@@ -7,7 +7,7 @@ body {
 }
 
 .footer {
-  max-width: 1352px;
+  border-top: 2px solid #000;
   margin-top: auto; 
   padding: 20px; 
 }

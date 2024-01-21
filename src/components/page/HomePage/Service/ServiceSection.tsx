@@ -14,7 +14,7 @@ const ServiceSection: React.FC = () => {
           <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', fontWeight: 'bold' }}>Personalized Style</p>
         </div>
         <div className="service-column">
-        <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold' }}>Unique Fitting</p>
+        <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold' }}>AI Stylist</p>
         <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', fontWeight: 'bold' }}>Tailored to You</p>
           <img src={require('../../../../img/service2.png')} alt="Service 2" className="service-image" />
         </div>
