@@ -1,11 +1,13 @@
+// Import necessary dependencies and styles
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Container, Typography, TextField, Button, Grid, Snackbar } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton'
+import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton';
+import contactBackground from '../../../img/contact.jpg';
 
-
+// Define the form data interface
 interface FormData {
   firstName: string;
   lastName: string;
@@ -14,7 +16,9 @@ interface FormData {
   message: string;
 }
 
+// Contact component
 const Contact: React.FC = () => {
+  // State variables for form data, form errors, submission success, and snackbar visibility
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -34,11 +38,13 @@ const Contact: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  // Function to validate phone number format
   const isValidPhoneNumber = (phone: string): boolean => {
     const phonePattern = /^(\+84|0)?[0-9]{9,10}$/;
     return phonePattern.test(phone);
   };
 
+  // Event handler for input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -51,10 +57,12 @@ const Contact: React.FC = () => {
     }));
   };
 
+  // Event handler for closing the success snackbar
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
 
+  // Event handler for form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -96,25 +104,31 @@ const Contact: React.FC = () => {
     }, 1000);
   };
 
+  // JSX structure for the Contact component
   return (
     <>
       <Header />
-      <ScrollToTopButton/>
-          {/* Success Snackbar */}
-          <Snackbar
+      <ScrollToTopButton />
+      {/* Success Snackbar */}
+      <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
         message="Form submitted successfully!"
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       />
-      <Container maxWidth="md">
-        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '54px', fontWeight: 'bold', margin: '20px 0' }}>
+      {/* Container with background image */}
+      <Container
+        maxWidth="md"
+        style={{ backgroundImage: `url(${contactBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '54px', fontWeight: 'bold', margin: '20px 0', color: '#000' }}>
           GET IN TOUCH
         </Typography>
-        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', margin: '20px 0' }}>
+        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', margin: '20px 0', color: '#000' }}>
           We would love to hear from you! Whether you have a question or just want to say hello, please feel free to reach out to us. Send Us a Message
         </Typography>
+        {/* Form */}
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -186,7 +200,7 @@ const Contact: React.FC = () => {
                 type="submit"
                 variant="contained"
                 endIcon={<SendIcon />}
-                style={{ backgroundColor: '#BAF667', color: 'white', marginBottom:'50px' }}
+                style={{ backgroundColor: '#BAF667', color: 'white', marginBottom: '50px' }}
               >
                 Send
               </Button>
