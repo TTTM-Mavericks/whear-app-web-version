@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Modal, Box } from '@mui/material';
+import { Typography, Modal, Box } from '@mui/material';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import './Portfolio.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton'
+import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton';
 
 interface PortfolioItem {
   imageSrc: string;
@@ -12,91 +14,120 @@ interface PortfolioItem {
 }
 
 const Portfolio: React.FC = () => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
 
-  const handleImageClick = (item: PortfolioItem) => {
+  const handleOpenModal = (item: PortfolioItem) => {
     setSelectedItem(item);
-    setOpenModal(true);
+    setModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setSelectedItem(null);
-    setOpenModal(false);
+    setModalOpen(false);
   };
-
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 500,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
+ 
   const portfolioItems: PortfolioItem[] = [
     {
       imageSrc: require('../../../img/portfolio1.jpg'),
-      title: 'Enhanced User Experience for Sewing Tools',
-      description: 'WHEAR improved the user experience for their sewing tools by optimizing the interface, enhancing search features, and regularly updating fashion data.',
+      title: 'Image Title',
+      description: 'Content',
     },
     {
       imageSrc: require('../../../img/portfolio2.jpeg'),
-      title: 'Optimized Shopping Platform for Male Fashion Designer',
-      description: 'A portfolio project showcasing the development of a fashion application platform for male fashion designers, focusing on optimizing the shopping experience and connecting users with the fashion world.',
+      title: 'Image Title',
+      description: 'Content',
     },
     {
       imageSrc: require('../../../img/portfolio3.jpg'),
-      title: 'Creative Community Building: Man Designing Coat',
-      description: "A portfolio project showcasing WHEAR's innovative fashion application platform, focusing on building a creative community and optimizing the user experience in designing and shopping for clothing.",
-    },
+      title: 'Image Title',
+      description: 'Content',    },
     {
       imageSrc: require('../../../img/portfolio4.jpg'),
-      title: 'Fashion AI Technology: Woman Sketching',
-      description: "A portfolio project showcasing WHEAR's innovative fashion AI technology, featuring a woman sketching her personal style and optimizing the customer experience in building personal wardrobes.",
-    },
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio5.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio6.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
+     {
+      imageSrc: require('../../../img/portfolio7.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio8.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio9.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio10.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio11.jpeg'),
+      title: 'Image Title',
+      description: 'Content',    },
+    {
+      imageSrc: require('../../../img/portfolio12.jpg'),
+      title: 'Image Title',
+      description: 'Content',    },
   ];
 
   return (
     <div>
       <Header />
-      <ScrollToTopButton/>
+      <ScrollToTopButton />
       <section className="portfolio">
-        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '56px', fontWeight: 'bold', marginBottom:'20px', textAlign: 'center' }}>
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '56px', fontWeight: 'bold', marginBottom: '20px', textAlign: 'center' }}>
           My Portfolio
         </Typography>
-        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', textAlign: 'center', marginBottom:'60px' }}>
+        <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', textAlign: 'center', marginBottom: '60px' }}>
           A diverse portfolio of innovative fashion and technology projects.
         </Typography>
-        <Grid container spacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="image-container-portfolio">
-          {portfolioItems.map((item, index) => (
-            <Grid key={index} item xs={6} className="portfolio-image-container" onClick={() => handleImageClick(item)}>
-              <img src={item.imageSrc} alt={`Image ${index + 1}`} className="portfolio-image" style={{marginLeft:'100px'}}/>
-            </Grid>
-          ))}
-        </Grid>
+        <Box sx={{ width: 1200, height: 1600 }} className="ImageList" style={{ margin: 'auto' }}>
+          <ImageList variant="masonry" cols={3} gap={8}>
+            {portfolioItems.map((item) => (
+              <ImageListItem key={item.imageSrc} onClick={() => handleOpenModal(item)}>
+                <img
+                  srcSet={`${item.imageSrc}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${item.imageSrc}?w=248&fit=crop&auto=format`}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Box>
       </section>
-      <Footer />
 
       {/* Modal */}
-      <Modal open={openModal} onClose={handleCloseModal}>
-        <Box sx={style}>
+      <Modal open={modalOpen} onClose={handleCloseModal}>
+        <Box sx={{ width: 400, padding: 2, textAlign: 'center', margin: 'auto', marginTop: '8px' }}>
           {selectedItem && (
-            <div>
-              <img src={selectedItem.imageSrc} alt={`Selected Image`} style={{ width: '500px', height: 'auto' }} />
-              <Typography variant="h2" style={{ fontFamily: 'Poppins', fontSize: '24px', textAlign: 'center',  fontWeight: 'bold', marginTop: '10px' }}>        
+            <>
+              <img
+                src={selectedItem.imageSrc}
+                alt={selectedItem.title}
+                style={{ width: '100%', height: 'auto', marginBottom: '8px' }}
+              />
+              <Typography variant="h5" style={{ fontFamily: 'Poppins', fontWeight: 'bold', marginBottom: '8px', color:"#fff" }}>
                 {selectedItem.title}
               </Typography>
-              <Typography variant="body2" style={{ fontFamily: 'Poppins', fontSize: '16px', textAlign: 'center', marginTop: '10px' }}>
+              <Typography variant="body2" style={{ fontFamily: 'Poppins', color:"#fff" }}>
                 {selectedItem.description}
               </Typography>
-            </div>
+            </>
           )}
         </Box>
       </Modal>
+
+      <Footer />
     </div>
   );
 };

@@ -1,27 +1,33 @@
-.portfolio{
-    margin-bottom: 80px;
+.MuiDialog-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.image-container-portfolio {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 80px;
-}
-  
-.portfolio-image {
-    position: relative;
-    overflow: hidden;
-    width: 500px;
-    height: 625px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-  
-.portfolio-image:hover {
-    transform: scale(1.1);
-    opacity: 1;
-}
-  
-  
 
-  
+.MuiDialog-container {
+  max-width: 90%;
+  max-height: 90vh; 
+  width: auto !important;
+}
+
+.MuiPaper-root {
+  margin: 0;
+  max-width: 100%; 
+}
+
+.ImageList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.ImageList img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.ImageList img:hover {
+  transform: scale(1.1);
+}
