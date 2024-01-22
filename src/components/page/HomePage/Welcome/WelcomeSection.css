@@ -46,7 +46,7 @@
 
 .welcome-section {
   background-image: url('../../../../img/welcome.jpg');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   height: 110vh;
   display: flex;
