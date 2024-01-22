@@ -3,7 +3,7 @@
   background-image: url('../../../../img/welcome.jpg');
   background-size: contain;
   background-position: center;
-  background-repeat: none;
+  background-repeat: no-repeat;
   height: 100vh;
   display: flex;
   flex-direction: column; 
