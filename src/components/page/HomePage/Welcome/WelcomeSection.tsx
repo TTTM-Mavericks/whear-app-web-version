@@ -31,7 +31,6 @@ import ANDROIDIMG from '../../../../img/android.png'
 
 
 import React from 'react';
-import { Link } from "react-router-dom";
 import './WelcomeSection.css';
 
 const WelcomeSection: React.FC = () => {
