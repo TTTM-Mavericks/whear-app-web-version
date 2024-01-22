@@ -26,6 +26,10 @@
 
 // export default WelcomeSection;
 
+import IOSIMG from '../../../../img/ios.png'
+import ANDROIDIMG from '../../../../img/android.png'
+
+
 import React from 'react';
 import { Link } from "react-router-dom";
 import './WelcomeSection.css';
@@ -34,9 +38,15 @@ const WelcomeSection: React.FC = () => {
   return (
     <section className="welcome-section">
       <div className="welcome-content">
-        <Link to="/join-us" className="join-now-btn" style={{ fontFamily: 'Poppins', fontSize: '20px' }}>
-          Join Now
-        </Link>
+        <div style={{marginLeft: '50px'}}>
+          <div style={{ float: 'left', width: '13%', height: '100%', overflow: 'hidden', marginRight: '20px' }}>
+            <img src={ANDROIDIMG} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div style={{ width: '13%', height: '100%', overflow: 'hidden' }}>
+            <img src={IOSIMG} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+
       </div>
     </section>
   );
