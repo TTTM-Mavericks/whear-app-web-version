@@ -1,0 +1,50 @@
+.service-section-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .service-heading {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .service-columns-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .service-column-mobile {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .service-image-mobile {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .service-content-mobile {
+    text-align: center;
+  }
+  
+  .service-title-mobile {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .service-description-mobile {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  

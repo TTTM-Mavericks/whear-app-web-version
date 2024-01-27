@@ -1,29 +1,32 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import './Header.css';
+import React, { useState, useEffect } from 'react';
+import HeaderPC from './HeaderPC';
+import HeaderMobile from './HeaderMobile';
 
 const Header: React.FC = () => {
-  const location = useLocation();
-  const currentTab = location.pathname;
+    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
 
-  return (
-    <header className="header">
-      <nav className="header-nav">
-        <div className="logo-container">
-          <Link to="/">
-            <img src={require('../../../img/logo_web.png')} alt="Logo" className="logo" />
-          </Link>
+    const handleWindowSizeChange = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        };
+    }, []);
+
+    console.log('Is Mobile:', isMobile);
+
+    return (
+        <div>
+            {isMobile ? (
+                <HeaderMobile />
+            ) : (
+                <HeaderPC />
+            )}
         </div>
-        <ul className="menu">
-          <li className={currentTab === "/" ? "active-tab" : ""}><Link to="/">Home</Link></li>
-          <li className={currentTab === "/about" ? "active-tab" : ""}><Link to="/about">About</Link></li>
-          <li className={currentTab === "/portfolio" ? "active-tab" : ""}><Link to="/portfolio">Portfolio</Link></li>
-          <li className={currentTab === "/contact" ? "active-tab" : ""}><Link to="/contact">Contact</Link></li>
-          <li><Link to="/join-us" className="join-us-btn">Join Us</Link></li>
-        </ul>
-      </nav>
-    </header>
-  );
+    );
 };
 
 export default Header;
