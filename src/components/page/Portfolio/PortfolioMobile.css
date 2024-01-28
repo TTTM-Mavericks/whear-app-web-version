@@ -1,0 +1,18 @@
+/* PortfolioMobile.css */
+
+.portfolio-mobile {
+    padding: 16px;
+  }
+  
+  .ImageList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .ImageList img {
+    width: 100%;
+    height: auto;
+    max-height: 250px; 
+  }
+  

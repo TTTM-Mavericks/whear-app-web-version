@@ -122,7 +122,7 @@ const Contact: React.FC = () => {
         maxWidth="md"
         style={{ backgroundImage: `url(${contactBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
-        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '54px', fontWeight: 'bold', margin: '20px 0', color: '#000' }}>
+        <Typography variant="h1" style={{ fontFamily: 'Poppins', fontSize: '54px', fontWeight: 'bold', margin: '20px 0', color: '#000', textAlign:'center' }}>
           GET IN TOUCH
         </Typography>
         <Typography variant="body1" style={{ fontFamily: 'Poppins', fontSize: '20px', margin: '20px 0', color: '#000' }}>
