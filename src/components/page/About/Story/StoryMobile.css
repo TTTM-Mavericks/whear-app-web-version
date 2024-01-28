@@ -1,0 +1,25 @@
+.story-section-mobile {
+    text-align: center;
+  }
+  
+  .story-image-mobile {
+    width: 100%;
+    height: auto;
+  }
+  
+  .content-mobile {
+    display: flex;
+    flex-direction: space-between;;
+    align-items: center;
+    width: 100%; 
+  }
+  
+  .content-column-mobile {
+    margin-bottom: 20px;
+  }
+  
+  .content-column2-mobile {
+    text-align: justify;
+    padding: 10px 20px;
+  }
+  

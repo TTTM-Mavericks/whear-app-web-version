@@ -1,0 +1,29 @@
+.policy-container-mobile {
+    padding: 20px;
+    background: url('../../../../img/about2.jpg') center/cover;
+  }
+  
+  .policy-container-mobile h1 {
+    text-align: center;
+    color: #baf667;
+    font-size: 20px;
+  }
+  
+  .policy-content-mobile {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    line-height: 1.5;
+    font-size: 10px;
+  }
+  
+  .policy-column-mobile {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+.policy-column-mobile p{
+    padding: 10px;
+}
+  
