@@ -1,5 +1,3 @@
-// PortfolioMobile.tsx
-
 import React, { useState } from 'react';
 import { Typography, Modal, Box } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
@@ -92,8 +90,8 @@ const PortfolioMobile: React.FC = () => {
         <Typography variant="body1" style={{textAlign:'center'}}>
           A diverse portfolio of innovative fashion and technology projects.
         </Typography>
-        <Box sx={{ width: '100%' }} className="ImageList" style={{ margin: 'auto' }}>
-          <ImageList variant="masonry" cols={1} gap={8}>
+        <Box sx={{ width: '100%' }} className="ImageList-mobile" style={{ margin: 'auto' }}>
+          <ImageList variant="masonry" cols={3} gap={9}>
             {portfolioItems.map((item) => (
               <ImageListItem key={item.imageSrc} onClick={() => handleOpenModal(item)}>
                 <img

@@ -65,21 +65,19 @@ const ServiceSectionMobile: React.FC = () => {
       </div>
 
       <Button
-        variant="outlined"
         size="small"
         className="arrow-button2 back-button2"
         onClick={handlePrevSlide}
-        style={{ color: 'black', borderColor: 'black', position: 'absolute', left: 0, top:'50%' }}
+        style={{ color: 'black', position: 'absolute', left: 0, top:'50%' }}
       >
         <ArrowBackIcon />
       </Button>
 
       <Button
-        variant="outlined"
         size="small"
         className="arrow-button2 next-button2"
         onClick={handleNextSlide}
-        style={{ color: 'black', borderColor: 'black', position: 'absolute', right: 0,top:'50%' }}
+        style={{ color: 'black', position: 'absolute', right: 0,top:'50%' }}
       >
         <ArrowForwardIcon />
       </Button>

@@ -2,21 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: #dbdddca1;
     padding: 0 20px; 
     height: 80px;
   }
   
-  .logo {
-    height: 60px; 
-  }
-  
-  .button {
-    font-size: 24px; 
-    cursor: pointer;
-    color: white; 
-    background-color: transparent; 
-    border: none;
-    padding: 5px 10px; 
-  }
+ 
   

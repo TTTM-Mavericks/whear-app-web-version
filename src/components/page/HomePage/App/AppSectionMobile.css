@@ -6,11 +6,12 @@
   text-align: center;
   box-sizing: border-box;
   margin-bottom: 40px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .center-column-mobile h1 {
-  border-bottom: 2px solid #000;
+  margin-top: 40px;
+  border-bottom: 1px solid #000;
   text-align: center;
 }
 
@@ -24,12 +25,12 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-
 }
 
 .arrow-button1 {
   top: 50%;
   transform: translateY(-50%);
+  position: fixed;
 }
 
 .back-button1 {

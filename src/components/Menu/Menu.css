@@ -1,12 +1,12 @@
-.MuiDrawer-paper {
+/* .MuiDrawer-paper {
     background-color: rgba(186, 246, 103, 0.73) !important;
     border-radius: 15px;
     height: auto !important;
     margin-top: 5%;
     margin-left: 2%;
-}
+} */
 
-.list_menu_choice:hover {
+/* .list_menu_choice:hover {
     background: linear-gradient(45deg, #5151C6, #BAF667);
     color: white !important;
     border-radius: 10px;
@@ -20,4 +20,4 @@
 
 .active .dashboardicon {
     color: white !important;
-}
+} */

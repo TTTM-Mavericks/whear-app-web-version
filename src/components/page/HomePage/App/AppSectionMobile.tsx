@@ -47,21 +47,19 @@ const AppSectionMobile: React.FC = () => {
       )}
 
       <Button
-        variant="outlined" 
         size="small"
         className="arrow-button1 back-button1"
         onClick={handlePrevSlide}
-        style={{ color:'black', borderColor: 'black', position:'absolute'}}
+        style={{ color:'black',  position:'absolute'}}
       >
         <ArrowBackIcon />
       </Button>
 
       <Button
-        variant="outlined" 
         size="small"
         className="arrow-button1 next-button1"
         onClick={handleNextSlide}
-        style={{ color: 'black', borderColor: 'black',  position:'absolute' }}
+        style={{ color: 'black',  position:'absolute' }}
       >
         <ArrowForwardIcon />
       </Button>
