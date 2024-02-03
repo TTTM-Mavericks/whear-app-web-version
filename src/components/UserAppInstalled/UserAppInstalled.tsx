@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
@@ -19,6 +19,7 @@ import Modal from '@mui/material/Modal';
 import EditForm from './EditUserAppInstalled';
 import CsvDownloader from 'react-csv-downloader';
 import DownloadIcon from '@mui/icons-material/Download';
+import AddUserAppInstalled from './AddUserAppInstalled';
 
 const style = {
     position: 'absolute',
@@ -42,6 +43,7 @@ interface UserAppInstalled {
 }
 
 const UserAppInstalled: React.FC = () => {
+    const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [data, setData] = useState<UserAppInstalled[]>([]);
@@ -51,6 +53,8 @@ const UserAppInstalled: React.FC = () => {
 
     const handleEditOpen = () => setEditOpen(true);
     const handleEditClose = () => setEditOpen(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         setPage(newPage);
@@ -200,6 +204,16 @@ const UserAppInstalled: React.FC = () => {
                         <DownloadIcon style={{ color: "white" }} />
                     </CsvDownloader>
 
+                    <Button onClick={handleOpen}>Add</Button>
+                    <Modal
+                        open={open}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <AddUserAppInstalled closeCard={handleClose} />
+                        </Box>
+                    </Modal>
                     {/* Open EDIT popup */}
                     <Modal
                         open={editopen}

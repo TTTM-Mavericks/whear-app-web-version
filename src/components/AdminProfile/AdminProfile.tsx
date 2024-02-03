@@ -111,13 +111,22 @@ const ProfileSettings: React.FC = () => {
         handleEditOpen();
     }
 
+    const IMG = "https://res.cloudinary.com/dby2saqmn/image/upload/v1706923831/clothes/w47jhmh6zl1ymvef8y10.jpg"
+
     return (
         <Container component="main" maxWidth="xs">
             <Paper elevation={3} style={{ padding: 20, marginTop: 20 }}>
                 {/* <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(fullname, email, password, reTypePassword)} /> */}
                 <Typography variant="h5" style={{ marginBottom: "10%" }}>Profile Details</Typography>
                 <div style={{ display: "flex" }}>
-                    <Avatar alt="User Avatar" src={img} style={{ width: 100, height: 100, marginBottom: '10%', alignSelf: 'center', marginRight: "10px" }} />
+                    {data &&
+                        data.map((row) => {
+                            return (
+                                <div>
+                                    <Avatar alt="User Avatar" src={IMG} style={{ width: 100, height: 100, marginBottom: '10%', alignSelf: 'center', marginRight: "10px" }} />
+                                </div>
+                            )
+                        })}
                     <div style={{ padding: '20px', borderLeft: '3px solid #FA9E93' }}>
                         {data &&
                             data.map((row) => {

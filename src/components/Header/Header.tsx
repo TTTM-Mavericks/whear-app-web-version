@@ -19,7 +19,8 @@ const Header: React.FC = () => {
         <div className='header-component' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             {/* <img src={ICON} alt="Icon" style={{ width: "5%", marginLeft: "5%" }}></img> */}
 
-            <img src={LOGO} alt="Logo" style={{ width: "5%", marginLeft: "8%" }}></img>
+            <Link to={'/'} style={{ marginLeft: "7%" }}>
+                <img src={LOGO} alt="Logo" style={{ width: "70%", marginLeft: "5%" }}></img></Link>
             <div>
                 <Autocomplete
                     className='select-country'

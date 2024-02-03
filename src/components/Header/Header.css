@@ -1,9 +1,7 @@
 .header-component {
     display: flex;
-    position: absolute;
-    width: 1365px;
-    height: 80px;
-    flex-shrink: 0;
+    position: relative;
+    /* height: 80px; */
 }
 
 .header-choice {
