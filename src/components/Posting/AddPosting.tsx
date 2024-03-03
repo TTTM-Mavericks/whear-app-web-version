@@ -1,11 +1,12 @@
-import React, { ChangeEvent, useState, useRef } from 'react';
+import React, { ChangeEvent, SetStateAction, useState } from 'react';
 import {
     Box,
     Button,
     IconButton,
     TextField,
     Grid,
-    Typography
+    Typography,
+    MenuItem
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from 'sweetalert2';
@@ -15,79 +16,19 @@ interface AddFormProps {
 }
 
 const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
-    // const fileInputRef = useRef<HTMLInputElement>(null);
     const [formData, setFormData] = useState({
-        userID: "1",
+        userID: 1,
         typeOfPosts: "POSTS",
-        hashtag: [] as string[],
-        status: "ACTIVE",
-        date: "2024-28-01"
+        status: "INACTIVE",
+        date: "2024-02-19",
+        content: "",
+        image: [""],
+        hashtag: ["#SPRING", "#2024"] as string[]
     });
 
-    // const [files, setFiles] = useState<string[]>([]);
-
-    // const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const selectedFiles = e.target.files;
-
-    //     if (selectedFiles && selectedFiles.length > 0) {
-    //         const imageUrls = await uploadToCloudinary(selectedFiles);
-    //         setFiles((prevFiles) => [...prevFiles, ...imageUrls]);
-    //         setFormData((prevFormData) => ({
-    //             ...prevFormData,
-    //             imgUrl: [...prevFormData.imgUrl, ...imageUrls],
-    //         }));
-    //     } else {
-    //         setFiles([]);
-    //     }
-    // };
-
-    // const uploadToCloudinary = async (files: FileList): Promise<string[]> => {
-    //     try {
-    //         const cloud_name = "dby2saqmn";
-    //         const preset_key = "whear-app";
-    //         const folder_name = "test";
-    //         const formData = new FormData();
-    //         formData.append("upload_preset", preset_key);
-    //         formData.append("folder", folder_name);
-
-    //         const uploadedUrls: string[] = [];
-
-    //         for (const file of Array.from(files)) {
-    //             formData.append("file", file);
-
-    //             const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
-    //                 method: "POST",
-    //                 body: formData,
-    //             });
-
-    //             const responseData = await response.json();
-
-    //             if (responseData.secure_url) {
-    //                 const imageUrl = responseData.secure_url;
-    //                 console.log(imageUrl);
-    //                 uploadedUrls.push(imageUrl);
-    //             } else {
-    //                 console.error("Error uploading image to Cloudinary. Response:", responseData);
-    //             }
-    //         }
-
-    //         return uploadedUrls;
-    //     } catch (error) {
-    //         console.error("Error uploading images to Cloudinary:", error);
-    //         return [];
-    //     }
-    // };
-
-    const handleFormChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleTextFieldChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-
-        if (name === 'hashtag') {
-            const arrayValue = value.split(',').map(item => item.trim());
-            setFormData(prevFormData => ({
-                ...prevFormData,
-                [name]: arrayValue,
-            }));
-        } else {
+        if (name) {
             setFormData(prevFormData => ({
                 ...prevFormData,
                 [name]: value,
@@ -95,18 +36,32 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
         }
     };
 
+    const handleHashtagChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const hashtagsArray = e.target.value.split(',').map(tag => tag.trim());
+        console.log('Hashtags Array:', hashtagsArray);
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            hashtag: hashtagsArray
+        }));
+    }
+
+
     const handleSubmit = async () => {
         try {
             console.log('Form Data:', JSON.stringify(formData));
-            const userID = 1;
+            const userID = localStorage.getItem('userID');
 
-            const response = await fetch('https://whear-app.azurewebsites.net/api/v1/post/create-post', {
+            const response = await fetch('http://localhost:6969/api/v1/post/create-post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ ...formData, userID }),
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
             const responseData = await response.json();
 
@@ -116,12 +71,12 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                 sessionStorage.setItem('obj', JSON.stringify(formData));
                 Swal.fire(
                     'Add Success!',
-                    'Your has been updated!',
+                    'Your post has been updated!',
                     'success'
                 );
                 // setTimeout(() => {
                 //     window.location.reload();
-                // }, 1000);
+                // }, 2000);
             } else {
                 Swal.fire(
                     'Add fail!',
@@ -129,16 +84,14 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                     'error'
                 );
             }
-        } catch (err) {
+        } catch (err: any) {
             console.error('Error:', err);
             Swal.fire(
                 'Add fail!',
-                `${err}`,
+                `${err.message || 'Unknown error'}`,
                 'error'
             );
         }
-
-        console.log('Form Data:', formData);
     };
 
     return (
@@ -161,19 +114,19 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                             sx={{ minWidth: '100%' }}
                             name="typeOfPosts"
                             value={formData.typeOfPosts}
-                            onChange={handleFormChange}
+                            onChange={handleTextFieldChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             id="outline-basic"
-                            label="hashtag"
+                            label="Hashtags"
+                            multiline
                             variant="outlined"
                             size="small"
-                            sx={{ minWidth: '100%' }}
-                            name="hashtag"
+                            sx={{ minWidth: "100%" }}
                             value={formData.hashtag.join(', ')}
-                            onChange={handleFormChange}
+                            onChange={handleHashtagChanges}
                         />
                     </Grid>
 
@@ -186,30 +139,27 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                             sx={{ minWidth: '100%' }}
                             name="date"
                             value={formData.date}
-                            onChange={handleFormChange}
+                            onChange={handleTextFieldChange}
                         />
                     </Grid>
 
                     <Grid item xs={12}>
                         <TextField
                             id="outline-basic"
-                            label="status"
+                            label="Status"
+                            select
                             variant="outlined"
                             size="small"
-                            sx={{ minWidth: '100%' }}
-                            name="status"
+                            sx={{ minWidth: "100%" }}
                             value={formData.status}
-                            onChange={handleFormChange}
-                        />
+                            onChange={handleTextFieldChange}
+                            name='status'
+                        >
+                            <MenuItem value="ACTIVE">ACTIVE</MenuItem>
+                            <MenuItem value="INACTIVE">INACTIVE</MenuItem>
+                            <MenuItem value="PUBLIC">PUBLIC</MenuItem>
+                        </TextField>
                     </Grid>
-
-                    {/* <Grid item xs={12}>
-                        <input type="file" multiple onChange={handleChange}
-                            ref={fileInputRef} />
-                        {files.map((imageUrl, index) => (
-                            <img key={index} src={imageUrl} alt={`Image ${index}`} />
-                        ))}
-                    </Grid> */}
                 </Grid>
                 <div
                     onClick={closeCard}

@@ -157,6 +157,8 @@ const ManageNews: React.FC = () => {
         phoneNumber: data.phoneNumber
     }));
 
+    const formattedData = csvData.map(item => Object.values(item).map(value => String(value)));
+
     return (
         <div>
             <Paper sx={{ overflow: 'hidden' }}>
@@ -195,7 +197,7 @@ const ManageNews: React.FC = () => {
                     </div>
 
                     <CsvDownloader
-                        datas={csvData}
+                        datas={formattedData}
                         text='CSV'
                         filename={`userdata_` + new Date().toLocaleString()}
                         extension='csv'

@@ -44,7 +44,7 @@ interface ManageClothes {
     materials: string,
     clothesSizes: string,
     clothesColors: string,
-    clothesImages: string
+    clothesImages: string[]
 }
 
 const ManageClothes: React.FC = () => {
@@ -72,7 +72,8 @@ const ManageClothes: React.FC = () => {
 
     const fillData = (dataFilter: ManageClothes | null) => {
         if (dataFilter) {
-            setData([dataFilter]);
+            const filteredData = row.filter(item => item.clothesID === dataFilter.clothesID);
+            setData(filteredData);
         } else {
             setData(row);
         }
@@ -80,10 +81,8 @@ const ManageClothes: React.FC = () => {
 
     const TOKEN = localStorage.getItem("accessToken")
 
-    console.log(TOKEN);
-
     useEffect(() => {
-        const apiUrl = 'https://whear-app.azurewebsites.net/api/v1/clothes/get-all-clothes';
+        const apiUrl = 'http://localhost:6969/api/v1/clothes/get-all-clothes';
         const headers = {
             "Authorization": `Bearer ${TOKEN}`,
         };
@@ -110,11 +109,9 @@ const ManageClothes: React.FC = () => {
 
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://whear-app.azurewebsites.net/api/v1/clothes/delete-clothes?clothes_id=${id}`, {
-                method: 'PUT',
+            const response = await fetch(`http://localhost:6969/api/v1/clothes/delete-clothes?clothes_id=${id}`, {
+                method: 'DELETE',
                 headers: {
-                    "Access-Control-Allow-Origin": 'http://localhost:3000',
-                    "Authorization": `Bearer ${TOKEN}`,
                     "Accept": "*/*",
                     "Content-Type": "application/json",
                     "X-Requested-With": "XMLHttpRequest",
@@ -136,7 +133,7 @@ const ManageClothes: React.FC = () => {
         try {
             const result = await Swal.fire({
                 title: 'Confirm Delete',
-                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
+                text: "Are you sure you want to delete permanently.  You can’t undo this action.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -146,8 +143,8 @@ const ManageClothes: React.FC = () => {
             if (result.isConfirmed) {
                 await deleteUser(id);
                 Swal.fire(
-                    'Deleted UserAppInstalled Success!',
-                    'Your UserAppInstalled has been deleted!!!',
+                    'Deleted Clothes Success!',
+                    'Your Clothes has been deleted!!!',
                     'success'
                 );
                 setTimeout(() => {
@@ -165,7 +162,8 @@ const ManageClothes: React.FC = () => {
         }
     };
 
-    const editData = (clothesID: number,
+    const editData = (
+        clothesID: number,
         nameOfProduct: string,
         typeOfClothes: string,
         shape: string,
@@ -175,7 +173,7 @@ const ManageClothes: React.FC = () => {
         materials: string,
         clothesSizes: string,
         clothesColors: string,
-        clothesImages: string) => {
+        clothesImages: string[]) => {
         const dataEmployee: ManageClothes = {
             clothesID: clothesID,
             nameOfProduct: nameOfProduct,
@@ -234,7 +232,7 @@ const ManageClothes: React.FC = () => {
                         />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <Autocomplete
                             className='select-activity'
                             onChange={(e, v) => { fillData(v as ManageClothes) }}
@@ -244,7 +242,7 @@ const ManageClothes: React.FC = () => {
                             getOptionLabel={(data) => data.nameOfProduct || ""}
                             renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
                         />
-                    </div>
+                    </div> */}
 
                     <CsvDownloader
                         datas={formattedData}
@@ -383,7 +381,7 @@ const ManageClothes: React.FC = () => {
                                             </TableCell>
                                             <TableCell align='left'>
                                                 <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.clothesID, row.nameOfProduct, row.description, row.clothesColors, row.clothesSizes, row.materials, row.rating, row.shape, row.typeOfClothes, row.clothesSeasons, row.clothesImages)} />
+                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.clothesID, row.nameOfProduct, row.typeOfClothes, row.shape, row.clothesSeasons, row.description, row.rating, row.materials, row.clothesSizes, row.clothesColors, row.clothesImages)} />
                                                     <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.clothesID)} />
                                                 </div>
                                             </TableCell>

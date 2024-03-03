@@ -17,7 +17,6 @@ interface AddFormProps {
 const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [formData, setFormData] = useState({
-        customerID: 5,
         description: "description 5",
         address: "address 5",
         link: "link 5"
@@ -88,13 +87,13 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
     const handleSubmit = async () => {
         try {
             console.log('Form Data:', JSON.stringify(formData));
-
-            const response = await fetch('https://whear-app.azurewebsites.net/api/v1/brand/create-new-brand', {
+            const userID = localStorage.getItem("userID")
+            const response = await fetch('http://localhost:6969/api/v1/brand/create-new-brand', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ ...formData, userID }),
             });
 
             const responseData = await response.json();
@@ -108,9 +107,9 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                     'Your has been updated!',
                     'success'
                 );
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 3000);
             } else {
                 Swal.fire(
                     'Add fail!',

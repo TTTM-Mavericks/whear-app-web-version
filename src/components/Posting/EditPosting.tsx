@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, MenuItem, TextField, Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from "sweetalert2";
 import "./EditPosting.css";
@@ -7,20 +7,22 @@ import "./EditPosting.css";
 interface EditFormProps {
     fid: {
         postID: number,
-        userID: number,
         typeOfPosts: string,
         hashtag: string | string[],
         date: string,
         status: string
     };
+    userResponse: {
+        userID: number
+    }
     editClose: () => void;
 }
 
-const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
+const EditForm: React.FC<EditFormProps> = ({ fid, userResponse, editClose }) => {
     const [typeOfPosts, setTypeOfPosts] = useState("");
     const [hashtag, setHashtag] = useState<string[]>([]);
     const [date, setDate] = useState("");
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("ACTIVE");
 
     useEffect(() => {
         setTypeOfPosts(fid.typeOfPosts);
@@ -55,10 +57,10 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
             status
         };
         const postID = fid.postID;
-        const userID = fid.userID;
+        const userID = userResponse.userID;
         console.log('Update Request:', postID, userID, obj);
 
-        fetch('https://whear-app.azurewebsites.net/api/v1/post/update-post', {
+        fetch('http://localhost:6969/api/v1/post/update-post', {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -83,6 +85,9 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                     'User information updated successfully!',
                     'success'
                 );
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             })
             .catch((err) => {
                 console.error('Update Error:', err);
@@ -97,7 +102,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
     return (
         <Box>
             <Typography variant="h5" align="left">
-                Edit User
+                Edit Posting
             </Typography>
             <IconButton
                 style={{ position: "absolute", top: 0, right: 0 }}
@@ -119,7 +124,19 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                     <TextField id="outline-basic" label="Dob" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={date} onChange={handleDateChange} />
                 </Grid>
                 <Grid item xs={11}>
-                    <TextField id="outline-basic" label="status" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={status} onChange={handleStatusChange} />
+                    <TextField
+                        id="outline-basic"
+                        label="Status"
+                        select
+                        variant="outlined"
+                        size="small"
+                        sx={{ minWidth: "100%" }}
+                        value={status}
+                        onChange={handleStatusChange}
+                    >
+                        <MenuItem value="ACTIVE">ACTIVE</MenuItem>
+                        <MenuItem value="INACTIVE">INACTIVE</MenuItem>
+                    </TextField>
                 </Grid>
             </Grid>
             <div onClick={editClose} style={{ textAlign: "center", alignItems: "center", marginTop: "3rem" }}>

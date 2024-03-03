@@ -21,7 +21,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
     const [phone, setPhoneNumber] = useState("");
     const [dateOfBirth, setDate] = useState("");
     const [language, setLanguage] = useState("");
-    const [userName, setUserName] = useState("");
+    const [username, setUserName] = useState("");
 
     useEffect(() => {
         setEmail(fid.email);
@@ -57,12 +57,12 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
             phone: phone.trim() || null,
             dateOfBirth: dateOfBirth.trim() || null,
             language: language.trim() || null,
-            userName: userName.trim() || null,
+            username: username.trim() || null,
         };
         const userID = fid.userID;
         console.log('Update Request:', userID, obj);
 
-        fetch('https://whear-app.azurewebsites.net/api/v1/user/update-user-by-userid', {
+        fetch('http://localhost:6969/api/v1/user/update-user-by-userid', {
             method: 'PUT',
             body: JSON.stringify({
                 ...obj, userID
@@ -118,7 +118,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                     <TextField id="outline-basic" label="Phone Number" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={phone} onChange={handlePhoneChange} />
                 </Grid>
                 <Grid item xs={11}>
-                    <TextField id="outline-basic" label="Username" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={userName} onChange={handleUserNameChange} />
+                    <TextField id="outline-basic" label="Username" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={username} onChange={handleUserNameChange} />
                 </Grid>
                 <Grid item xs={11}>
                     <TextField id="outline-basic" label="Dob" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={dateOfBirth} onChange={handleDOBChange} />

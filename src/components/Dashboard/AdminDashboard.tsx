@@ -40,8 +40,8 @@ const AdminDashboard: React.FC = () => {
                                 <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
                             </Box>
                             <Box>
-                                {/* <TimeWiseUserAppInstalled /> */}
-                                <BarChart />
+                                <TimeWiseUserAppInstalled />
+                                {/* <BarChart /> */}
                                 <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
                             </Box>
                             <Box>

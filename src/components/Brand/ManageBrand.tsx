@@ -10,15 +10,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Box, Button, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Swal from 'sweetalert2'
 import Modal from '@mui/material/Modal';
-import EditForm from './EditBrand';
-import CsvDownloader from 'react-csv-downloader';
-import DownloadIcon from '@mui/icons-material/Download';
 import AddUserAppInstalled from './AddBrand';
 
 const style = {
@@ -33,11 +27,20 @@ const style = {
     p: 4
 };
 
-interface ManageBrand {
-    customerID: number,
+interface clothesResponseList {
+    clothesID: number,
+    nameOfProduct: string,
+    typeOfClothes: string,
+    shape: string,
     description: string,
-    address: string,
-    link: string
+    rating: number,
+    materials: string,
+    reactPerClothes: number
+}
+
+interface ManageBrand {
+    brandID: number,
+    clothesResponseList: clothesResponseList
 }
 
 const ManageBrand: React.FC = () => {
@@ -46,11 +49,6 @@ const ManageBrand: React.FC = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [data, setData] = useState<ManageBrand[]>([]);
     const [row, setRows] = useState<ManageBrand[]>([]);
-    const [editopen, setEditOpen] = useState(false);
-    const [formid, setFormId] = useState<ManageBrand | null>(null);
-
-    const handleEditOpen = () => setEditOpen(true);
-    const handleEditClose = () => setEditOpen(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -72,89 +70,26 @@ const ManageBrand: React.FC = () => {
     }
 
     useEffect(() => {
-        const apiUrl = 'https://whear-app.azurewebsites.net/api/v1/brand/get-hot-brand';
+        const apiUrl = `http://localhost:6969/api/v1/brand/get-hot-brand`;
         fetch(apiUrl)
-            .then(response => response.json())
-            .then((data: ManageBrand[]) => {
-                setData(data);
-                setRows(data);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data && Array.isArray(data.data)) {
+                    setData(data.data);
+                    setRows(data.data);
+                    console.log("Data received:", data.data);
+
+                } else {
+                    console.error('Invalid data format:', data);
+                }
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
-
-    const deleteUser = async (id: number) => {
-        try {
-            const response = await fetch(`https://whear-app.azurewebsites.net/api/v1/brand/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Error deleting user');
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            throw error;
-        }
-    };
-
-    const confirmDelete = async (id: number) => {
-        try {
-            const result = await Swal.fire({
-                title: 'Confirm Delete',
-                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, I want to delete it!'
-            });
-            if (result.isConfirmed) {
-                await deleteUser(id);
-                Swal.fire(
-                    'Deleted UserAppInstalled Success!',
-                    'Your UserAppInstalled has been deleted!!!',
-                    'success'
-                );
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            } else {
-                Swal.fire(
-                    'Cancel The Deleted Process',
-                    'You cancelled the deleted proccess!!!',
-                    'error'
-                );
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
-    const editData = (customerID: number,
-        description: string,
-        address: string,
-        link: string) => {
-        const dataEmployee: ManageBrand = {
-            customerID: customerID,
-            description: description,
-            address: address,
-            link: link
-        }
-        setFormId(dataEmployee);
-        handleEditOpen();
-    }
-
-    const csvData = data.map((data) => ({
-        customerID: data.customerID.toString(),
-        description: data.description,
-        address: data.address,
-        link: data.link
-    }));
-
-    const formattedData = csvData.map(item => Object.values(item).map(value => String(value)));
 
     return (
         <div>
@@ -176,33 +111,10 @@ const ManageBrand: React.FC = () => {
                             disablePortal
                             options={data}
                             sx={{ width: 200 }}
-                            getOptionLabel={(data) => data.address || ""}
+                            getOptionLabel={(data) => data.clothesResponseList.typeOfClothes || ""}
                             renderInput={(params) => <TextField {...params} label="Select Country" />}
                         />
                     </div>
-
-                    <div>
-                        <Autocomplete
-                            className='select-activity'
-                            onChange={(e, v) => { fillData(v as ManageBrand) }}
-                            disablePortal
-                            options={data}
-                            sx={{ width: 200 }}
-                            getOptionLabel={(data) => data.address || ""}
-                            renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
-                        />
-                    </div>
-
-                    <CsvDownloader
-                        datas={formattedData}
-                        text='CSV'
-                        filename={`userdata_` + new Date().toLocaleString()}
-                        extension='csv'
-                        className='btn-success'
-                    >
-                        <DownloadIcon style={{ color: "white" }} />
-                    </CsvDownloader>
-
                     <Button onClick={handleOpen}>Add</Button>
                     <Modal
                         open={open}
@@ -211,21 +123,6 @@ const ManageBrand: React.FC = () => {
                     >
                         <Box sx={style}>
                             <AddUserAppInstalled closeCard={handleClose} />
-                        </Box>
-                    </Modal>
-                    {/* Open EDIT popup */}
-                    <Modal
-                        open={editopen}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            {formid !== null && (
-                                <EditForm
-                                    editClose={handleEditClose}
-                                    fid={formid}
-                                />
-                            )}
                         </Box>
                     </Modal>
                 </div>
@@ -237,55 +134,95 @@ const ManageBrand: React.FC = () => {
                                     align='left'
                                     style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    CUSTOMERID
+                                    brandID
                                 </TableCell>
                                 <TableCell
                                     align='left'
                                     style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    DESCRIPTION
+                                    clothesID
                                 </TableCell>
                                 <TableCell
                                     align='left'
                                     style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    ADDRESS
+                                    description
                                 </TableCell>
                                 <TableCell
                                     align='left'
                                     style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    LINK
+                                    materials
+                                </TableCell>
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
+                                    nameOfProduct
                                 </TableCell>
 
                                 <TableCell
                                     align='left'
                                     style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
-                                    ACTION
+                                    rating
                                 </TableCell>
+
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
+                                    reactPerClothes
+                                </TableCell>
+
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
+                                    shape
+                                </TableCell>
+
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
+                                    typeOfClothes
+                                </TableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data
+                            {Array.isArray(data) && data
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.customerID}>
-                                            <TableCell key={row.customerID} align='left'>
-                                                {row.description}
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.brandID}>
+                                            <TableCell key={row.brandID} align='left'>
+                                                {row.brandID}
                                             </TableCell>
                                             <TableCell align='left'>
-                                                {row.address}
+                                                {row.clothesResponseList.clothesID}
                                             </TableCell>
                                             <TableCell align='left'>
-                                                {row.link}
+                                                {row.clothesResponseList.description}
                                             </TableCell>
                                             <TableCell align='left'>
-                                                <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.customerID, row.description, row.address, row.link)} />
-                                                    <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.customerID)} />
-                                                </div>
+                                                {row.clothesResponseList.materials}
+                                            </TableCell>
+                                            <TableCell align='left'>
+                                                {row.clothesResponseList.nameOfProduct}
+                                            </TableCell>
+                                            <TableCell align='left'>
+                                                {row.clothesResponseList.rating}
+                                            </TableCell>
+                                            <TableCell align='left'>
+                                                {row.clothesResponseList.reactPerClothes}
+                                            </TableCell>
+                                            <TableCell align='left'>
+                                                {row.clothesResponseList.shape}
+                                            </TableCell>
+                                            <TableCell align='left'>
+                                                {row.clothesResponseList.typeOfClothes}
                                             </TableCell>
                                         </TableRow>
                                     );

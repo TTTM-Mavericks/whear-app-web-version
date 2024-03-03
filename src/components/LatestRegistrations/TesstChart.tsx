@@ -1,50 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
+import { Link } from 'react-router-dom';
+
+interface Bebe {
+    month: string,
+    amount: number
+}
 
 const LineChart = () => {
-    const [data, setData] = useState<any[]>([]);
+    const [options, setOptions] = useState({
+        xaxis: {
+            categories: ['6AM', '8AM', '10AM', '12AM', '2PM']
+        }
+    });
+    const [series, setSeries] = useState([
+        {
+            name: 'Your Line Chart Label',
+            data: [10, 20, 30, 40, 50]
+        }
+    ]);
 
     useEffect(() => {
-        const apiUrl = 'https://whear-app.azurewebsites.net/api/v1/user/get-all-user';
-
+        const apiUrl = 'http://localhost:6969/api/v1/chart/payment-chart';
         fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && Array.isArray(data.data)) {
-                    setData(data.data);
-                    console.log("Data received:", data.data);
-                } else {
-                    console.error('Invalid data format:', data);
-                }
+            .then(response => response.json())
+            .then((response) => {
+                const responseData = response.data;
+                const categories = responseData.map((item: Bebe) => item.month);
+                const seriesData = responseData.map((item: Bebe) => item.amount);
+                setOptions({
+                    xaxis: {
+                        categories: categories
+                    }
+                })
+                setSeries([
+                    {
+                        name: 'Your Line Chart Label',
+                        data: seriesData
+                    }
+                ]);
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const chartOptions: ApexOptions = {
-        chart: {
-            type: 'line',
-        },
-        xaxis: {
-            categories: data.map(item => item.role),
-        },
-        series: [
-            {
-                name: 'Your Line Chart Label',
-                data: data.map(item => item.userID),
-            },
-        ],
-    };
-
     return (
         <div>
-            <h2 className='title-bar'>Your Line Chart</h2>
-            <Chart options={chartOptions} series={chartOptions.series} type="line" height={350} />
+            <Link to="https://my.payos.vn/586bd1bb6f5a11ee824b42010a30c004/dashboard" style={{ textDecoration: "none", color: "black" }}><h2 className='title-bar'>Payment Chart</h2></Link>
+            <Chart options={options} series={series} type="line" height={350} />
         </div>
     );
 };

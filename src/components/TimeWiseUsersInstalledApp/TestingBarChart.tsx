@@ -2,49 +2,60 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const BarChart = () => {
-    const [data, setData] = useState<any[]>([]);
+interface GetUser {
+    userID: number;
+    createDate: string;
+}
+
+const BarChart: React.FC = () => {
+    const [options, setOptions] = useState<ApexOptions>({
+        xaxis: {
+            categories: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        }
+    });
+    const [series, setSeries] = useState([
+        {
+            name: 'Number of Users',
+            data: [] as number[]
+        }
+    ]);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const apiUrl = 'https://whear-app.azurewebsites.net/api/v1/user/get-all-user';
-
+        const apiUrl = 'http://localhost:6969/api/v1/user/get-all-user';
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Failed to fetch data');
                 }
                 return response.json();
             })
-            .then(data => {
-                if (data && Array.isArray(data.data)) {
-                    setData(data.data);
-                    console.log("Data received:", data.data);
-                } else {
-                    console.error('Invalid data format:', data);
+            .then((data: GetUser[] | GetUser) => {
+                if (!Array.isArray(data)) {
+                    throw new Error('Invalid data format: Data is not an array');
                 }
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
 
-    const chartOptions: ApexOptions = {
-        chart: {
-            type: 'bar',
-        },
-        xaxis: {
-            categories: data.map(item => item.role),
-        },
-        series: [
-            {
-                name: 'Your Bar Chart Label',
-                data: data.map(item => item.userID),
-            },
-        ],
-    };
+                if (data.length === 0) {
+                    throw new Error('Data array is empty');
+                }
+
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const monthCounts = Array(12).fill(0);
+                setSeries([
+                    {
+                        name: 'Number of Users',
+                        data: monthCounts
+                    }
+                ]);
+            })
+            .catch(err => {
+                setError(err.message);
+            });
+    }, []);
 
     return (
         <div>
-            <h2>Your Bar Chart</h2>
-            <Chart options={chartOptions} series={chartOptions.series} type="bar" height={350} />
+            <Chart options={options} series={series} type="bar" width={500} />
         </div>
     );
 };

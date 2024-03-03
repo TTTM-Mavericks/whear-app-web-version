@@ -90,7 +90,7 @@ const ProfileSettings: React.FC = () => {
     };
 
     useEffect(() => {
-        const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/profile';
+        const apiUrl = 'http://localhost:6969/api/v1/user/update-user-by-userid';
         fetch(apiUrl)
             .then(response => response.json())
             .then((data: AdminProfile[]) => {

@@ -2,42 +2,44 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
+interface Tessting {
+    language: string;
+    quantity: number;
+}
+
 const PieChart = () => {
-    const [data, setData] = useState<any[]>([]);
+    const [options, setOptions] = useState({
+        labels: ['6AM', '8AM'],
+    });
+
+    const [series, setSeries] = useState([1, 2]);
 
     useEffect(() => {
-        const apiUrl = 'https://whear-app.azurewebsites.net/api/v1/user/get-all-user';
-
+        const apiUrl = 'http://localhost:6969/api/v1/chart/language-chart';
         fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && Array.isArray(data.data)) {
-                    setData(data.data);
-                    console.log("Data received:", data.data);
-                } else {
-                    console.error('Invalid data format:', data);
-                }
+            .then(response => response.json())
+            .then((response) => {
+                const responseData = response.data;
+                const categories = responseData.map((item: Tessting) => item.language);
+                const seriesData = responseData.map((item: Tessting) => item.quantity);
+                setOptions({
+                    labels: categories,
+                });
+                setSeries(seriesData);
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const chartOptions: ApexOptions = {
-        chart: {
-            type: 'pie',
-        },
-        labels: data.map(item => item.userID),
-        series: data.map(item => item.userID),
-    };
-
     return (
         <div>
-            <h2>Your Pie Chart</h2>
-            <Chart options={chartOptions} series={chartOptions.series} type="pie" height={350} />
+            <h2>Language Chart</h2>
+            <Chart
+                options={options}
+                series={series}
+                type='pie'
+                width={380}
+                height={550}
+            />
         </div>
     );
 };

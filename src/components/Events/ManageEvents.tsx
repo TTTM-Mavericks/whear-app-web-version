@@ -74,23 +74,32 @@ const ManageEvents: React.FC = () => {
     }
 
     useEffect(() => {
-        const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
+        const apiUrl = `https://tunm.mavericks-tttm.studio/api/v1/post/get-all-post`;
         fetch(apiUrl)
-            .then(response => response.json())
-            .then((data: ManageEvents[]) => {
-                setData(data);
-                setRows(data);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data && Array.isArray(data.data)) {
+                    setData(data.data);
+                    setRows(data.data);
+                    console.log("Data received:", data.data);
+
+                } else {
+                    console.error('Invalid data format:', data);
+                }
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
+
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting/${id}`, {
+            const response = await fetch(`https://tunm.mavericks-tttm.studio/api/v1/post/delete-by-postid?post_id=${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
             });
             if (!response.ok) {
                 throw new Error('Error deleting user');
@@ -106,7 +115,7 @@ const ManageEvents: React.FC = () => {
         try {
             const result = await Swal.fire({
                 title: 'Confirm Delete',
-                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
+                text: "Are you sure you want to delete permanently.  You can’t undo this action.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -116,8 +125,8 @@ const ManageEvents: React.FC = () => {
             if (result.isConfirmed) {
                 await deleteUser(id);
                 Swal.fire(
-                    'Deleted UserAppInstalled Success!',
-                    'Your UserAppInstalled has been deleted!!!',
+                    'Deleted Posting Success!',
+                    'Your Posting has been deleted!!!',
                     'success'
                 );
                 setTimeout(() => {
@@ -157,6 +166,8 @@ const ManageEvents: React.FC = () => {
         phoneNumber: data.phoneNumber
     }));
 
+    const formattedData = csvData.map(item => Object.values(item).map(value => String(value)));
+
     return (
         <div>
             <Paper sx={{ overflow: 'hidden' }}>
@@ -169,7 +180,6 @@ const ManageEvents: React.FC = () => {
                     USER APP INSTALLED
                 </Typography>
                 <div style={{ display: "flex" }}>
-                    {/* Search Bar */}
                     <div>
                         <Autocomplete
                             className='select-country'
@@ -195,7 +205,7 @@ const ManageEvents: React.FC = () => {
                     </div>
 
                     <CsvDownloader
-                        datas={csvData}
+                        datas={formattedData}
                         text='CSV'
                         filename={`userdata_` + new Date().toLocaleString()}
                         extension='csv'

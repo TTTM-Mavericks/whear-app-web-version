@@ -33,13 +33,18 @@ const style = {
     p: 4
 };
 
+
+interface userResponse {
+    userID: number
+}
+
 interface ManagePosting {
     postID: number,
-    userID: number,
     typeOfPosts: string,
     hashtag: string | string[]
     date: string,
-    status: string
+    status: string,
+    userResponse: userResponse
 }
 
 const ManagePosting: React.FC = () => {
@@ -51,7 +56,7 @@ const ManagePosting: React.FC = () => {
     const [row, setRows] = useState<ManagePosting[]>([]);
     const [editopen, setEditOpen] = useState(false);
     const [formid, setFormId] = useState<ManagePosting | null>(null);
-
+    const [formidUserResponse, setFormIdUserResponse] = useState<userResponse | null>(null);
     const handleEditOpen = () => setEditOpen(true);
     const handleEditClose = () => setEditOpen(false);
     const handleOpen = () => setOpen(true);
@@ -75,7 +80,7 @@ const ManagePosting: React.FC = () => {
     }
 
     useEffect(() => {
-        const apiUrl = `https://whear-app.azurewebsites.net/api/v1/post/get-all-post`;
+        const apiUrl = `http://localhost:6969/api/v1/post/get-all-post`;
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -99,7 +104,7 @@ const ManagePosting: React.FC = () => {
 
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`https://whear-app.azurewebsites.net/api/v1/post/delete-by-postid?post_id=${id}`, {
+            const response = await fetch(`http://localhost:6969/api/v1/post/delete-by-postid?post_id=${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -116,7 +121,7 @@ const ManagePosting: React.FC = () => {
         try {
             const result = await Swal.fire({
                 title: 'Confirm Delete',
-                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
+                text: "Are you sure you want to delete permanently.  You can’t undo this action.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -126,8 +131,8 @@ const ManagePosting: React.FC = () => {
             if (result.isConfirmed) {
                 await deleteUser(id);
                 Swal.fire(
-                    'Deleted UserAppInstalled Success!',
-                    'Your UserAppInstalled has been deleted!!!',
+                    'Deleted Posting Success!',
+                    'Your Posting has been deleted!!!',
                     'success'
                 );
                 setTimeout(() => {
@@ -145,25 +150,6 @@ const ManagePosting: React.FC = () => {
         }
     };
 
-    // const editData = (
-    //     postID: number,
-    //     userID: number,
-    //     typeOfPosts: string,
-    //     date: string,
-    //     status: string,
-    //     hashtag: string | string[]
-    // ) => {
-    //     const dataEmployee: ManagePosting = {
-    //         postID: postID,
-    //         userID: userID,
-    //         typeOfPosts: typeOfPosts,
-    //         date: date,
-    //         status: status,
-    //         hashtag: Array.isArray(hashtag) ? hashtag.join(', ') : (hashtag ? hashtag.toString() : "")
-    //     };
-    //     setFormId(dataEmployee);
-    //     handleEditOpen();
-    // };
     const editData = (
         postID: number,
         userID: number,
@@ -174,21 +160,21 @@ const ManagePosting: React.FC = () => {
     ) => {
         const dataEmployee: ManagePosting = {
             postID: postID,
-            userID: userID,
             typeOfPosts: typeOfPosts,
             date: date,
             status: status,
-            hashtag: Array.isArray(hashtag) ? hashtag.join(', ') : (hashtag ? hashtag.toString() : "")
+            hashtag: Array.isArray(hashtag) ? hashtag.join(', ') : (hashtag ? hashtag.toString() : ""),
+            userResponse: { userID: userID }
         };
+        console.log(dataEmployee);
         setFormId(dataEmployee);
+        setFormIdUserResponse({ userID: userID });
         handleEditOpen();
     };
 
-
-
     const csvData = data.map((data) => ({
         postID: data.postID.toString(),
-        userID: data.userID,
+        userID: data.userResponse.userID,
         typeOfPosts: data.typeOfPosts,
         date: data.date,
         status: data.status,
@@ -217,11 +203,11 @@ const ManagePosting: React.FC = () => {
                             options={data}
                             sx={{ width: 200 }}
                             getOptionLabel={(data) => data.typeOfPosts || ""}
-                            renderInput={(params) => <TextField {...params} label="Select Country" />}
+                            renderInput={(params) => <TextField {...params} label="Select Type Of Post" />}
                         />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <Autocomplete
                             className='select-activity'
                             onChange={(e, v) => { fillData(v as ManagePosting) }}
@@ -231,7 +217,7 @@ const ManagePosting: React.FC = () => {
                             getOptionLabel={(data) => data.typeOfPosts || ""}
                             renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
                         />
-                    </div>
+                    </div> */}
 
                     <CsvDownloader
                         datas={formattedData}
@@ -260,10 +246,11 @@ const ManagePosting: React.FC = () => {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
-                            {formid !== null && (
+                            {formid !== null && formidUserResponse !== null && (
                                 <EditForm
                                     editClose={handleEditClose}
                                     fid={formid}
+                                    userResponse={formidUserResponse}
                                 />
                             )}
                         </Box>
@@ -328,7 +315,7 @@ const ManagePosting: React.FC = () => {
                                                 {row.postID}
                                             </TableCell>
                                             <TableCell align='left'>
-                                                {row.userID}
+                                                {row.userResponse.userID}
                                             </TableCell>
                                             <TableCell align='left'>
                                                 {row.typeOfPosts}
@@ -339,7 +326,6 @@ const ManagePosting: React.FC = () => {
                                                         typeof tag === 'string' ? (
                                                             <span key={index}>{tag}</span>
                                                         ) : (
-                                                            // <span key={index}>{tag.hashtagID}: {tag.hashtag} <br /></span>
                                                             <span key={index}>{tag.hashtag} <br /></span>
                                                         )
                                                     ))
@@ -355,7 +341,7 @@ const ManagePosting: React.FC = () => {
                                             </TableCell>
                                             <TableCell align='left'>
                                                 <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.postID, row.userID, row.typeOfPosts, row.date, row.status, row.hashtag)} />
+                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.postID, row.userResponse.userID, row.typeOfPosts, row.date, row.status, row.hashtag)} />
                                                     <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.postID)} />
                                                 </div>
                                             </TableCell>

@@ -18,113 +18,107 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [formData, setFormData] = useState({
         dateOfBirth: "2002-01-18",
-        email: "bebe13122002@gmail.com",
-        gender: "",
-        imgUrl: [] as string[],
-        language: "VIETNAM",
+        email: "test4@gmail.com",
+        gender: "true",
+        imgUrl: "https://firebasestorage.googleapis.com/v0/b/whear-app-1f70d.appspot.com/o/Stuff%2Flogo.png?alt=media&token=1e7dd6fd-2841-4079-b208-6487b3934a02https://firebasestorage.googleapis.com/v0/b/whear-app-1f70d.appspot.com/o/Stuff%2Flogo.png?alt=media&token=1e7dd6fd-2841-4079-b208-6487b3934a02",
+        language: "ENGLISH",
         password: "Aa@123456",
-        phone: "091236412",
-        username: "bebe13122002@gmail.com"
+        phone: "0987242343",
+        username: "test4"
     });
 
-    const [files, setFiles] = useState<string[]>([]);
+    // const [files, setFiles] = useState<string[]>([]);
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFiles = e.target.files;
+    // const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const selectedFiles = e.target.files;
 
-        if (selectedFiles && selectedFiles.length > 0) {
-            const imageUrls = await uploadToCloudinary(selectedFiles);
-            setFiles((prevFiles) => [...prevFiles, ...imageUrls]);
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                imgUrl: [...prevFormData.imgUrl, ...imageUrls],
-            }));
-        } else {
-            setFiles([]);
-        }
-    };
+    //     if (selectedFiles && selectedFiles.length > 0) {
+    //         const imageUrls = await uploadToCloudinary(selectedFiles);
+    //         setFiles((prevFiles) => [...prevFiles, ...imageUrls]);
+    //         setFormData((prevFormData) => ({
+    //             ...prevFormData,
+    //             imgUrl: [...prevFormData.imgUrl, ...imageUrls],
+    //         }));
+    //     } else {
+    //         setFiles([]);
+    //     }
+    // };
 
-    const uploadToCloudinary = async (files: FileList): Promise<string[]> => {
-        try {
-            const cloud_name = "dby2saqmn";
-            const preset_key = "whear-app";
-            const folder_name = "test";
-            const formData = new FormData();
-            formData.append("upload_preset", preset_key);
-            formData.append("folder", folder_name);
+    // const uploadToCloudinary = async (files: FileList): Promise<string[]> => {
+    //     try {
+    //         const cloud_name = "dby2saqmn";
+    //         const preset_key = "whear-app";
+    //         const folder_name = "test";
+    //         const formData = new FormData();
+    //         formData.append("upload_preset", preset_key);
+    //         formData.append("folder", folder_name);
 
-            const uploadedUrls: string[] = [];
+    //         const uploadedUrls: string[] = [];
 
-            for (const file of Array.from(files)) {
-                formData.append("file", file);
+    //         for (const file of Array.from(files)) {
+    //             formData.append("file", file);
 
-                const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
-                    method: "POST",
-                    body: formData,
-                });
+    //             const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+    //                 method: "POST",
+    //                 body: formData,
+    //             });
 
-                const responseData = await response.json();
+    //             const responseData = await response.json();
 
-                if (responseData.secure_url) {
-                    const imageUrl = responseData.secure_url;
-                    console.log(imageUrl);
-                    uploadedUrls.push(imageUrl);
-                } else {
-                    console.error("Error uploading image to Cloudinary. Response:", responseData);
-                }
-            }
+    //             if (responseData.secure_url) {
+    //                 const imageUrl = responseData.secure_url;
+    //                 console.log(imageUrl);
+    //                 uploadedUrls.push(imageUrl);
+    //             } else {
+    //                 console.error("Error uploading image to Cloudinary. Response:", responseData);
+    //             }
+    //         }
 
-            return uploadedUrls;
-        } catch (error) {
-            console.error("Error uploading images to Cloudinary:", error);
-            return [];
-        }
-    };
+    //         return uploadedUrls;
+    //     } catch (error) {
+    //         console.error("Error uploading images to Cloudinary:", error);
+    //         return [];
+    //     }
+    // };
 
     const handleFormChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData(prevFormData => ({
+            ...prevFormData,
             [name]: value,
-        });
+        }));
     };
+
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('https://whear-app.azurewebsites.net/api/v1/auth/register', {
+            console.log('Form Data:', JSON.stringify(formData));
+
+            const response = await fetch('http://localhost:6969/api/v1/auth/register', {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
-                    // "Accept": "*/*",
-                    // "X-Requested-With": "XMLHttpRequest",
-                    // "Cache-Control": "no-cache",
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
             });
 
             if (!response.ok) {
-                const errorResponse = await response.json();
-                console.error('Error Response:', errorResponse);
-                throw new Error(`Server returned error: ${errorResponse.message}`);
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const responseData = await response.json();
 
             console.log('Response:', responseData);
 
-            if (responseData === null) {
-                Swal.fire(
-                    'Add fail!',
-                    'Server returned null response.',
-                    'error'
-                );
-            } else if (responseData && Object.keys(responseData).length > 0) {
-                sessionStorage.setItem('obj', JSON.stringify(formData));
+            if (responseData) {
                 Swal.fire(
                     'Add Success!',
-                    'Your data has been updated!',
+                    'Your post has been updated!',
                     'success'
                 );
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2000);
             } else {
                 Swal.fire(
                     'Add fail!',
@@ -132,15 +126,14 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                     'error'
                 );
             }
-        } catch (err) {
+        } catch (err: any) {
             console.error('Error:', err);
             Swal.fire(
                 'Add fail!',
-                `${err}`,
+                `${err.message || 'Unknown error'}`,
                 'error'
             );
         }
-        console.log('Form Data:', { formData });
     };
 
     return (
@@ -231,13 +224,13 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <input type="file" multiple onChange={handleChange}
                             ref={fileInputRef} />
                         {files.map((imageUrl, index) => (
                             <img key={index} src={imageUrl} alt={`Image ${index}`} />
                         ))}
-                    </Grid>
+                    </Grid> */}
                 </Grid>
                 <div
                     onClick={closeCard}

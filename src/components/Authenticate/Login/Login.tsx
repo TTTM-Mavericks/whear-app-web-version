@@ -33,7 +33,7 @@ const Login: React.FC = () => {
         e.preventDefault();
         const obj = { email, password };
 
-        fetch('https://whear-app.azurewebsites.net/api/v1/auth/login', {
+        fetch('http://localhost:6969/api/v1/auth/login', {
             method: 'POST',
             headers: {
                 Accept: '*/*',

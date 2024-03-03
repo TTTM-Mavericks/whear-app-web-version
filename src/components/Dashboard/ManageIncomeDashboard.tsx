@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import ManageUser from '../Users/ManageUsers';
-import ManageIncome from '../Income/ManageIncome';
+// import ManageIncome from '../Income/ManageIncome';
 
 const ManageIncomeDashboard: React.FC = () => {
     return (
@@ -18,7 +18,7 @@ const ManageIncomeDashboard: React.FC = () => {
                 </Box>
                 <Box style={{ flex: '1 1 80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
-                        <ManageIncome />
+                        {/* <ManageIncome /> */}
                         <Box style={{ marginBottom: 'auto' }}>
                             <Footer />
                         </Box>
