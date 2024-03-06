@@ -22,13 +22,13 @@ const PaymentSuccess: React.FC = () => {
                 },
             });
 
-            if (response.success !== 200) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-                window.location.href = 'payment-cancel'
-            } else {
+            if (response.success == 200) {
                 setTimeout(()=>{
                     window.close();
                 }, 3000);
+            } else {
+                window.location.href = 'payment-cancel'
+                
             }
 
             const data = await response.json();
