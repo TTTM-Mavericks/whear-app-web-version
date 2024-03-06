@@ -14,7 +14,13 @@ const PaymentSuccess: React.FC = () => {
             // Correctly construct the apiUrl with parameters
             const apiUrl = `https://host.whearapp.tech/api/v1/payment/confirm-update?orderCode=${orderCode}&item=${item}`;
 
-            const response: any = await fetch(apiUrl);
+            const response: any = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any other headers as needed
+                },
+            });
 
             if (response.success !== 200) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
