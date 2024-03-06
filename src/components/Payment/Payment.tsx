@@ -22,14 +22,10 @@ const PaymentSuccess: React.FC = () => {
                 },
             });
 
-            if (response.success == 200) {
                 setTimeout(()=>{
                     window.close();
-                }, 5000);
-            } else {
-                window.location.href = 'payment-cancel'
-                
-            }
+                }, 2000);
+            
             
         } catch (error) {
             console.error("Error fetching payment information:", error);
