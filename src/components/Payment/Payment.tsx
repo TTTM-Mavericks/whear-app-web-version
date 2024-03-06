@@ -25,20 +25,14 @@ const PaymentSuccess: React.FC = () => {
             if (response.success == 200) {
                 setTimeout(()=>{
                     window.close();
-                }, 3000);
+                }, 5000);
             } else {
                 window.location.href = 'payment-cancel'
                 
             }
-
-            const data = await response.json();
-
-            // Process the payment information data as needed
-            console.log("Payment information:", data);
             
         } catch (error) {
             console.error("Error fetching payment information:", error);
-            window.location.href = 'payment-cancel'
         }
 
     };
