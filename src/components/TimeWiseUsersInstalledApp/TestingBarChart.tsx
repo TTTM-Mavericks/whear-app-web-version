@@ -22,7 +22,7 @@ const BarChart: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:6969/api/v1/user/get-all-user';
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/user/get-all-user';
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {

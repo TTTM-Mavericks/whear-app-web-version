@@ -156,7 +156,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         const clothesId = fid.clothesID;
         console.log({ ...obj, clothesId });
         try {
-            const response = await fetch(`http://localhost:6969/api/v1/clothes/update-clothes`, {
+            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/clothes/update-clothes`, {
 
                 method: 'PUT',
                 headers: {

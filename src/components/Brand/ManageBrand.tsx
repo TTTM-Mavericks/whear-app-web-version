@@ -70,7 +70,7 @@ const ManageBrand: React.FC = () => {
     }
 
     useEffect(() => {
-        const apiUrl = `http://localhost:6969/api/v1/brand/get-hot-brand`;
+        const apiUrl = `https://tam.mavericks-tttm.studio/api/v1/brand/get-hot-brand`;
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {

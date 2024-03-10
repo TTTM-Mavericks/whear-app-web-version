@@ -82,7 +82,7 @@ const ManageClothes: React.FC = () => {
     const TOKEN = localStorage.getItem("accessToken")
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:6969/api/v1/clothes/get-all-clothes';
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/clothes/get-all-clothes';
         const headers = {
             "Authorization": `Bearer ${TOKEN}`,
         };
@@ -109,7 +109,7 @@ const ManageClothes: React.FC = () => {
 
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:6969/api/v1/clothes/delete-clothes?clothes_id=${id}`, {
+            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/clothes/delete-clothes?clothes_id=${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Accept": "*/*",
@@ -192,7 +192,7 @@ const ManageClothes: React.FC = () => {
     }
 
     const csvData = data.map((data) => ({
-        clothesID: data.clothesID.toString(),
+        clothesID: data.clothesID,
         nameOfProduct: data.nameOfProduct,
         typeOfClothes: data.typeOfClothes,
         shape: data.shape,

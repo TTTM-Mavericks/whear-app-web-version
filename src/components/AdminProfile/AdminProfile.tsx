@@ -90,7 +90,7 @@ const ProfileSettings: React.FC = () => {
     };
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:6969/api/v1/user/update-user-by-userid';
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/user/update-user-by-userid';
         fetch(apiUrl)
             .then(response => response.json())
             .then((data: AdminProfile[]) => {

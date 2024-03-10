@@ -21,7 +21,7 @@ const TimeWiseUserAppInstalled: React.FC = () => {
     ]);
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:6969/api/v1/user/get-all-user';
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/user/get-all-user';
         fetch(apiUrl)
             .then(response => response.json())
             .then((response) => {

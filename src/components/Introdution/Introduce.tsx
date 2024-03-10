@@ -14,7 +14,7 @@ const Introduce: React.FC = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:6969/api/v1/user/get-all-user');
+                const response = await fetch('https://tam.mavericks-tttm.studio/api/v1/user/get-all-user');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

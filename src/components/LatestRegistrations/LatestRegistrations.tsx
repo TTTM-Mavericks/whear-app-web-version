@@ -36,7 +36,7 @@ const LatestRegistration: React.FC = () => {
     const TOKEN = localStorage.getItem("accessToken")
 
     useEffect(() => {
-        const apiUrl = 'https://whear-app.azurewebsites.net/api/v1/get-all-user';
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/get-all-user';
         const headers = {
             "Authorization": `Bearer ${TOKEN}`,
         };

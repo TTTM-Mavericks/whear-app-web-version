@@ -62,7 +62,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         const userID = fid.userID;
         console.log('Update Request:', userID, obj);
 
-        fetch('http://localhost:6969/api/v1/user/update-user-by-userid', {
+        fetch('https://tam.mavericks-tttm.studio/api/v1/user/update-user-by-userid', {
             method: 'PUT',
             body: JSON.stringify({
                 ...obj, userID

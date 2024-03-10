@@ -40,7 +40,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
     const handleSubmit = () => {
         const customerID = fid.customerID
         const obj = { description, address, link };
-        fetch(`https://whear-app.azurewebsites.net/api/v1/brand`, {
+        fetch(`https://tam.mavericks-tttm.studio/api/v1/brand`, {
             method: 'PUT',
             headers: {
                 "Accept": "*/*",

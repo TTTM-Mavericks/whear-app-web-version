@@ -94,7 +94,7 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
         try {
             console.log('Form Data:', JSON.stringify(formData));
 
-            const response = await fetch('http://localhost:6969/api/v1/auth/register', {
+            const response = await fetch('https://tam.mavericks-tttm.studio/api/v1/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

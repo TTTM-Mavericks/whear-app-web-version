@@ -122,7 +122,7 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
             console.log('Form Data:', JSON.stringify(formData));
             const userId = 1;
 
-            const response = await fetch('http://localhost:6969/api/v1/clothes/create-clothes', {
+            const response = await fetch('https://tam.mavericks-tttm.studio/api/v1/clothes/create-clothes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
