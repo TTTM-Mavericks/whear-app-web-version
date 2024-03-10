@@ -8,18 +8,21 @@ import GuardianWisePieChart from '../GuardianWisePieChart/GuardianWisePieChart';
 import TimeWiseUserAppInstalled from '../TimeWiseUsersInstalledApp/TimeWiseUsersInstalledApp';
 import LatestRegistration from '../LatestRegistrations/LatestRegistrations';
 import UsersPerCountry from '../UsersPerCountry/UsersPerCountry';
+import LineChart from '../LatestRegistrations/TesstChart';
+import PieChart from '../GuardianWisePieChart/TesstPieChart';
+import BarChart from '../TimeWiseUsersInstalledApp/TestingBarChart';
 
 const AdminDashboard: React.FC = () => {
     return (
         <Box>
+            <Header />
             <Box style={{ display: 'flex' }}>
                 <Box style={{ flex: '20%' }}>
                     <Box>
-                        <Header />
                         <MenuAdmin />
                     </Box>
                 </Box>
-                <Box style={{ flex: '70%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
+                <Box style={{ flex: '80%', padding: '20px', borderLeft: '3px solid #FA9E93', marginTop: "5%" }}>
                     <Box>
                         <Box>
                             <Box >
@@ -27,15 +30,18 @@ const AdminDashboard: React.FC = () => {
                                 <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
                             </Box>
                             <Box>
-                                <LatestRegistration />
+                                {/* <LatestRegistration /> */}
+                                <LineChart />
                                 <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
                             </Box>
                             <Box>
-                                <GuardianWisePieChart />
+                                {/* <GuardianWisePieChart /> */}
+                                <PieChart />
                                 <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
                             </Box>
                             <Box>
                                 <TimeWiseUserAppInstalled />
+                                {/* <BarChart /> */}
                                 <Box style={{ borderBottom: '2px solid #FA9E93', marginTop: "20px", marginBottom: "20px" }}></Box>
                             </Box>
                             <Box>

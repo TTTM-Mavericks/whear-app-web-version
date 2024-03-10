@@ -33,7 +33,6 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         fetch(`https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting/${fid.id}`, {
             method: 'PUT',
             headers: {
-                "Access-Control-Allow-Origin": 'http://localhost:3000/employee',
                 "Accept": "*/*",
                 "Content-Type": "application/json",
                 "X-Requested-With": "XMLHttpRequest",

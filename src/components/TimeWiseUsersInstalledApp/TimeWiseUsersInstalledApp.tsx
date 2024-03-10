@@ -1,56 +1,51 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
 interface TimeWiseUserAppInstalled {
-    id: number,
-    countryName: string,
-    name: string,
-    userName: string,
-    email: string,
-    phoneNumber: string,
+    userID: number;
+    createDate: Date;
+    language: string;
 }
 
 const TimeWiseUserAppInstalled: React.FC = () => {
     const [options, setOptions] = useState({
-        chart: {
-            id: 'basic-bar'
-        },
         xaxis: {
-            categories: ['6AM', '8AM', '10AM', '12AM', '2PM', '4PM', '6PM', '8PM', '10PM', '12PM']
+            categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         }
-    })
-
+    });
     const [series, setSeries] = useState([
         {
-            data: [10, 20, 30, 40, 50]
+            name: 'Users',
+            data: Array(12).fill(0)
         }
-    ])
+    ]);
 
+    useEffect(() => {
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/user/get-all-user';
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then((response) => {
+                const responseData: TimeWiseUserAppInstalled[] = response.data;
+                const monthCounts: number[] = Array(12).fill(0);
+                responseData.forEach((item: TimeWiseUserAppInstalled) => {
+                    const month = new Date(item.createDate).getMonth();
+                    monthCounts[month]++;
+                });
 
-    // useEffect(() => {
-    //     const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
-    //     fetch(apiUrl)
-    //         .then(response => response.json())
-    //         .then((data: TimeWiseUserAppInstalled[]) => {
-    //             const categories = data.map((item) => item.name);
-    //             const seriesData = data.map((item) => ({
-    //                 data: [item.id],
-    //             }));
-    //             setOptions({
-    //                 ...options,
-    //                 xaxis: {
-    //                     categories,
-    //                 }
-    //             })
-    //             setSeries(seriesData)
-    //         })
-    //         .catch(error => console.error('Error fetching data:', error));
-    // }, []);
+                setSeries([
+                    {
+                        name: 'Users',
+                        data: monthCounts
+                    }
+                ]);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
     return (
         <div>
             <div className='title-bar'>
-                Time wise Users Installed App
+                <h1>Time wise Users Installed App</h1>
             </div>
             <br />
             <br />
@@ -58,6 +53,8 @@ const TimeWiseUserAppInstalled: React.FC = () => {
                 options={options}
                 series={series}
                 type='bar'
+                width={1000}
+                height={600}
             />
         </div>
     );

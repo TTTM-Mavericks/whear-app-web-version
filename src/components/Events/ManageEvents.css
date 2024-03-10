@@ -1,0 +1,29 @@
+.btn-success {
+    border: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 45px;
+    height: 45px;
+    left: 995px;
+    top: 82px;
+    width: 30px;
+    height: 30px;
+    background: #000000;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 7px;
+    margin-left: 45%;
+}
+
+.select-activity {
+    margin-left: 5%;
+}
+
+.MuiAutocomplete-inputRoot {
+    border-radius: 100px !important;
+}

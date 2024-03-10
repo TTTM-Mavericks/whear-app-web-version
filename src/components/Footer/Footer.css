@@ -1,8 +1,10 @@
 .footer-component {
-    display: flex;
-    background-color: #E6E6E6;
-    border-radius: 2%;
-    /* position: absolute; */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    position: relative;
     bottom: 0;
-    height: 60px;
+    height: fit-content;
+    display: flex;
 }
