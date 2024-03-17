@@ -10,36 +10,114 @@ import {
     MenuItem
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import Multiselect from 'multiselect-react-dropdown';
 import Swal from 'sweetalert2';
 
 interface AddFormProps {
     closeCard: () => void;
 }
 
+const clothesSizesData = [
+    { Sizes: "S" },
+    { Sizes: "M" },
+    { Sizes: "L" },
+    { Sizes: "XL" },
+    { Sizes: "XXL" },
+    { Sizes: "XXXL" },
+]
+
+const clothesSeasonData = [
+    { Seasons: "SPRING" },
+    { Seasons: "AUTUMN" },
+    { Seasons: "SUMMER" },
+    { Seasons: "WINTER" }
+]
+
+const clothesColorsData = [
+    { Colors: "RED" },
+    { Colors: "WHITE" },
+    { Colors: "GRAY" },
+    { Colors: "YELLOW" },
+    { Colors: "BLUE" },
+    { Colors: "BLACK" },
+    { Colors: "BROWN" }
+]
+
+const clothesGenderData = [
+    { Genders: "MALE" },
+    { Genders: "FEMALE" },
+    { Genders: "UNISEX" },
+]
+
 const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [formData, setFormData] = useState({
-        userID: "1",
-        nameOfProduct: "",
-        typeOfClothes: '',
+    const [formData, setFormData] = useState({ clothesImages: [] as string[], });
 
-        shape: '',
+    const [nameOfProduct, setNameOfProduct] = useState("Aos thun T-SHIRT");
+    const [typeOfClothes, setTypeOfClothes] = useState("SHIRT");
+    const [shape, setShape] = useState("SQUARE");
+    const [description, setDescription] = useState("IT SO BEAUTIFUL");
+    const [rating, setRating] = useState(0);
+    const [materials, setMaterials] = useState("COTTON");
+    const initialClothesSize = clothesSizesData.map(sizes => sizes.Sizes);
+    const [clothesSizes, setClothesSizes] = useState<string[]>(initialClothesSize);
 
-        clothesSeasons: [],
+    const initalClothesColors = clothesColorsData.map(color => color.Colors);
+    const [clothesColors, setClothesColors] = useState<string[]>(initalClothesColors);
 
-        description: '',
-        link: '',
-        rating: 0,
-        materials: '',
+    const initialClothesSeasons = clothesSeasonData.map(season => season.Seasons);
+    const [clothesSeasons, setClothesSeasons] = useState<string[]>(initialClothesSeasons);
 
-        clothesImages: [] as string[],
+    const initialClothesGender = clothesGenderData.map(gender => gender.Genders);
+    const [clothesGender, setClothesGender] = useState<string[]>(initialClothesGender);
 
-        clothesSizes: [] as string[],
-        clothesColors: [] as string[],
-        hashtag: [] as string[]
-    });
 
     const [files, setFiles] = useState<string[]>([]);
+
+    const handleNameOfProductChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNameOfProduct(e.target.value);
+    }
+
+    const handleClothesSeasonsChange = (selectedSeasons: { Seasons: string }[]) => {
+        const selectedValues = selectedSeasons.map(season => season.Seasons);
+        setClothesSeasons(selectedValues);
+    }
+
+    const handleTypeOfClothesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTypeOfClothes(e.target.value);
+    }
+
+    const handleShapeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setShape(e.target.value);
+    }
+
+    const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDescription(e.target.value);
+    }
+
+    const handleRatinghange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newRating = Number(e.target.value);
+        setRating(newRating);
+    }
+
+    const handleMaterialsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setMaterials(e.target.value);
+    }
+
+    const handleClothesSizesChange = (selectedSizes: { Sizes: string }[]) => {
+        const selectedValues = selectedSizes.map(size => size.Sizes);
+        setClothesSizes(selectedValues);
+    }
+
+    const handleClothesColorsChange = (selectedColors: { Colors: string }[]) => {
+        const selectedValues = selectedColors.map(color => color.Colors);
+        setClothesColors(selectedValues);
+    }
+
+    const handleClothesGenderChange = (selectedGenders: { Genders: string }[]) => {
+        const selectedValues = selectedGenders.map(color => color.Genders);
+        setClothesGender(selectedValues);
+    }
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files;
@@ -95,7 +173,7 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
     };
 
     const handleArrayChange = (name: string, value: string) => {
-        if (['clothesSizes', 'clothesColors', 'hashtag', 'clothesSeasons'].includes(name)) {
+        if (['clothesSizes', 'clothesColors', 'hashtag', 'clothesSeasons', 'clothesGender'].includes(name)) {
             const arrayValue = value.split(',').map(item => item.trim());
             setFormData(prevFormData => ({
                 ...prevFormData,
@@ -107,7 +185,7 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
     const handleFormChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
-        if (['clothesSizes', 'clothesColors', 'hashtag', 'clothesSeasons'].includes(name)) {
+        if (['clothesSizes', 'clothesColors', 'hashtag', 'clothesSeasons', 'clothesGender'].includes(name)) {
             handleArrayChange(name, value);
         } else {
             setFormData(prevFormData => ({
@@ -117,17 +195,30 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
         }
     };
 
+    const obj = {
+        nameOfProduct: nameOfProduct,
+        typeOfClothes: typeOfClothes,
+        shape: shape,
+        clothesSeasons: clothesSeasons,
+        description: description,
+        rating: rating,
+        materials: materials,
+        clothesSizes: clothesSizes,
+        clothesColors: clothesColors,
+        clothesGender: clothesGender
+    };
+
     const handleSubmit = async () => {
         try {
-            console.log('Form Data:', JSON.stringify(formData));
-            const userId = 1;
+            const userID = localStorage.getItem("userID");
+            console.log('Form Data:', JSON.stringify({ ...formData, ...obj, userID }));
 
             const response = await fetch('https://tam.mavericks-tttm.studio/api/v1/clothes/create-clothes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, userId }),
+                body: JSON.stringify({ ...obj, userID }),
             });
 
             const responseData = await response.json();
@@ -137,24 +228,24 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
             if (responseData) {
                 sessionStorage.setItem('obj', JSON.stringify(formData));
                 Swal.fire(
-                    'Add Success!',
-                    'Your has been updated!',
+                    'Add Clothes Success!',
+                    'You has been add clothes success!',
                     'success'
                 );
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1000);
             } else {
                 Swal.fire(
                     'Add fail!',
-                    'Please check information!',
+                    'Please check data before submit!',
                     'error'
                 );
             }
         } catch (err) {
             console.error('Error:', err);
             Swal.fire(
-                'Add fail!',
+                'Add clothe fail!',
                 `${err}`,
                 'error'
             );
@@ -175,19 +266,13 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                 <Box height={50} />
 
                 <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="nameOfProduct"
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: '100%' }}
-                            name="nameOfProduct"
-                            value={formData.nameOfProduct}
-                            onChange={handleFormChange}
-                        />
+                    <Grid item xs={11}>
+                        <Multiselect options={clothesSeasonData} displayValue="Seasons" onSelect={handleClothesSeasonsChange} />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={11}>
+                        <TextField id="outline-basic" label="nameOfProduct" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={nameOfProduct} onChange={handleNameOfProductChange} />
+                    </Grid>
+                    <Grid item xs={11}>
                         <TextField
                             id="outline-basic"
                             label="typeofclothes"
@@ -195,9 +280,8 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                             variant="outlined"
                             size="small"
                             sx={{ minWidth: "100%" }}
-                            value={formData.typeOfClothes}
-                            onChange={handleFormChange}
-                            name='typeOfClothes'
+                            value={typeOfClothes}
+                            onChange={handleTypeOfClothesChange}
                         >
                             <MenuItem value="SHIRT">SHIRT</MenuItem>
                             <MenuItem value="PANTS">PANTS</MenuItem>
@@ -298,8 +382,7 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                             <MenuItem value="BERET_HAT">BERET_HAT</MenuItem>
                         </TextField>
                     </Grid>
-
-                    <Grid item xs={12}>
+                    <Grid item xs={11}>
                         <TextField
                             id="outline-basic"
                             label="shape"
@@ -307,9 +390,8 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                             variant="outlined"
                             size="small"
                             sx={{ minWidth: "100%" }}
-                            value={formData.shape}
-                            onChange={handleFormChange}
-                            name='shape'
+                            value={shape}
+                            onChange={handleShapeChange}
                         >
                             <MenuItem value="CIRCLE">CIRCLE</MenuItem>
                             <MenuItem value="SQUARE">SQUARE</MenuItem>
@@ -320,112 +402,13 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                             <MenuItem value="OCTAGON">OCTAGON</MenuItem>
                         </TextField>
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="clothesSeasons"
-                            select
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: "100%" }}
-                            value={formData.clothesSeasons}
-                            onChange={handleFormChange}
-                            name='clothesSeasons'
-                        >
-                            <MenuItem value="spring">SPRING</MenuItem>
-                            <MenuItem value="summer">SUMMER</MenuItem>
-                            <MenuItem value="autumn">AUTUMN</MenuItem>
-                            <MenuItem value="winter">WINTER</MenuItem>
-                        </TextField>
+                    <Grid item xs={11}>
+                        <TextField id="outline-basic" label="description" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={description} onChange={handleDescriptionChange} />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="description"
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: '100%' }}
-                            name="description"
-                            value={formData.description}
-                            onChange={handleFormChange}
-                        />
+                    <Grid item xs={11}>
+                        <TextField id="outline-basic" label="rating" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={rating} onChange={handleRatinghange} />
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="rating"
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: '100%' }}
-                            type='number'
-                            // minRows={0}
-                            // maxRows={5}
-                            name="rating"
-                            value={formData.rating}
-                            onChange={handleFormChange}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="clothesSizes"
-                            select
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: "100%" }}
-                            value={formData.clothesSizes}
-                            onChange={handleFormChange}
-                            name='clothesSizes'
-                        >
-                            <MenuItem value="s">S</MenuItem>
-                            <MenuItem value="m">M</MenuItem>
-                            <MenuItem value="l">L</MenuItem>
-                            <MenuItem value="xl">XL</MenuItem>
-                            <MenuItem value="xxl">XXL</MenuItem>
-                            <MenuItem value="xxxl">XXXL</MenuItem>
-                        </TextField>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="clothesColors"
-                            select
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: "100%" }}
-                            value={formData.clothesColors}
-                            onChange={handleFormChange}
-                            name="clothesColors"
-                        >
-                            <MenuItem value="red">RED</MenuItem>
-                            <MenuItem value="black">BLACK</MenuItem>
-                            <MenuItem value="white">WHITE</MenuItem>
-                            <MenuItem value="pink">PINK</MenuItem>
-                            <MenuItem value="yellow">YELLOW</MenuItem>
-                            <MenuItem value="blue">BLUE</MenuItem>
-                        </TextField>
-                    </Grid>
-
-
-                    <Grid item xs={12}>
-                        <TextField
-                            id="outline-basic"
-                            label="hashtag"
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: '100%' }}
-                            name="hashtag"
-                            value={formData.hashtag.join(', ')}
-                            onChange={handleFormChange}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
+                    <Grid item xs={11}>
                         <TextField
                             id="outline-basic"
                             label="materials"
@@ -433,32 +416,40 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
                             variant="outlined"
                             size="small"
                             sx={{ minWidth: "100%" }}
-                            value={formData.materials}
-                            onChange={handleFormChange}
-                            name='materials'
+                            value={materials}
+                            onChange={handleMaterialsChange}
                         >
-                            <MenuItem value="cotton">COTTON</MenuItem>
-                            <MenuItem value="polyester">POLYESTER</MenuItem>
-                            <MenuItem value="fleece">FLEECE</MenuItem>
-                            <MenuItem value="wool">WOOL</MenuItem>
-                            <MenuItem value="silk">SILK</MenuItem>
-                            <MenuItem value="linen">LINEN</MenuItem>
-                            <MenuItem value="nylon">NYLON</MenuItem>
-                            <MenuItem value="leather">LEATHER</MenuItem>
-                            <MenuItem value="spander">SPANDEX</MenuItem>
-                            <MenuItem value="rayon">RAYON</MenuItem>
-                            <MenuItem value="velvet">VELVET</MenuItem>
-                            <MenuItem value="chiffon">CHIFFON</MenuItem>
-                            <MenuItem value="satin">SATIN</MenuItem>
-                            <MenuItem value="knit">KNIT</MenuItem>
-                            <MenuItem value="jersey">JERSEY</MenuItem>
-                            <MenuItem value="terry_cloth">TERRY_CLOTH</MenuItem>
-                            <MenuItem value="flanel">FLANEL</MenuItem>
-                            <MenuItem value="lace">LACE</MenuItem>
-                            <MenuItem value="twill">TWILL</MenuItem>
+                            <MenuItem value="COTTON">COTTON</MenuItem>
+                            <MenuItem value="POLYESTER">POLYESTER</MenuItem>
+                            <MenuItem value="FLEECE">FLEECE</MenuItem>
+                            <MenuItem value="WOOL">WOOL</MenuItem>
+                            <MenuItem value="SILK">SILK</MenuItem>
+                            <MenuItem value="LINEN">LINEN</MenuItem>
+                            <MenuItem value="NYLON">NYLON</MenuItem>
+                            <MenuItem value="LEATHER">LEATHER</MenuItem>
+                            <MenuItem value="SPANDEX">SPANDEX</MenuItem>
+                            <MenuItem value="RAYON">RAYON</MenuItem>
+                            <MenuItem value="VELVET">VELVET</MenuItem>
+                            <MenuItem value="CHIFFON">CHIFFON</MenuItem>
+                            <MenuItem value="SATIN">SATIN</MenuItem>
+                            <MenuItem value="KNIT">KNIT</MenuItem>
+                            <MenuItem value="JERSEY">JERSEY</MenuItem>
+                            <MenuItem value="TERRY_CLOTH">TERRY_CLOTH</MenuItem>
+                            <MenuItem value="FLANEL">FLANEL</MenuItem>
+                            <MenuItem value="LACE">LACE</MenuItem>
+                            <MenuItem value="TWILL">TWILL</MenuItem>
+
                         </TextField>
                     </Grid>
-
+                    <Grid item xs={11}>
+                        <Multiselect options={clothesSizesData} displayValue="Sizes" onSelect={handleClothesSizesChange} />
+                    </Grid>
+                    <Grid item xs={11}>
+                        <Multiselect options={clothesColorsData} displayValue="Colors" onSelect={handleClothesColorsChange} />
+                    </Grid>
+                    <Grid item xs={11}>
+                        <Multiselect options={clothesGenderData} displayValue="Genders" onSelect={handleClothesGenderChange} />
+                    </Grid>
                     <Grid item xs={12}>
                         <input type="file" multiple onChange={handleChange}
                             ref={fileInputRef} />

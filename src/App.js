@@ -56,33 +56,34 @@ const PrivateRoute = ({ element, path, requiredRole }) => {
 };
 
 const CUSTOMER_ROLE = "CUSTOMER"
-const ADMIN_ROLE = "ADMINISTRATION"
+const ADMIN_ROLE = "ADMIN"
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/admin-manager' element={<PrivateRoute element={<AdminDashboard />} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/user-app-installed' element={<PrivateRoute element={<UserAppInstalledDashboard></UserAppInstalledDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/user-have-guardian' element={<PrivateRoute element={<UserHaveGuardianDashboard></UserHaveGuardianDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/number-of-guardian' element={<PrivateRoute element={<NumberOfGuardianDashboard></NumberOfGuardianDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/user-connect-safe' element={<PrivateRoute element={<UserConnectSafeDashboard></UserConnectSafeDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/user-last-week-activity' element={<PrivateRoute element={<UserLastWeekActivityDashboard></UserLastWeekActivityDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/send-out-alarm' element={<PrivateRoute element={<SendOutAlarmDashboard></SendOutAlarmDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/received-alarm' element={<PrivateRoute element={<ReceivedAlarmDashboard></ReceivedAlarmDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/user-per-country' element={<PrivateRoute element={<UserPerCountryDashboard></UserPerCountryDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/edit-profile' element={<PrivateRoute element={<AdminProfileDashboard></AdminProfileDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-collection' element={<PrivateRoute element={<CollectionDashboard></CollectionDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-users' element={<PrivateRoute element={<ManageUsersDashboard></ManageUsersDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-posting' element={<PrivateRoute element={<ManagePostingDashboard></ManagePostingDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-news' element={<PrivateRoute element={<ManageNewsDashboard></ManageNewsDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-events' element={<PrivateRoute element={<ManageEventsDashboard></ManageEventsDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-clothes' element={<PrivateRoute element={<ManageClothesDashboard></ManageClothesDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-brand' element={<PrivateRoute element={<ManageBrandDashboard></ManageBrandDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-invoice' element={<PrivateRoute element={<ManageInvoiceDashboard></ManageInvoiceDashboard>} requiredRole={CUSTOMER_ROLE} />} />
-          <Route path='/admin-manage-income' element={<PrivateRoute element={<ManageIncomeDashboard></ManageIncomeDashboard>} requiredRole={CUSTOMER_ROLE} />} />
+          <Route path='/admin-manager' element={<PrivateRoute element={<AdminDashboard />} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/user-app-installed' element={<PrivateRoute element={<UserAppInstalledDashboard></UserAppInstalledDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/user-have-guardian' element={<PrivateRoute element={<UserHaveGuardianDashboard></UserHaveGuardianDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/number-of-guardian' element={<PrivateRoute element={<NumberOfGuardianDashboard></NumberOfGuardianDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/user-connect-safe' element={<PrivateRoute element={<UserConnectSafeDashboard></UserConnectSafeDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/user-last-week-activity' element={<PrivateRoute element={<UserLastWeekActivityDashboard></UserLastWeekActivityDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/send-out-alarm' element={<PrivateRoute element={<SendOutAlarmDashboard></SendOutAlarmDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/received-alarm' element={<PrivateRoute element={<ReceivedAlarmDashboard></ReceivedAlarmDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/user-per-country' element={<PrivateRoute element={<UserPerCountryDashboard></UserPerCountryDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/edit-profile' element={<PrivateRoute element={<AdminProfileDashboard></AdminProfileDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-collection' element={<PrivateRoute element={<CollectionDashboard></CollectionDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-users' element={<PrivateRoute element={<ManageUsersDashboard></ManageUsersDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-posting' element={<PrivateRoute element={<ManagePostingDashboard></ManagePostingDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-news' element={<PrivateRoute element={<ManageNewsDashboard></ManageNewsDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-events' element={<PrivateRoute element={<ManageEventsDashboard></ManageEventsDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-clothes' element={<PrivateRoute element={<ManageClothesDashboard></ManageClothesDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-brand' element={<PrivateRoute element={<ManageBrandDashboard></ManageBrandDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-invoice' element={<PrivateRoute element={<ManageInvoiceDashboard></ManageInvoiceDashboard>} requiredRole={ADMIN_ROLE} />} />
+          <Route path='/admin-manage-income' element={<PrivateRoute element={<ManageIncomeDashboard></ManageIncomeDashboard>} requiredRole={ADMIN_ROLE} />} />
           <Route path='/login' element={<Login></Login>}></Route>
+          <Route path='/join-us' element={<Login></Login>}></Route>
           <Route path='/' element={<Home />}></Route>
           <Route path='/about' element={<About />}></Route>
           <Route path='/portfolio' element={<Portfolio />}></Route>

@@ -20,8 +20,8 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
         userID: 1,
         typeOfPosts: "POSTS",
         status: "INACTIVE",
-        date: "2024-02-19",
-        content: "",
+        // date: "2024-02-19",
+        content: "Trang phục độc đáo",
         image: [""],
         hashtag: ["#SPRING", "#2024"] as string[]
     });
@@ -70,17 +70,17 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
             if (responseData) {
                 sessionStorage.setItem('obj', JSON.stringify(formData));
                 Swal.fire(
-                    'Add Success!',
-                    'Your post has been updated!',
+                    'Add Post Success!',
+                    'Your post has been add!',
                     'success'
                 );
-                // setTimeout(() => {
-                //     window.location.reload();
-                // }, 2000);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 Swal.fire(
-                    'Add fail!',
-                    'Please check information!',
+                    'Add post fail!',
+                    'Please check post information before add!',
                     'error'
                 );
             }
@@ -117,6 +117,19 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                             onChange={handleTextFieldChange}
                         />
                     </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                            id="outline-basic"
+                            label="content"
+                            variant="outlined"
+                            size="small"
+                            sx={{ minWidth: '100%' }}
+                            name="content"
+                            value={formData.content}
+                            onChange={handleTextFieldChange}
+                        />
+                    </Grid>
                     <Grid item xs={12}>
                         <TextField
                             id="outline-basic"
@@ -130,7 +143,7 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <TextField
                             id="outline-basic"
                             label="date"
@@ -141,7 +154,7 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
                             value={formData.date}
                             onChange={handleTextFieldChange}
                         />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12}>
                         <TextField

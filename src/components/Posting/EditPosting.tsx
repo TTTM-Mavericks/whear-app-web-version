@@ -81,8 +81,8 @@ const EditForm: React.FC<EditFormProps> = ({ fid, userResponse, editClose }) => 
                 console.log('Update Response Data:', data);
                 sessionStorage.setItem("obj", JSON.stringify(obj));
                 Swal.fire(
-                    'Edit Success!',
-                    'User information updated successfully!',
+                    'Edit Post Success!',
+                    'Post information updated successfully!',
                     'success'
                 );
                 setTimeout(() => {
@@ -92,8 +92,8 @@ const EditForm: React.FC<EditFormProps> = ({ fid, userResponse, editClose }) => 
             .catch((err) => {
                 console.error('Update Error:', err);
                 Swal.fire(
-                    'Edit Failed',
-                    'There was an error updating the user.',
+                    'Edit Post Failed',
+                    'There was an error updating the post.',
                     'error'
                 );
             });

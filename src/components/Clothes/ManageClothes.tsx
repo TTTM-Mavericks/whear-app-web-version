@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
@@ -20,6 +20,7 @@ import EditForm from './EditClothes';
 import CsvDownloader from 'react-csv-downloader';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddUserAppInstalled from './AddClothes';
+import AddIcon from '@mui/icons-material/Add';
 
 const style = {
     position: 'absolute',
@@ -38,13 +39,14 @@ interface ManageClothes {
     nameOfProduct: string,
     typeOfClothes: string,
     shape: string,
-    clothesSeasons: string,
+    clothesSeasons: string[],
     description: string,
     rating: number,
     materials: string,
-    clothesSizes: string,
-    clothesColors: string,
-    clothesImages: string[]
+    clothesSizes: string[],
+    clothesColors: string[],
+    clothesImages: string[],
+    clothesGender: string[],
 }
 
 const ManageClothes: React.FC = () => {
@@ -55,7 +57,6 @@ const ManageClothes: React.FC = () => {
     const [row, setRows] = useState<ManageClothes[]>([]);
     const [editopen, setEditOpen] = useState(false);
     const [formid, setFormId] = useState<ManageClothes | null>(null);
-
     const handleEditOpen = () => setEditOpen(true);
     const handleEditClose = () => setEditOpen(false);
     const handleOpen = () => setOpen(true);
@@ -149,7 +150,7 @@ const ManageClothes: React.FC = () => {
                 );
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1000);
             } else {
                 Swal.fire(
                     'Cancel The Deleted Process',
@@ -167,13 +168,14 @@ const ManageClothes: React.FC = () => {
         nameOfProduct: string,
         typeOfClothes: string,
         shape: string,
-        clothesSeasons: string,
+        clothesSeasons: string[],
         description: string,
         rating: number,
         materials: string,
-        clothesSizes: string,
-        clothesColors: string,
-        clothesImages: string[]) => {
+        clothesSizes: string[],
+        clothesColors: string[],
+        clothesImages: string[],
+        clothesGender: string[]) => {
         const dataEmployee: ManageClothes = {
             clothesID: clothesID,
             nameOfProduct: nameOfProduct,
@@ -185,14 +187,16 @@ const ManageClothes: React.FC = () => {
             materials: materials,
             clothesSizes: clothesSizes,
             clothesColors: clothesColors,
-            clothesImages: clothesImages
+            clothesImages: clothesImages,
+            clothesGender: clothesGender
         }
+        console.log(dataEmployee);
         setFormId(dataEmployee);
         handleEditOpen();
     }
 
     const csvData = data.map((data) => ({
-        clothesID: data.clothesID,
+        clothesID: data.clothesID.toString(),
         nameOfProduct: data.nameOfProduct,
         typeOfClothes: data.typeOfClothes,
         shape: data.shape,
@@ -228,21 +232,9 @@ const ManageClothes: React.FC = () => {
                             options={data}
                             sx={{ width: 200 }}
                             getOptionLabel={(data) => data.nameOfProduct || ""}
-                            renderInput={(params) => <TextField {...params} label="Select Country" />}
+                            renderInput={(params) => <TextField {...params} label="Select name" />}
                         />
                     </div>
-
-                    {/* <div>
-                        <Autocomplete
-                            className='select-activity'
-                            onChange={(e, v) => { fillData(v as ManageClothes) }}
-                            disablePortal
-                            options={data}
-                            sx={{ width: 200 }}
-                            getOptionLabel={(data) => data.nameOfProduct || ""}
-                            renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
-                        />
-                    </div> */}
 
                     <CsvDownloader
                         datas={formattedData}
@@ -254,7 +246,9 @@ const ManageClothes: React.FC = () => {
                         <DownloadIcon style={{ color: "white" }} />
                     </CsvDownloader>
 
-                    <Button onClick={handleOpen}>Add</Button>
+                    <IconButton onClick={handleOpen} color="primary" aria-label="add" style={{ marginBottom: "4%" }}>
+                        <AddIcon />
+                    </IconButton>
                     <Modal
                         open={open}
                         aria-labelledby="modal-modal-title"
@@ -330,6 +324,12 @@ const ManageClothes: React.FC = () => {
                                     align='left'
                                     style={{ minWidth: "100px", fontWeight: "bolder" }}
                                 >
+                                    GENDER
+                                </TableCell>
+                                <TableCell
+                                    align='left'
+                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
+                                >
                                     SIZES
                                 </TableCell>
                                 <TableCell
@@ -361,11 +361,9 @@ const ManageClothes: React.FC = () => {
                                             <TableCell align='left'>
                                                 {row.shape}
                                             </TableCell>
+                                            <TableCell align='left'>{row.clothesSeasons.length > 1 ? row.clothesSeasons.slice(0, 1) : row.clothesSeasons}</TableCell>
                                             <TableCell align='left'>
-                                                {row.clothesSeasons}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                {row.description}
+                                                {row.description.length > 30 ? row.description.slice(0, 30) + ' ...' : row.description}
                                             </TableCell>
                                             <TableCell align='left'>
                                                 {row.rating}
@@ -373,15 +371,12 @@ const ManageClothes: React.FC = () => {
                                             <TableCell align='left'>
                                                 {row.materials}
                                             </TableCell>
-                                            <TableCell align='left'>
-                                                {row.clothesSizes}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                {row.clothesColors}
-                                            </TableCell>
+                                            <TableCell align='left'>{row.clothesGender.length > 1 ? row.clothesGender.slice(0, 1) : row.clothesGender}</TableCell>
+                                            <TableCell align='left'>{row.clothesSizes.length > 1 ? row.clothesSizes.slice(0, 1) : row.clothesSizes}</TableCell>
+                                            <TableCell align='left'>{row.clothesColors.length > 1 ? row.clothesColors.slice(0, 1) : row.clothesColors}</TableCell>
                                             <TableCell align='left'>
                                                 <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.clothesID, row.nameOfProduct, row.typeOfClothes, row.shape, row.clothesSeasons, row.description, row.rating, row.materials, row.clothesSizes, row.clothesColors, row.clothesImages)} />
+                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.clothesID, row.nameOfProduct, row.typeOfClothes, row.shape, row.clothesSeasons, row.description, row.rating, row.materials, row.clothesSizes, row.clothesColors, row.clothesImages, row.clothesGender)} />
                                                     <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.clothesID)} />
                                                 </div>
                                             </TableCell>
@@ -392,7 +387,7 @@ const ManageClothes: React.FC = () => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 50]}
+                    rowsPerPageOptions={[5, 10, 100, 200, 300, 400, 500]}
                     component="div"
                     count={data.length}
                     rowsPerPage={rowsPerPage}

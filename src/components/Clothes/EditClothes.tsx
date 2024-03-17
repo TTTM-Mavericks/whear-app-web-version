@@ -1,37 +1,94 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Button, Card, Grid, IconButton, MenuItem, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, MenuItem, TextField, Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from "sweetalert2";
 import "./EditClothes.css"
+import Multiselect from 'multiselect-react-dropdown';
+
 interface EditFormProps {
     fid: {
         clothesID: number,
         nameOfProduct: string,
         typeOfClothes: string,
         shape: string,
-        clothesSeasons: string,
+        clothesSeasons: string[],
         description: string,
         rating: number,
         materials: string,
-        clothesSizes: string,
-        clothesColors: string,
-        clothesImages: string[]
+        clothesSizes: string[],
+        clothesColors: string[],
+        clothesImages: string[],
+        clothesGender: string[]
     };
     editClose: () => void;
 }
 
+const clothesSizesData = [
+    { Sizes: "S" },
+    { Sizes: "M" },
+    { Sizes: "L" },
+    { Sizes: "XL" },
+    { Sizes: "XXL" },
+    { Sizes: "XXXL" },
+]
+
+const clothesSeasonData = [
+    { Seasons: "SPRING" },
+    { Seasons: "AUTUMN" },
+    { Seasons: "SUMMER" },
+    { Seasons: "WINTER" }
+]
+
+const clothesColorsData = [
+    { Colors: "RED" },
+    { Colors: "WHITE" },
+    { Colors: "GRAY" },
+    { Colors: "YELLOW" },
+    { Colors: "BLUE" },
+    { Colors: "BLACK" },
+    { Colors: "BROWN" }
+]
+
+const clothesGenderData = [
+    { Genders: "MALE" },
+    { Genders: "FEMALE" },
+    { Genders: "UNISEX" },
+]
+
 const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
-    const [nameOfProduct, setNameOfProduct] = useState("");
-    const [clothesSeasons, setClothesSeasons] = useState("SPRING");
+
+    const [nameOfProduct, setNameOfProduct] = useState("Aos thun T-SHIRT");
     const [typeOfClothes, setTypeOfClothes] = useState("SHIRT");
     const [shape, setShape] = useState("SQUARE");
-    const [description, setDescription] = useState("");
+    const [description, setDescription] = useState("IT SO BEAUTIFUL");
     const [rating, setRating] = useState(0);
     const [materials, setMaterials] = useState("COTTON");
-    const [clothesSizes, setClothesSizes] = useState("XXXL");
-    const [clothesColors, setClothesColors] = useState("BLACK");
     const [clothesImages, setClothesImages] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const initialClothesSize = clothesSizesData.map(sizes => sizes.Sizes);
+    const [clothesSizes, setClothesSizes] = useState<string[]>(initialClothesSize);
+
+    const initalClothesColors = clothesColorsData.map(color => color.Colors);
+    const [clothesColors, setClothesColors] = useState<string[]>(initalClothesColors);
+
+    const initialClothesSeasons = clothesSeasonData.map(season => season.Seasons);
+    const [clothesSeasons, setClothesSeasons] = useState<string[]>(initialClothesSeasons);
+
+    const initialClothesGender = clothesGenderData.map(gender => gender.Genders);
+    const [clothesGender, setClothesGender] = useState<string[]>(initialClothesGender);
+
+    console.log(nameOfProduct);
+    console.log(typeOfClothes);
+    console.log(shape);
+    console.log(description);
+    console.log(rating);
+    console.log(materials);
+    console.log(clothesSizes);
+    console.log(clothesColors);
+    console.log(clothesSeasons);
+    console.log(clothesGender);
+
     useEffect(() => {
         setNameOfProduct(fid.nameOfProduct);
         setClothesSeasons(fid.clothesSeasons);
@@ -49,8 +106,9 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         setNameOfProduct(e.target.value);
     }
 
-    const handleClothesSeasonsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setClothesSeasons(e.target.value);
+    const handleClothesSeasonsChange = (selectedSeasons: { Seasons: string }[]) => {
+        const selectedValues = selectedSeasons.map(season => season.Seasons);
+        setClothesSeasons(selectedValues);
     }
 
     const handleTypeOfClothesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,17 +132,24 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         setMaterials(e.target.value);
     }
 
-    const handleClothesSizesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setClothesSizes(e.target.value);
+    const handleClothesSizesChange = (selectedSizes: { Sizes: string }[]) => {
+        const selectedValues = selectedSizes.map(size => size.Sizes);
+        setClothesSizes(selectedValues);
     }
 
-    const handleClothesColorsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setClothesColors(e.target.value);
+    const handleClothesColorsChange = (selectedColors: { Colors: string }[]) => {
+        const selectedValues = selectedColors.map(color => color.Colors);
+        setClothesColors(selectedValues);
     }
 
-    // const handleClothesImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setClothesImages(e.target.value);
-    // }
+    const handleClothesGenderChange = (selectedGenders: { Genders: string }[]) => {
+        const selectedValues = selectedGenders.map(color => color.Genders);
+        setClothesGender(selectedValues);
+    }
+
+    const handleClothesImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setClothesImages([e.target.value]);
+    }
 
     const [files, setFiles] = useState<string[]>([]);
 
@@ -140,56 +205,61 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         const obj = {
-            nameOfProduct,
-            typeOfClothes,
-            shape,
-            clothesSeasons,
-            description,
-            rating,
-            materials,
-            clothesSizes,
-            clothesColors,
-            clothesImages
+            nameOfProduct: nameOfProduct,
+            typeOfClothes: typeOfClothes,
+            shape: shape,
+            clothesSeasons: clothesSeasons,
+            description: description,
+            rating: rating,
+            materials: materials,
+            clothesSizes: clothesSizes,
+            clothesColors: clothesColors,
+            clothesImages: clothesImages,
+            clothesGender: clothesGender
         };
-        const clothesId = fid.clothesID;
-        console.log({ ...obj, clothesId });
-        try {
-            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/clothes/update-clothes`, {
-
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    ...obj, clothesId
-                }),
-                mode: 'cors'
+        const clothesID = fid.clothesID;
+        console.log('Update Request:', { ...obj, clothesID });
+        fetch('https://tam.mavericks-tttm.studio/api/v1/clothes/update-clothes', {
+            method: 'PUT',
+            headers: {
+                "Accept": "*/*",
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "Cache-Control": "no-cache",
+            },
+            body: JSON.stringify({
+                ...obj, clothesID
+            })
+        })
+            .then((res) => {
+                console.log('Response:', res);
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log('Update Response Data:', data);
+                Swal.fire(
+                    'Edit Clothes Success!',
+                    'Clothes information have been updated successfully!',
+                    'success'
+                );
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            })
+            .catch((err) => {
+                console.error('Update Error:', err);
+                Swal.fire(
+                    'Edit Clothes Failed',
+                    'There was an error updating the clothes.',
+                    'error'
+                );
             });
-            console.log('Response status:', response.status);
-            const responseData = await response.json();
-            console.log('Response data:', responseData);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            console.log('Update Response Data:', responseData);
-            Swal.fire(
-                'Edit Success!',
-                'User information updated successfully!',
-                'success'
-            );
-        } catch (err) {
-            console.error('Update Error:', err);
-            Swal.fire(
-                'Edit Failed',
-                'There was an error updating the user.',
-                'error'
-            );
-        }
-    };
-
-
+    }
     return (
         <div className='add-from-bird-list' style={{ height: '500px', overflowY: 'auto' }}>
             <div>
@@ -205,21 +275,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                 <Box height={50} />
                 <Grid container spacing={4}>
                     <Grid item xs={11}>
-                        <TextField
-                            id="outline-basic"
-                            label="clothesSeasons"
-                            select
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: "100%" }}
-                            value={clothesSeasons}
-                            onChange={handleClothesSeasonsChange}
-                        >
-                            <MenuItem value="SPRING">SPRING</MenuItem>
-                            <MenuItem value="SUMMER">SUMMER</MenuItem>
-                            <MenuItem value="AUTUMN">AUTUMN</MenuItem>
-                            <MenuItem value="WINTER">WINTER</MenuItem>
-                        </TextField>
+                        <Multiselect options={clothesSeasonData} displayValue="Seasons" onSelect={handleClothesSeasonsChange} />
                     </Grid>
                     <Grid item xs={11}>
                         <TextField id="outline-basic" label="nameOfProduct" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={nameOfProduct} onChange={handleNameOfProductChange} />
@@ -394,50 +450,21 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                         </TextField>
                     </Grid>
                     <Grid item xs={11}>
-                        <TextField
-                            id="outline-basic"
-                            label="clothesSizes"
-                            select
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: "100%" }}
-                            value={clothesSizes}
-                            onChange={handleClothesSizesChange}
-                        >
-                            <MenuItem value="S">S</MenuItem>
-                            <MenuItem value="M">M</MenuItem>
-                            <MenuItem value="L">L</MenuItem>
-                            <MenuItem value="XL">XL</MenuItem>
-                            <MenuItem value="XXL">XXL</MenuItem>
-                            <MenuItem value="XXXL">XXXL</MenuItem>
-                        </TextField>
+                        <Multiselect options={clothesSizesData} displayValue="Sizes" onSelect={handleClothesSizesChange} />
                     </Grid>
                     <Grid item xs={11}>
-                        <TextField
-                            id="outline-basic"
-                            label="clothesColor"
-                            select
-                            variant="outlined"
-                            size="small"
-                            sx={{ minWidth: "100%" }}
-                            value={clothesColors}
-                            onChange={handleClothesColorsChange}
-                        >
-                            <MenuItem value="RED">RED</MenuItem>
-                            <MenuItem value="BLACK">BLACK</MenuItem>
-                            <MenuItem value="WHITE">WHITE</MenuItem>
-                            <MenuItem value="PINK">PINK</MenuItem>
-                            <MenuItem value="YELLOW">YELLOW</MenuItem>
-                            <MenuItem value="BLUE">BLUE</MenuItem>
-                        </TextField>
+                        <Multiselect options={clothesColorsData} displayValue="Colors" onSelect={handleClothesColorsChange} />
                     </Grid>
-                    {/* <Grid item xs={12}>
-                    <input type="file" multiple onChange={handleChange}
-                        ref={fileInputRef} />
-                    {files.map((imageUrl, index) => (
-                        <img key={index} src={imageUrl} alt={`Image ${index}`} />
-                    ))}
-                </Grid> */}
+                    <Grid item xs={11}>
+                        <Multiselect options={clothesGenderData} displayValue="Genders" onSelect={handleClothesGenderChange} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <input type="file" multiple onChange={handleChange}
+                            ref={fileInputRef} />
+                        {files.map((imageUrl, index) => (
+                            <img key={index} src={imageUrl} alt={`Image ${index}`} />
+                        ))}
+                    </Grid>
                 </Grid>
                 <div onClick={editClose} style={{ textAlign: "center", alignItems: "center", marginTop: "3rem" }}>
                     <Button onClick={handleSubmit} style={{ backgroundColor: "#5858FA", width: "60%", borderRadius: "8px", marginLeft: "-10%", marginRight: "10%", color: "#FFFFFF" }}>Update</Button>
