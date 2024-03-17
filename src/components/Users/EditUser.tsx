@@ -7,11 +7,16 @@ import "./EditUser.css";
 interface EditFormProps {
     fid: {
         userID: number,
-        email: string;
-        phone: string,
+        username: string,
         dateOfBirth: string,
+        phone: string,
+        email: string,
+        gender: boolean,
+        role: string,
         language: string,
-        username: string
+        status: string,
+        imgUrl: string,
+        createDate: string,
     };
     editClose: () => void;
 }
@@ -22,6 +27,9 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
     const [dateOfBirth, setDate] = useState("");
     const [language, setLanguage] = useState("");
     const [username, setUserName] = useState("");
+    // const [password, setPassword] = useState("");
+    const [imgUrl, setImgUrl] = useState("");
+    const [role, setRole] = useState("")
 
     useEffect(() => {
         setEmail(fid.email);
@@ -29,6 +37,8 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         setDate(fid.dateOfBirth);
         setLanguage(fid.language);
         setUserName(fid.username)
+        setImgUrl(fid.imgUrl);
+        setRole(fid.role)
     }, [fid]);
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +61,14 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         setUserName(e.target.value);
     }
 
+    const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setRole(e.target.value);
+    }
+
+    // const handleImgUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setImgUrl(e.target.value);
+    // }
+
     const handleSubmit = () => {
         const obj = {
             email: email.trim() || null,
@@ -58,6 +76,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
             dateOfBirth: dateOfBirth.trim() || null,
             language: language.trim() || null,
             username: username.trim() || null,
+            role: role.trim() || null,
         };
         const userID = fid.userID;
         console.log('Update Request:', userID, obj);
@@ -87,6 +106,9 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                     'User information updated successfully!',
                     'success'
                 );
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             })
             .catch((err) => {
                 console.error('Update Error:', err);
@@ -125,6 +147,11 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
                 </Grid>
                 <Grid item xs={11}>
                     <TextField id="outline-basic" label="Language" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={language} onChange={handleLanguageChange} />
+                </Grid>
+                <Grid item xs={11}>
+                    <TextField id="outline-basic" label="Role" variant="outlined" size="small" sx={{ minWidth: "100%" }} value={role} InputProps={{
+                        readOnly: true,
+                    }} />
                 </Grid>
             </Grid>
             <div onClick={editClose} style={{ textAlign: "center", alignItems: "center", marginTop: "3rem" }}>

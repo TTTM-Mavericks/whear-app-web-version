@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
             <Link to={'/'} style={{ marginLeft: "7%" }}>
                 <img src={LOGO} alt="Logo" style={{ width: "70%", marginLeft: "5%" }}></img></Link>
-            <div>
+            {/* <div>
                 <Autocomplete
                     className='select-country'
                     // onChange={(e, v) => { e.target.value }}
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
                     // getOptionLabel={(data) => data.name || ""}
                     renderInput={(params) => <TextField {...params} label="Finding" />}
                 />
-            </div>
+            </div> */}
             <NavLink to="/edit-profile" style={{ textDecoration: "none", color: "black", width: "9%", marginLeft: "1rem", marginTop: "-10px" }}>
                 <List>
                     <ListItem disablePadding sx={{ display: 'block' }} className='header-choice'>

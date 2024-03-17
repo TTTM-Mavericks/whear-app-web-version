@@ -45,7 +45,7 @@ const MenuAdmin: React.FC = () => {
             {menuItems.map((item, index) => (
                 <NavLink key={index} to={item.to} style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
                     <List>
-                        <ListItem disablePadding sx={{ display: 'block', width: "90%", marginLeft: "5%", marginBottom: "-12%" }} className='list_menu_choice'>
+                        <ListItem disablePadding sx={{ display: 'block', width: "90%", marginLeft: "5%", marginBottom: "5%" }} className='list_menu_choice'>
                             <ListItemButton
                                 sx={{
                                     minHeight: 40,

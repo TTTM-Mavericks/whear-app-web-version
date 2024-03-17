@@ -113,15 +113,15 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
             if (responseData) {
                 Swal.fire(
                     'Add Success!',
-                    'Your post has been updated!',
+                    'User has been updated!',
                     'success'
                 );
-                // setTimeout(() => {
-                //     window.location.reload();
-                // }, 2000);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 Swal.fire(
-                    'Add fail!',
+                    'Add User fail!',
                     'Please check information!',
                     'error'
                 );

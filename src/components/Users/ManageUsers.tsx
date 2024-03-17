@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography, makeStyles } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
@@ -20,6 +20,7 @@ import EditForm from './EditUser';
 import CsvDownloader from 'react-csv-downloader';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddUserAppInstalled from './AddUser';
+import AddIcon from '@mui/icons-material/Add';
 
 const style = {
     position: 'absolute',
@@ -42,7 +43,11 @@ interface ManageUser {
     gender: boolean,
     role: string,
     language: string,
-    status: string
+    status: string,
+    imgUrl: string,
+    // password: string,
+    createDate: string,
+
 }
 
 const ManageUser: React.FC = () => {
@@ -105,15 +110,6 @@ const ManageUser: React.FC = () => {
         try {
             const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/user/update-status-user?userid=${id}`, {
                 method: 'PUT',
-                // headers: {
-                //     "Access-Control-Allow-Origin": 'http://localhost:3000',
-                //     "Authorization": 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE3MDY1ODc1NzQsImV4cCI6MTcwNjY3Mzk3NH0.8NQ0JbmoA9Bv64AIXyaYSbRo9CANXtNtRGfH32JveZs',
-                //     "Accept": "*/*",
-                //     "Content-Type": "application/json",
-                //     "X-Requested-With": "XMLHttpRequest",
-                //     "Cache-Control": "no-cache",
-                // },
-                // mode: 'cors'
             });
             if (!response.ok) {
                 throw new Error('Error deleting user');
@@ -139,13 +135,13 @@ const ManageUser: React.FC = () => {
             if (result.isConfirmed) {
                 await deleteUser(id);
                 Swal.fire(
-                    'Deleted UserAppInstalled Success!',
-                    'Your UserAppInstalled has been deleted!!!',
+                    'Deleted User Success!',
+                    'User has been deleted!!!',
                     'success'
                 );
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1000);
             } else {
                 Swal.fire(
                     'Cancel The Deleted Process',
@@ -158,7 +154,9 @@ const ManageUser: React.FC = () => {
         }
     };
 
-    const editData = (userID: number, username: string, dateOfBirth: string, phone: string, email: string, gender: boolean, role: string, language: string, status: string) => {
+    const editData = (userID: number, username: string, dateOfBirth: string, phone: string, email: string, gender: boolean, role: string, language: string, status: string, imgUrl: string,
+        password: string,
+        createDate: string,) => {
         const dataEmployee: ManageUser = {
             userID: userID,
             username: username,
@@ -168,8 +166,12 @@ const ManageUser: React.FC = () => {
             gender: gender,
             role: role,
             language: language,
-            status: status
+            status: status,
+            imgUrl: imgUrl,
+            // password: password,
+            createDate: createDate,
         }
+        console.log(dataEmployee);
         setFormId(dataEmployee);
         handleEditOpen();
     }
@@ -203,18 +205,6 @@ const ManageUser: React.FC = () => {
                     {/* Search Bar */}
                     <div>
                         <Autocomplete
-                            className='select-country'
-                            onChange={(e, v) => { fillData(v as ManageUser) }}
-                            disablePortal
-                            options={data}
-                            sx={{ width: 200 }}
-                            getOptionLabel={(data) => data.username || ""}
-                            renderInput={(params) => <TextField {...params} label="Select Country" />}
-                        />
-                    </div>
-
-                    <div>
-                        <Autocomplete
                             className='select-activity'
                             onChange={(e, v) => { fillData(v as ManageUser) }}
                             disablePortal
@@ -235,7 +225,10 @@ const ManageUser: React.FC = () => {
                         <DownloadIcon style={{ color: "white" }} />
                     </CsvDownloader>
 
-                    <Button onClick={handleOpen}>Add</Button>
+                    {/* <Button onClick={handleOpen}>Add</Button> */}
+                    <IconButton onClick={handleOpen} color="primary" aria-label="add" style={{ marginBottom: "4%" }}>
+                        <AddIcon />
+                    </IconButton>
                     <Modal
                         open={open}
                         aria-labelledby="modal-modal-title"
@@ -353,7 +346,7 @@ const ManageUser: React.FC = () => {
                                             </TableCell>
                                             <TableCell align='left'>
                                                 <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.userID, row.username, row.dateOfBirth, row.phone, row.email, row.gender, row.role, row.language, row.status)} />
+                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.userID, row.username, row.dateOfBirth, row.phone, row.email, row.gender, row.role, row.language, row.status, row.imgUrl, row.role, row.createDate)} />
                                                     <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.userID)} />
                                                 </div>
                                             </TableCell>

@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
@@ -20,7 +20,7 @@ import EditForm from './EditPosting';
 import CsvDownloader from 'react-csv-downloader';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddCollection from './AddPosting';
-
+import AddIcon from '@mui/icons-material/Add';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -137,7 +137,7 @@ const ManagePosting: React.FC = () => {
                 );
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1000);
             } else {
                 Swal.fire(
                     'Cancel The Deleted Process',
@@ -195,7 +195,7 @@ const ManagePosting: React.FC = () => {
                 </Typography>
                 <div style={{ display: "flex" }}>
                     {/* Search Bar */}
-                    <div>
+                    {/* <div>
                         <Autocomplete
                             className='select-country'
                             onChange={(e, v) => { fillData(v as ManagePosting) }}
@@ -205,7 +205,7 @@ const ManagePosting: React.FC = () => {
                             getOptionLabel={(data) => data.typeOfPosts || ""}
                             renderInput={(params) => <TextField {...params} label="Select Type Of Post" />}
                         />
-                    </div>
+                    </div> */}
 
                     {/* <div>
                         <Autocomplete
@@ -229,7 +229,9 @@ const ManagePosting: React.FC = () => {
                         <DownloadIcon style={{ color: "white" }} />
                     </CsvDownloader>
 
-                    <Button onClick={handleOpen}>Add</Button>
+                    <IconButton onClick={handleOpen} color="primary" aria-label="add" style={{ marginBottom: "4%" }}>
+                        <AddIcon />
+                    </IconButton>
                     <Modal
                         open={open}
                         aria-labelledby="modal-modal-title"
