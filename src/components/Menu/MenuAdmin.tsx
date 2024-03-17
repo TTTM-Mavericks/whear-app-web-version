@@ -24,7 +24,7 @@ const menuItems = [
     { to: "/admin-manage-posting", text: "Manage Posts", icon: <PostAddIcon /> },
     // { to: "/admin-manage-news", text: "Manage News", icon: <NewsIcon /> },
     { to: "/admin-manage-clothes", text: "Manage Clothes", icon: <ClothesIcon /> },
-    { to: "/admin-manage-brand", text: "Manage Brand", icon: <BrandIcon /> },
+    // { to: "/admin-manage-brand", text: "Manage Brand", icon: <BrandIcon /> },
     // { to: "/admin-manage-invoice", text: "Manage Invoice", icon: <ReceiptIcon /> },
     // { to: "/admin-manage-income", text: "Manage Income", icon: <MonetizationOnIcon /> },
     // { to: "/admin-manage-collection", text: "Manage Collection", icon: <DashboardIcon /> },
