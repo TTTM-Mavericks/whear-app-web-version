@@ -18,7 +18,7 @@ const UserManualMobile: React.FC = () => {
     return (
         <section className="service-section-mobile">
             <Typography variant="h4" className="service-heading" sx={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold' }}>
-                OUR SPECIALTIES
+                User Manual Whear App
             </Typography>
             <div className="service-columns-mobile">
                 {currentSlide === 1 && (
