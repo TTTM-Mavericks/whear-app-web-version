@@ -16,7 +16,7 @@ const UserManualMobile: React.FC = () => {
         setCurrentSlide((prevSlide) => ((prevSlide - 2 + 3) % 3) + 1);
     };
     return (
-        <section className="service-section-mobile">
+        <section className="service-section-mobile-manual">
             <Typography variant="h4" className="service-heading" sx={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold' }}>
                 User Manual Whear App
             </Typography>
@@ -31,7 +31,7 @@ const UserManualMobile: React.FC = () => {
                                 Download Expo go in chplay or appstore and Scan qr code with suitable operating system
                             </Typography>
                         </div>
-                        <img src={require('../../../../asserts/img/app1.png')} alt="Service 1" className="service-image-mobile" />
+                        <img src={require('../../../../asserts/img/app.png')} alt="Service 1" className="service-image-mobile" />
                     </div>
                 )}
 
