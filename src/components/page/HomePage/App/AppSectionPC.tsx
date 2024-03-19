@@ -3,8 +3,8 @@ import './AppSectionPC.css';
 import { Button } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 
-// const userManual = 'https://whearapp.tech/user_manual.docx'
-const userManual = 'http://localhost:3000/user_manual.docx'
+const userManual = 'https://whearapp.tech/user_manual.docx'
+// const userManual = 'http://localhost:3000/user_manual.docx'
 
 const AppSectionPC: React.FC = () => {
   return (
