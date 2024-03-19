@@ -57,7 +57,7 @@ const PrivateRoute = ({ element, path, requiredRole }) => {
   }
 };
 
-const CUSTOMER_ROLE = "CUSTOMER"
+// const CUSTOMER_ROLE = "CUSTOMER"
 const ADMIN_ROLE = "ADMIN"
 
 function App() {
@@ -87,7 +87,7 @@ function App() {
           <Route path='/admin-manage-invoice' element={<PrivateRoute element={<ManageInvoiceDashboard></ManageInvoiceDashboard>} requiredRole={ADMIN_ROLE} />} />
           <Route path='/admin-manage-income' element={<PrivateRoute element={<ManageIncomeDashboard></ManageIncomeDashboard>} requiredRole={ADMIN_ROLE} />} />
           <Route path='/login' element={<Login></Login>}></Route>
-          <Route path='/join-us' element={<Login></Login>}></Route>
+          <Route path='/join-us' element={<PrivateRoute element={<AdminDashboard />} requiredRole={ADMIN_ROLE} />} />
           <Route path='/' element={<Home />}></Route>
           <Route path='/about' element={<About />}></Route>
           <Route path='/portfolio' element={<Portfolio />}></Route>
