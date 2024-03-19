@@ -7,12 +7,14 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ScrollToTopButton from '../ScrollToTop/ScrollToTopButton'
 import UserManual from './UserManual/UserManual';
+import DowloadManual from './DowloadManual/DowloadManual';
 const Home: React.FC = () => {
   return (
     <div>
       <Header />
       <WelcomeSection />
       <AppSection />
+      <DowloadManual />
       <UserManual />
       <ServiceSection />
       <FollowUsSection />

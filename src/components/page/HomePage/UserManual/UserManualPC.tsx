@@ -12,7 +12,6 @@ const UserManualPC: React.FC = () => {
                     <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold', marginBottom: '5px' }}>Step 1</p>
                     <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}> Download Expo go in chplay or appstore and Scan qr code with suitable operating system</p>
                     <img src={require('../../../../asserts/img/app.png')} alt="Service 1" className="service-image" />
-                    {/* <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}>Step 2 : Scan qr code with suitable operating system</p> */}
                 </div>
                 <div className="service-column">
                     <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold', marginBottom: '5px' }}>Step 2</p>
