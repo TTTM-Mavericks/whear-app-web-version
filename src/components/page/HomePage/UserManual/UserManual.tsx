@@ -11,7 +11,7 @@ const UserManualPC: React.FC = () => {
                 <div className="service-column" >
                     <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold', marginBottom: '5px' }}>Step 1</p>
                     <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}> Download Expo go in chplay or appstore and Scan qr code with suitable operating system</p>
-                    <img src={require('../../../../asserts/img/app0.png')} alt="Service 1" className="service-image" />
+                    <img src={require('../../../../asserts/img/app.png')} alt="Service 1" className="service-image" />
                     {/* <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}>Step 2 : Scan qr code with suitable operating system</p> */}
                 </div>
                 <div className="service-column">
@@ -22,8 +22,8 @@ const UserManualPC: React.FC = () => {
                 <div className="service-column">
                     <img src={require('../../../../asserts/img/app2.png')} alt="Service 3" className="service-image" />
                     <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold', marginBottom: '5px' }}>Step 3</p>
-                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>Android:</p> exp://u.expo.dev/update/314f524e-6d74-4e0c-a442-08c1151c28c3</p>
-                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>IOS:</p> exp://u.expo.dev/update/cef5a500-e042-445f-b192-d4a8ff66ee8c</p>
+                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>Android:</p> exp://u.expo.dev/update/5cd03ac1-a216-4ff6-88f5-c8a4653ea17e</p>
+                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>IOS:</p> exp://u.expo.dev/update/abbb9910-3295-43be-a544-245689d85d1e</p>
                 </div>
             </div>
         </section>
