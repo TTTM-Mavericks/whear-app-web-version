@@ -213,7 +213,7 @@ const AddUserAppInstalled: React.FC<AddFormProps> = ({ closeCard }) => {
             const userID = localStorage.getItem("userID");
             console.log('Form Data:', JSON.stringify({ ...formData, ...obj, userID }));
 
-            const response = await fetch('https://tam.mavericks-tttm.studio/api/v1/clothes/create-clothes', {
+            const response = await fetch('https://host.whearapp.tech/api/v1/clothes/create-clothes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

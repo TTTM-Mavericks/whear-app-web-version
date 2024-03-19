@@ -80,7 +80,7 @@ const ManagePosting: React.FC = () => {
     }
 
     useEffect(() => {
-        const apiUrl = `https://tam.mavericks-tttm.studio/api/v1/post/get-all-post`;
+        const apiUrl = `https://host.whearapp.tech/api/v1/post/get-all-post`;
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -104,7 +104,7 @@ const ManagePosting: React.FC = () => {
 
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/post/delete-by-postid?post_id=${id}`, {
+            const response = await fetch(`https://host.whearapp.tech/api/v1/post/delete-by-postid?post_id=${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

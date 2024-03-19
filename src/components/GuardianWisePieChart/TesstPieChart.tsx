@@ -15,7 +15,7 @@ const PieChart = () => {
     const [series, setSeries] = useState([1, 2]);
 
     useEffect(() => {
-        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/chart/language-chart';
+        const apiUrl = 'https://host.whearapp.tech/api/v1/chart/language-chart';
         fetch(apiUrl)
             .then(response => response.json())
             .then((response) => {

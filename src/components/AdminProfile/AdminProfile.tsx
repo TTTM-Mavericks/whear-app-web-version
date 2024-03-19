@@ -26,7 +26,7 @@ const UserProfile: React.FC = () => {
                     throw new Error('User ID not found in local storage');
                 }
 
-                const apiUrl = `https://tam.mavericks-tttm.studio/api/v1/user/get-user-by-userid?userid=${userID}&base_userid=${userID}`;
+                const apiUrl = `https://host.whearapp.tech/api/v1/user/get-user-by-userid?userid=${userID}&base_userid=${userID}`;
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
@@ -66,7 +66,7 @@ const UserProfile: React.FC = () => {
             console.log(updatedUserData);
 
             const userID = localStorage.getItem("userID")
-            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/user/update-user-by-userid`, {
+            const response = await fetch(`https://host.whearapp.tech/api/v1/user/update-user-by-userid`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -82,7 +82,7 @@ const ManageUser: React.FC = () => {
     }
 
     useEffect(() => {
-        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/user/get-all-user';
+        const apiUrl = 'https://host.whearapp.tech/api/v1/user/get-all-user';
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -108,7 +108,7 @@ const ManageUser: React.FC = () => {
         console.log("id is" + id);
 
         try {
-            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/user/update-status-user?userid=${id}`, {
+            const response = await fetch(`https://host.whearapp.tech/api/v1/user/update-status-user?userid=${id}`, {
                 method: 'PUT',
             });
             if (!response.ok) {

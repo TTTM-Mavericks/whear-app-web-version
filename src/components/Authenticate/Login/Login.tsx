@@ -33,7 +33,7 @@ const Login: React.FC = () => {
         e.preventDefault();
         const obj = { email, password };
 
-        fetch('https://tam.mavericks-tttm.studio/api/v1/auth/login', {
+        fetch('https://host.whearapp.tech/api/v1/auth/login', {
             method: 'POST',
             headers: {
                 Accept: '*/*',

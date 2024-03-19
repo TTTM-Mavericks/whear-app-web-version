@@ -221,7 +221,7 @@ const EditForm: React.FC<EditFormProps> = ({ fid, editClose }) => {
         };
         const clothesID = fid.clothesID;
         console.log('Update Request:', { ...obj, clothesID });
-        fetch('https://tam.mavericks-tttm.studio/api/v1/clothes/update-clothes', {
+        fetch('https://host.whearapp.tech/api/v1/clothes/update-clothes', {
             method: 'PUT',
             headers: {
                 "Accept": "*/*",

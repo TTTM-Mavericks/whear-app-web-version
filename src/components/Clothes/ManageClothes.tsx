@@ -83,7 +83,7 @@ const ManageClothes: React.FC = () => {
     const TOKEN = localStorage.getItem("accessToken")
 
     useEffect(() => {
-        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/clothes/get-all-clothes';
+        const apiUrl = 'https://host.whearapp.tech/api/v1/clothes/get-all-clothes';
         const headers = {
             "Authorization": `Bearer ${TOKEN}`,
         };
@@ -110,7 +110,7 @@ const ManageClothes: React.FC = () => {
 
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/clothes/delete-clothes?clothes_id=${id}`, {
+            const response = await fetch(`https://host.whearapp.tech/api/v1/clothes/delete-clothes?clothes_id=${id}`, {
                 method: 'DELETE',
                 headers: {
                     "Accept": "*/*",

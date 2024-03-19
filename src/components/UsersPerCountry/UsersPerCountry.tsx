@@ -43,7 +43,7 @@ const UserPerCountry: React.FC = () => {
     ];
 
     useEffect(() => {
-        const apiUrl = `https://tam.mavericks-tttm.studio/api/v1/chart/payment-chart`;
+        const apiUrl = `https://host.whearapp.tech/api/v1/chart/payment-chart`;
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {

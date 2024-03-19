@@ -51,7 +51,7 @@ const AddCollection: React.FC<AddFormProps> = ({ closeCard }) => {
             console.log('Form Data:', JSON.stringify(formData));
             const userID = localStorage.getItem('userID');
 
-            const response = await fetch('https://tam.mavericks-tttm.studio/api/v1/post/create-post', {
+            const response = await fetch('https://host.whearapp.tech/api/v1/post/create-post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
