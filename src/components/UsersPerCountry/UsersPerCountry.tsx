@@ -1,307 +1,210 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import "./UsersPerCountry.css"
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { Box, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import Swal from 'sweetalert2'
-import Modal from '@mui/material/Modal';
-import EditForm from './EditUserPerCountry';
-import CsvDownloader from 'react-csv-downloader';
-import DownloadIcon from '@mui/icons-material/Download';
+import React, { useState, useEffect } from 'react';
+import Card from '@mui/material/Card';
+import { Grid, MenuItem, TextField, Typography } from '@mui/material';
+import Chart from 'react-apexcharts';
+import CountUp from 'react-countup';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4
-};
-
-interface UserPerCountry {
-    id: number,
-    countryName: string,
-    name: string,
-    userName: string,
-    email: string,
-    phoneNumber: string,
+interface Data {
+    month: string;
+    amount: number;
+    amountRemaining: number;
 }
 
+interface Payment {
+    // data: Data;
+    desc: string;
+    code: number;
+    // amountRemaining: number;
+    //     orchidName: string,
+    //     id: number,
+    //     value: number,
+}
+
+
 const UserPerCountry: React.FC = () => {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [data, setData] = useState<UserPerCountry[]>([]);
-    const [row, setRows] = useState<UserPerCountry[]>([]);
-    const [editopen, setEditOpen] = useState(false);
-    const [formid, setFormId] = useState<UserPerCountry | null>(null);
+    const [values, setValue] = useState<string>("today");
+    const [category, setCategory] = useState<string[]>([]);
+    const [data, setData] = useState<number[]>([]);
+    const [data2, setData2] = useState<number[]>([]);
 
-    const handleEditOpen = () => setEditOpen(true);
-    const handleEditClose = () => setEditOpen(false);
-
-    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
-    const fillData = (dataFilter: UserPerCountry | null) => {
-        if (dataFilter) {
-            setData([dataFilter]);
-        } else {
-            setData(row);
+    const status = [
+        {
+            value: 'today',
+            label: 'Today'
+        },
+        {
+            value: 'month',
+            label: 'This Month'
+        },
+        {
+            value: 'year',
+            label: 'This Year'
         }
-    }
+    ];
 
     useEffect(() => {
-        const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
+        const apiUrl = `https://tam.mavericks-tttm.studio/api/v1/chart/payment-chart`;
         fetch(apiUrl)
-            .then(response => response.json())
-            .then((data: UserPerCountry[]) => {
-                setData(data);
-                setRows(data);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((res) => {
+                const responseData = res.data;
+                console.log("Data received:", data);
+                const idData = responseData.map((item: Data) => item.month)
+                const amountData = responseData.map((item: Data) => item.amount)
+                setData(amountData);
+                setData2(amountData)
+                setCategory(idData);
+
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const deleteUser = async (id: number) => {
-        try {
-            const response = await fetch(`https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Error deleting user');
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            throw error;
-        }
-    };
+    // useEffect(() => {
+    //     const apiUrl = 'http://localhost:6969/api/v1/payment/get-all-payment';
+    //     fetch(apiUrl)
+    //         .then(response => response.json())
+    //         .then((response) => {
+    //             console.log("response" + response);
 
-    const confirmDelete = async (id: number) => {
-        try {
-            const result = await Swal.fire({
-                title: 'Confirm Delete',
-                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, I want to delete it!'
-            });
-            if (result.isConfirmed) {
-                await deleteUser(id);
-                Swal.fire(
-                    'Deleted UserPerCountry Success!',
-                    'Your UserPerCountry has been deleted!!!',
-                    'success'
-                );
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            } else {
-                Swal.fire(
-                    'Cancel The Deleted Process',
-                    'You cancelled the deleted proccess!!!',
-                    'error'
-                );
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    //             const responseData = response.data;
+    //             console.log("res" + responseData);
 
-    const editData = (id: number, countryName: string, name: string, userName: string, email: string, phoneNumber: string) => {
-        const dataEmployee: UserPerCountry = {
-            id: id,
-            countryName: countryName,
-            name: name,
-            userName: userName,
-            email: email,
-            phoneNumber: phoneNumber,
-        }
-        setFormId(dataEmployee);
-        handleEditOpen();
-    }
+    //             const idData = responseData.map((item: Payment) => item.data.id)
+    //             const amountData = responseData.map((item: Payment) => item.data.amount)
+    //             const amountRemainingData = responseData.map((item: Payment) => item.data.amountRemaining)
+    //             // const idData: string[] = [];
+    //             // const amountData: number[] = [];
+    //             // const amountRemainingData: number[] = [];
 
-    const csvData = data.map((data) => ({
-        id: data.id.toString(),
-        countryName: data.countryName,
-        name: data.name,
-        userName: data.userName,
-        email: data.email,
-        phoneNumber: data.phoneNumber
-    }));
+    //             // data.forEach((item) => {
+    //             //     idData.push(item.id);
+    //             //     amountData.push(item.amount);
+    //             //     amountRemainingData.push(item.amountRemaining);
+    //             // });
+    //             setData(amountData);
+    //             console.log(amountData);
+    //             console.log("bebe" + amountRemainingData);
+
+
+    //             setData2(amountRemainingData);
+    //             setCategory(idData);
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }
+    // )
 
     return (
-        <div>
-            <Paper sx={{ overflow: 'hidden' }}>
-                <Typography
-                    gutterBottom
-                    variant='h5'
-                    component='div'
-                    sx={{ padding: "10px", fontWeight: "bolder" }}
-                >
-                    USER APP INSTALLED
-                </Typography>
-                <div style={{ display: "flex" }}>
-                    {/* Search Bar */}
-                    <div>
-                        <Autocomplete
-                            className='select-country'
-                            onChange={(e, v) => { fillData(v as UserPerCountry) }}
-                            disablePortal
-                            options={data}
-                            sx={{ width: 200 }}
-                            getOptionLabel={(data) => data.name || ""}
-                            renderInput={(params) => <TextField {...params} label="Select Country" />}
-                        />
-                    </div>
-
-                    <div>
-                        <Autocomplete
-                            className='select-activity'
-                            onChange={(e, v) => { fillData(v as UserPerCountry) }}
-                            disablePortal
-                            options={data}
-                            sx={{ width: 200 }}
-                            getOptionLabel={(data) => data.email || ""}
-                            renderInput={(params) => <TextField {...params} label="Select by last Activity" />}
-                        />
-                    </div>
-
-                    <CsvDownloader
-                        datas={csvData}
-                        text='CSV'
-                        filename={`userdata_` + new Date().toLocaleString()}
-                        extension='csv'
-                        className='btn-success'
-                    >
-                        <DownloadIcon style={{ color: "white" }} />
-                    </CsvDownloader>
-
-                    {/* Open EDIT popup */}
-                    <Modal
-                        open={editopen}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            {formid !== null && (
-                                <EditForm
-                                    editClose={handleEditClose}
-                                    fid={formid}
-                                />
-                            )}
-                        </Box>
-                    </Modal>
-                </div>
-                <TableContainer sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell
-                                    align='left'
-                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
-                                >
-                                    COUNTRYNAME
-                                </TableCell>
-                                <TableCell
-                                    align='left'
-                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
-                                >
-                                    NAME
-                                </TableCell>
-                                <TableCell
-                                    align='left'
-                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
-                                >
-                                    USERNAME
-                                </TableCell>
-                                <TableCell
-                                    align='left'
-                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
-                                >
-                                    EMAIL
-                                </TableCell>
-                                <TableCell
-                                    align='left'
-                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
-                                >
-                                    PHONENUMBER
-                                </TableCell>
-                                <TableCell
-                                    align='left'
-                                    style={{ minWidth: "100px", fontWeight: "bolder" }}
-                                >
-                                    ACTION
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {data
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                            <TableCell key={row.id} align='left'>
-                                                {row.countryName}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                {row.userName}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                {row.email}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                {row.phoneNumber}
-                                            </TableCell>
-                                            <TableCell align='left'>
-                                                <div style={{ display: "flex" }}>
-                                                    <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(row.id, row.countryName, row.name, row.userName, row.email, row.phoneNumber)} />
-                                                    <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.id)} />
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    );
-                                })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 50]}
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
-        </div>
+        <Card>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                        <Grid item>
+                            <Grid container direction="column" spacing={1} style={{ marginLeft: "1rem", marginTop: "4rem" }}>
+                                <Grid item>
+                                    <Typography variant="subtitle2" style={{ fontWeight: "bold" }}>Total Growth</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="h4"> $<CountUp end={2324.00} duration={2} style={{ fontWeight: "bold" }} /></Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item style={{ marginRight: "2rem" }}>
+                            <TextField
+                                id="standard-select-currency"
+                                select
+                                value={values}
+                                onChange={(e) => setValue(e.target.value as string)}
+                            >
+                                {status.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <div style={{ marginTop: "2.2rem" }}>
+                {<Chart options={{
+                    chart: {
+                        id: 'bar-chart',
+                        stacked: true,
+                        toolbar: {
+                            show: true
+                        },
+                        zoom: {
+                            enabled: true
+                        }
+                    },
+                    fill: {
+                        type: 'solid'
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    grid: {
+                        show: true
+                    },
+                    legend: {
+                        show: true,
+                        fontSize: '14px',
+                        fontFamily: `'Roboto', sans-serif`,
+                        position: 'bottom',
+                        offsetX: 20,
+                        labels: {
+                            useSeriesColors: false
+                        },
+                        markers: {
+                            width: 16,
+                            height: 16,
+                            radius: 5
+                        },
+                        itemMargin: {
+                            horizontal: 15,
+                            vertical: 8
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '50%'
+                        }
+                    },
+                    responsive: [
+                        {
+                            breakpoint: 480,
+                            options: {
+                                legend: {
+                                    position: 'bottom',
+                                    offsetX: -10,
+                                    offsetY: 0
+                                }
+                            }
+                        }
+                    ],
+                    xaxis: {
+                        categories: category
+                    }
+                }}
+                    series={[
+                        {
+                            name: data.toString(),
+                            data: data
+                        },
+                        {
+                            name: data2.toString(),
+                            data: data2
+                        }
+                    ]}
+                    type="bar" width={1100} height={700} />}
+            </div>
+        </Card>
     );
 }
 

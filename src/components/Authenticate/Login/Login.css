@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    background-image: url('../../../asserts/img/421386197_402829812197603_6075397259727844978_n.png');
+    overflow: hidden;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-size: 100%;
+    background-position: center;
+}
+
+.form-container {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: auto;
+    z-index: 1;
+    margin-left: 60%;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.login_btn {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    width: 100px;
+    height: 50px;
+    background: linear-gradient(87.84deg, #5151C6 10.73%, rgba(186, 246, 103, 0) 169.14%);
+    border-radius: 15px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: 0px;
+}
+
+.login_btn:hover {
+    background-color: #45a049;
+}
+
+.login_h2 {
+    font-family: 'SVN-Product Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    color: #FFFFFF;
+}
+
+.signin {
+    font-family: 'SVN-Product Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: rgba(186, 246, 103, 0.73);
+}
+
+.logologin {
+    width: 20%;
+    /* filter: brightness(0) invert(1);
+    -webkit-filter: brightness(0) invert(1); */
+}

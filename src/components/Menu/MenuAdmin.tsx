@@ -1,259 +1,74 @@
 import * as React from 'react';
 import './Menu.css';
 import { NavLink } from 'react-router-dom';
-import { Card, Drawer } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import PublicIcon from '@mui/icons-material/Public';
-import ScoreIcon from '@mui/icons-material/Score';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import PersonIcon from '@mui/icons-material/Person';
+import EventIcon from '@mui/icons-material/Event';
+import PeopleIcon from '@mui/icons-material/People';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import NewsIcon from '@mui/icons-material/Newspaper';
+import ClothesIcon from '@mui/icons-material/CalendarMonthRounded';
+import BrandIcon from '@mui/icons-material/BrandingWatermark';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { Box } from '@mui/system';
 
+const menuItems = [
+    { to: "/admin-manager", text: "Dashboard", icon: <DashboardIcon /> },
+    // { to: "/admin-manage-events", text: "Manage Events", icon: <EventIcon /> },
+    { to: "/admin-manage-users", text: "Manage Users", icon: <PeopleIcon /> },
+    { to: "/admin-manage-posting", text: "Manage Posts", icon: <PostAddIcon /> },
+    // { to: "/admin-manage-news", text: "Manage News", icon: <NewsIcon /> },
+    { to: "/admin-manage-clothes", text: "Manage Clothes", icon: <ClothesIcon /> },
+    // { to: "/admin-manage-brand", text: "Manage Brand", icon: <BrandIcon /> },
+    // { to: "/admin-manage-invoice", text: "Manage Invoice", icon: <ReceiptIcon /> },
+    // { to: "/admin-manage-income", text: "Manage Income", icon: <MonetizationOnIcon /> },
+    // { to: "/admin-manage-collection", text: "Manage Collection", icon: <DashboardIcon /> },
+    // { to: "/user-app-installed", text: "User App Installed", icon: <EventIcon /> },
+    // { to: "/user-have-guardian", text: "Haved Guardian", icon: <PeopleIcon /> },
+    // { to: "/number-of-guardian", text: "Number Guardian", icon: <PostAddIcon /> },
+    // { to: "/user-connect-safe", text: "User Connect Safe", icon: <NewsIcon /> },
+    // { to: "/user-last-week-activity", text: "User Last Activity", icon: <ClothesIcon /> },
+    // { to: "/send-out-alarm", text: "Send Out Alarm", icon: <BrandIcon /> },
+    // { to: "/received-alarm", text: "Received Alarm", icon: <ReceiptIcon /> },
+    // { to: "/user-per-country", text: "User Per Country", icon: <MonetizationOnIcon /> },
+];
+
 const MenuAdmin: React.FC = () => {
-    const styles = {
-        drawer: {
-            width: '10px', // Set the width of the drawer
-        },
-        listItem: {
-            // Define styles for list items
-            color: 'blue',
-            // Add more styles as needed
-        },
-    };
     return (
-        <Drawer variant='permanent'>
+        <Box className='itmebebe'>
             {/* LIST MENU CHOICE */}
-            <NavLink to="/admin-manager" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-                            <ListItemIcon
+            {menuItems.map((item, index) => (
+                <NavLink key={index} to={item.to} style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem" }}>
+                    <List>
+                        <ListItem disablePadding sx={{ display: 'block', width: "90%", marginLeft: "5%", marginBottom: "5%" }} className='list_menu_choice'>
+                            <ListItemButton
                                 sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
+                                    minHeight: 40,
+                                    px: 2,
                                 }}
+                                className='menuicon'
                             >
-                                <DashboardIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="DashBoard" children />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-            <NavLink to="/user-app-installed" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <SystemUpdateAltIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="User App Installed" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/user-have-guardian" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <VerifiedUserIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="User Have Guardian" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/number-of-guardian" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <PersonIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="Number Guardian" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/user-connect-safe" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <PersonIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="User Connect Safe" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/user-last-week-activity" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <ScoreIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="User Last Activity" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/send-out-alarm" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <NotificationsIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="Send Out Alarm" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/received-alarm" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <NotificationsActiveIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="Received Alarm" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-
-            <NavLink to="/user-per-country" style={{ textDecoration: "none", color: "black", width: "90%", marginLeft: "1rem", marginTop: "-10px" }}>
-                <List>
-                    <ListItem disablePadding sx={{ display: 'block' }} className='list_menu_choice'>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                px: 2.5,
-                            }}
-                            className='menuicon'
-                        >
-
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <PublicIcon className='dashboardicon' />
-                            </ListItemIcon>
-                            <ListItemText primary="User Per Country" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </NavLink>
-            {/* END LIST MENU CHOICE */}
-        </Drawer >
-    );
-}
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        justifyContent: 'flex-start',
+                                    }}
+                                >
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={item.text} style={{ marginLeft: "10px" }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </NavLink>
+            ))}
+        </Box>
+    )
+};
 
 export default MenuAdmin;

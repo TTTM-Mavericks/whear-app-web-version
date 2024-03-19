@@ -9,10 +9,10 @@ import UserConnectSafe from '../UserConnectSafe/UserConnectSafe';
 const UserConnectSafeDashboard: React.FC = () => {
     return (
         <Box>
+            <Header />
             <Box style={{ display: 'flex', height: '100vh' }}>
                 <Box style={{ flex: '1 1 20%' }}>
                     <Box>
-                        <Header />
                         <MenuAdmin />
                     </Box>
                 </Box>

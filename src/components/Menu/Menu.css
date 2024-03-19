@@ -7,6 +7,7 @@
 } */
 
 /* .list_menu_choice:hover {
+.list_menu_choice:hover {
     background: linear-gradient(45deg, #5151C6, #BAF667);
     color: white !important;
     border-radius: 10px;
@@ -21,3 +22,20 @@
 .active .dashboardicon {
     color: white !important;
 } */
+
+
+.itmebebe {
+    position: relative;
+    background-color: rgba(186, 246, 103, 0.73) !important;
+    border-radius: 15px;
+    margin-top: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px;
+}
+
+.menuicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

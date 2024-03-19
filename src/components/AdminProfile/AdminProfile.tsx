@@ -1,86 +1,118 @@
 import React, { useEffect, useState } from 'react';
-import { Button, TextField, Typography, Container, Grid, Paper, Avatar, Modal } from '@mui/material';
+import { Typography, CircularProgress, Container, Paper, Avatar, Modal, TextField, Button, Grid } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import EditForm from './EditAdminProfile';
-import { Box } from '@mui/system';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    boxShadow: 24,
-    p: 4
-};
-
-interface AdminProfile {
-    id: number,
-    fullName: string,
-    email: string,
-    password: string,
-    reTypePassword: string
+interface UserProfileData {
+    userID: number;
+    username: string;
+    email: string;
+    imgUrl: string;
 }
-const ProfileSettings: React.FC = () => {
-    const [data, setData] = useState<AdminProfile[]>([]);
-    const [fullname, setFullName] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [reTypePassword, setReTypePassword] = useState<string>('');
-    const [img, setImg] = useState<string>('')
 
-    const [editopen, setEditOpen] = useState(false);
-    const [formid, setFormId] = useState<AdminProfile | null>(null);
+const UserProfile: React.FC = () => {
+    const [userData, setUserData] = useState<UserProfileData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [editOpen, setEditOpen] = useState<boolean>(false);
+    const [editedName, setEditedName] = useState<string>('');
+    const [editedEmail, setEditedEmail] = useState<string>('');
+    const [editedImgUrl, setEditedImgUrl] = useState<string>('');
 
-    const handleEditOpen = () => setEditOpen(true);
-    const handleEditClose = () => setEditOpen(false);
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userID = localStorage.getItem('userID');
+                if (!userID) {
+                    throw new Error('User ID not found in local storage');
+                }
 
-    const deleteUser = async (id: number) => {
-        try {
-            const response = await fetch(`https://6538a5b6a543859d1bb1ae4a.mockapi.io/profile/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Error deleting user');
+                const apiUrl = `https://tam.mavericks-tttm.studio/api/v1/user/get-user-by-userid?userid=${userID}&base_userid=${userID}`;
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+
+                const userData = await response.json();
+                setUserData(userData.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
             }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            throw error;
+        };
+
+        fetchUserData();
+    }, []);
+
+    const handleEditOpen = () => {
+        if (userData) {
+            setEditedName(userData.username);
+            setEditedEmail(userData.email);
+            setEditedImgUrl(userData.imgUrl);
+            setEditOpen(true);
         }
     };
 
-    const confirmDelete = async (id: number) => {
+    const handleEditClose = () => {
+        setEditOpen(false);
+    };
+
+    const handleEditSave = async () => {
+        try {
+            if (!userData || userData.userID === undefined) {
+                throw new Error('User data or user ID is missing');
+            }
+
+            const updatedUserData: UserProfileData = { ...userData, username: editedName, email: editedEmail, imgUrl: editedImgUrl };
+            console.log(updatedUserData);
+
+            const userID = localStorage.getItem("userID")
+            const response = await fetch(`https://tam.mavericks-tttm.studio/api/v1/user/update-user-by-userid`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...updatedUserData, userID }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update user data');
+            }
+
+            setUserData(updatedUserData);
+            setEditOpen(false);
+            Swal.fire(
+                'Edit Success!',
+                'User information updated successfully!',
+                'success'
+            );
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
+    };
+
+    const handleLogout = async () => {
         try {
             const result = await Swal.fire({
-                title: 'Confirm Delete',
-                text: "Are you sure you want to delete user permanently.  You can’t undo this action.",
+                title: 'Confirm Logout',
+                text: "Are you sure you want to logout",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, I want to delete it!'
+                confirmButtonText: 'Yes, I want to logout'
             });
             if (result.isConfirmed) {
-                await deleteUser(id);
-                Swal.fire(
-                    'Deleted UserPerCountry Success!',
-                    'Your UserPerCountry has been deleted!!!',
-                    'success'
-                );
+                localStorage.clear();
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1000);
             } else {
                 Swal.fire(
-                    'Cancel The Deleted Process',
-                    'You cancelled the deleted proccess!!!',
+                    'Cancel Logout',
+                    'You cancelled the logout proccess!!!',
                     'error'
                 );
             }
@@ -89,80 +121,74 @@ const ProfileSettings: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/profile';
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then((data: AdminProfile[]) => {
-                setData(data);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-
-    const editData = (id: number, fullName: string, email: string, password: string, reTypePassword: string) => {
-        const dataEmployee: AdminProfile = {
-            id: id,
-            fullName: fullName,
-            email: email,
-            password: password,
-            reTypePassword: reTypePassword
-        }
-        setFormId(dataEmployee);
-        handleEditOpen();
-    }
-
     return (
-        <Container component="main" maxWidth="xs">
+        <Container maxWidth="sm">
             <Paper elevation={3} style={{ padding: 20, marginTop: 20 }}>
-                {/* <EditIcon style={{ color: "blue", cursor: "pointer" }} onClick={() => editData(fullname, email, password, reTypePassword)} /> */}
-                <Typography variant="h5" style={{ marginBottom: "10%" }}>Profile Details</Typography>
-                <div style={{ display: "flex" }}>
-                    <Avatar alt="User Avatar" src={img} style={{ width: 100, height: 100, marginBottom: '10%', alignSelf: 'center', marginRight: "10px" }} />
-                    <div style={{ padding: '20px', borderLeft: '3px solid #FA9E93' }}>
-                        {data &&
-                            data.map((row) => {
-                                return (
-                                    <div>
-                                        <p>{row.fullName}</p>
-                                    </div>
-                                )
-                            })}
-                        {data &&
-                            data.map((row) => {
-                                return (
-                                    <div>
-                                        <p>{row.email}</p>
-                                    </div>
-                                )
-                            })}
+                <Typography variant="h4" align="center" gutterBottom>User Profile</Typography>
+                {loading ? (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <CircularProgress />
                     </div>
+                ) : (
+                    userData && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Avatar alt="User Avatar" src={userData.imgUrl} style={{ width: 150, height: 150, marginBottom: 20 }} />
+                            <Typography variant="h6" gutterBottom>ID: {userData.userID}</Typography>
+                            <Typography variant="h6" gutterBottom>Name: {userData.username}</Typography>
+                            <Typography variant="h6" gutterBottom>Email: {userData.email}</Typography>
 
-                </div>
-                <Modal
-                    open={editopen}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style}>
-                        {formid !== null && (
-                            <EditForm
-                                editClose={handleEditClose}
-                                fid={formid}
-                            />
-                        )}
-                    </Box>
-                </Modal>
-                {data && data.map((row) => {
-                    return (
-                        <div onClick={() => editData(row.id, row.fullName, row.email, row.password, row.reTypePassword)} style={{ display: "flex" }}>
-                            <EditIcon style={{ color: "blue", cursor: "pointer" }} ></EditIcon><p>Edit Detail</p>
-                            {/* <DeleteIcon style={{ color: "red", cursor: "pointer" }} onClick={() => confirmDelete(row.id)} /> */}
+                            <div style={{ display: "flex" }}>
+                                <Button variant="contained" color="primary" startIcon={<EditIcon />} onClick={handleEditOpen} style={{ marginTop: 20 }}>
+                                    Edit
+                                </Button>
+
+                                <Button variant="contained" color="secondary" onClick={handleLogout} style={{ marginTop: 20, marginLeft: "20px" }}>
+                                    Logout
+                                </Button>
+                            </div>
                         </div>
                     )
-                })}
+                )}
+
+                {/* Edit Modal */}
+                <Modal open={editOpen} onClose={handleEditClose}>
+                    <Container maxWidth="sm" style={{ marginTop: '20vh', backgroundColor: 'white', padding: 20 }}>
+                        <Typography variant="h5" align="center" gutterBottom>Edit Profile</Typography>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField fullWidth label="Name" variant="outlined" value={editedName} onChange={(e) => setEditedName(e.target.value)} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField fullWidth label="Email" variant="outlined" value={editedEmail} onChange={(e) => setEditedEmail(e.target.value)} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Image URL"
+                                    variant="outlined"
+                                    value={editedImgUrl}
+                                    onChange={(e) => setEditedImgUrl(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <input type="file" accept="image/*" onChange={(e) => {
+                                    if (e.target.files && e.target.files.length > 0) {
+                                        setEditedImgUrl(URL.createObjectURL(e.target.files[0]));
+                                    }
+                                }} />
+                            </Grid>
+
+                        </Grid>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+                            <Button variant="contained" color="primary" onClick={handleEditSave}>
+                                Save Changes
+                            </Button>
+                        </div>
+                    </Container>
+                </Modal>
             </Paper>
         </Container>
     );
 };
 
-export default ProfileSettings;
+export default UserProfile;

@@ -10,10 +10,10 @@ import ProfileSettings from '../AdminProfile/AdminProfile';
 const AdminProfileDashboard: React.FC = () => {
     return (
         <Box>
+            <Header />
             <Box style={{ display: 'flex', height: '100vh' }}>
                 <Box style={{ flex: '1 1 20%' }}>
                     <Box>
-                        <Header />
                         <MenuAdmin />
                     </Box>
                 </Box>
@@ -21,7 +21,7 @@ const AdminProfileDashboard: React.FC = () => {
                     <Box>
                         {/* <UserAppInstalled /> */}
                         <ProfileSettings />
-                        <Box style={{ marginBottom: 'auto' }}>
+                        <Box style={{ marginTop: "200px" }}>
                             <Footer />
                         </Box>
                     </Box>

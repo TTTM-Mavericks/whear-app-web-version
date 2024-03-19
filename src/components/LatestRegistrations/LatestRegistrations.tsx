@@ -1,72 +1,87 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
 interface LatestRegistration {
-    id: number,
-    countryName: string,
-    name: string,
-    userName: string,
-    email: string,
-    phoneNumber: string,
+    userID: number;
+    username: string;
+    dateOfBirth: string;
+    phone: string;
+    email: string;
+    gender: boolean;
+    role: string;
+    language: string;
+    status: string;
 }
 
 const LatestRegistration: React.FC = () => {
-    const [options, setOptions] = useState({
-        chart: {
-            id: 'basic-bar'
-        },
+    const [options, setOptions] = useState<{
+        chart: { id: string };
+        xaxis: { categories: string[] };
+    }>({
+        chart: { id: 'basic-bar' },
         xaxis: {
-            categories: ['6AM', '8AM', '10AM', '12AM', '2PM', '4PM', '6PM', '8PM', '10PM', '12PM']
-        }
-    })
+            categories: [],
+        },
+    });
 
-    const [series, setSeries] = useState([
+    const [series, setSeries] = useState<Array<{ name: string; data: number[] }>>([
         {
             name: 'ha noi',
-            data: [10, 20, 30, 10, 50]
+            data: [],
         },
-        {
-            name: 'tphcm',
-            data: [20, 30, 40, 40, 40]
-        },
-        {
-            name: 'dn',
-            data: [30, 20, 20, 20, 10]
-        },
-        {
-            name: 'vt',
-            data: [40, 10, 30, 20, 59]
-        }
-    ])
+    ]);
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const TOKEN = localStorage.getItem("accessToken")
 
-    // useEffect(() => {
-    //     const apiUrl = 'https://6538a5b6a543859d1bb1ae4a.mockapi.io/tessting';
-    //     fetch(apiUrl)
-    //         .then(response => response.json())
-    //         .then((data: LatestRegistration[]) => {
-    //             const categories = data.map((item) => item.name);
-    //             const seriesData = data.map((item) => ({
-    //                 data: [item.id],
-    //             }));
-    //             setOptions({
-    //                 ...options,
-    //                 xaxis: {
-    //                     categories,
-    //                 }
-    //             })
-    //             setSeries(seriesData)
-    //         })
-    //         .catch(error => console.error('Error fetching data:', error));
-    // }, []);
+    useEffect(() => {
+        const apiUrl = 'https://tam.mavericks-tttm.studio/api/v1/get-all-user';
+        const headers = {
+            "Authorization": `Bearer ${TOKEN}`,
+        };
+        fetch(apiUrl, { headers })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data: LatestRegistration[]) => {
+                const categories = data.map((item) => item.role);
+                const seriesData = data.map((item) => ({
+                    name: item.role,
+                    data: [item.userID],
+                }));
+                setOptions((prevOptions) => ({
+                    ...prevOptions,
+                    xaxis: {
+                        categories,
+                    },
+                }));
+
+                setSeries(seriesData);
+            })
+            .catch(error => {
+                setError('Error fetching data: ' + error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div>
-            <Chart
-                options={options}
-                series={series}
-                type='line'
-            />
+            <div className='title-bar'>Latest Registrations</div>
+            <Chart options={options} series={series} type='line' />
         </div>
     );
 }
