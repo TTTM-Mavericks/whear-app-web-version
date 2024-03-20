@@ -21,8 +21,8 @@ const UserManualPC: React.FC = () => {
                 <div className="service-column">
                     <img src={require('../../../../asserts/img/app2.png')} alt="Service 3" className="service-image" />
                     <p className="service-content" style={{ fontFamily: 'Poppins', fontSize: '36px', fontWeight: 'bold', marginBottom: '5px' }}>Step 3</p>
-                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>Android:</p> exp://u.expo.dev/update/5cd03ac1-a216-4ff6-88f5-c8a4653ea17e</p>
-                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>IOS:</p> exp://u.expo.dev/update/abbb9910-3295-43be-a544-245689d85d1e</p>
+                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>Android:</p> exp://u.expo.dev/update/eb4e5b55-6725-44e2-bc3b-65b3fd89a1ef</p>
+                    <p className="service-content2" style={{ fontFamily: 'Poppins', fontSize: '20px', marginTop: '5px' }}><p style={{ marginBottom: "-2px" }}>IOS:</p> exp://u.expo.dev/update/f360ad55-20f8-4fec-8aa2-23d6be489a4e</p>
                 </div>
             </div>
         </section>

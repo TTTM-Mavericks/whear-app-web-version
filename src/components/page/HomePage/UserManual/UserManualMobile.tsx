@@ -56,10 +56,10 @@ const UserManualMobile: React.FC = () => {
                                 Step 3
                             </Typography>
                             <Typography variant="body1" className="service-description-mobile">
-                                Android: exp://u.expo.dev/update/4deab2d7-7b85-428c-a3a6-c914b024260e
+                                Android: exp://u.expo.dev/update/eb4e5b55-6725-44e2-bc3b-65b3fd89a1ef
                             </Typography>
                             <Typography variant="body1" className="service-description-mobile">
-                                IOS: exp://u.expo.dev/update/c0510b18-cfd4-4a3c-b3c3-921101470cc1
+                                IOS: exp://u.expo.dev/update/f360ad55-20f8-4fec-8aa2-23d6be489a4e
                             </Typography>
                         </div>
                         <img src={require('../../../../asserts/img/app2.png')} alt="Service 3" className="service-image-mobile" />
